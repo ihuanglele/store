@@ -33,7 +33,7 @@
             <volist name="list" id="vo">
                 <tr>
                     <td>
-                        <a href="<{:U('user/index')}>?uid=<{$vo.uid}>" target="_blank"> <{$vo.uid}></a>
+                        <{$vo.uid}>
                     </td>
                     <td><{$Users[$vo['uid']]['nickname']}><img src="<{$Users[$vo['uid']]['headimgurl']}>" class="headimg" /></td>
                     <td><{$vo.time|date='Y-m-d H:i:s',###}></td>

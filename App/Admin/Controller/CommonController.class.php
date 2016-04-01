@@ -114,6 +114,9 @@ class CommonController extends Controller
                     $this->error('请上传店铺图片');
                 }else{
                     $data['headimgurl'] = $file['img']['savepath'].$file['img']['savename'];
+                    $image = new \Think\Image();
+                    $image->open('./upload/'.$data['headimgurl']);
+                    $image->thumb(150,150,2)->save('./upload/'.$data['headimgurl']);
                 }
 
                 if($M->add($data)){

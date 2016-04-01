@@ -35,10 +35,49 @@ class IndexController extends CommonController {
         }
     }
 
+    /**
+     * 查看自己的店铺信息
+     */
+    public function store(){
+        $this->checkRole(2);
+        $M = D('Admin');
+        if(isset($_POST['submit'])){
+            $data = $_POST;
+            $data['aid'] = $this->aid;
+            if($M->create($data)){
+                //判断是否有文件上传
+                if($_FILES['file']['error']==0){
+                    //处理图片
+                    $upload = new \Think\Upload(C('UploadConfig'));
+                    $info   =   $upload->upload();
+                    if($info) {
+                        $data['headimgurl'] = $info['file']['savepath'].$info['file']['savename'];
+                        $image = new \Think\Image();
+                        $image->open('./upload/'.$data['headimgurl']);
+                        $image->thumb(150,150,2)->save('./upload/'.$data['headimgurl']);
+                    }else{
+                        $this->error($upload->getError());
+                    }
+                }
+                if($M->save($data)){
+                    $this->success('修改成功');
+                }else{
+                    $this->error('修改失败');
+                }
+            }else{
+                $this->error($M->getError());
+            }
+        }else{
+            $info = $M->find($this->aid);
+            $this->assign('info',$info);
+            $this->display('store');
+        }
+    }
+
 
     //查看自己的财务
     public function money(){
-        $this->checkRole(1);
+        $this->checkRole(2);
         $map = array();
         $mid = I('get.mid','','number_int');
         $this->assign('mid',$mid);
@@ -46,14 +85,14 @@ class IndexController extends CommonController {
             $map['mid'] = $mid;
         }
         $map['aid'] = $this->aid;
-        $M = M('smoney');
+        $M = M('adminmoney');
 
         $type = I('get.type',0,'number_int');
         if($type){
             $map['type'] = $type;
         }
         $this->assign('type',$type);
-        $this->assign('MoneyType',C('SMoneyType'));
+        $this->assign('MoneyType',C('AdminMoneyType'));
         $order = 'mid desc';
         $this->getData($M,$map,$order);
         $this->display('money');

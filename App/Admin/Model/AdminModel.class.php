@@ -19,7 +19,7 @@ class AdminModel extends Model
         array('password','require','请填写密码'), //默认情况下用正则进行验证
         array('username','','用户名已经存在！',0,'unique',1),
         array('storename','','用户名已经存在！',0,'unique',1),
-        array('email','','邮箱已经存在！',0,'unique',1),
+        array('email','','邮箱已经存在！',0,'unique',3),
         array('email','email','邮箱格式不正确！'),
 
         array('password2','password','两次密码不一致',0,'confirm'),

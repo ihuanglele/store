@@ -103,6 +103,12 @@ class UserController extends CommonController
 
         $map = array();
         $map['role'] = 2;
+        $aid = I('get.aid');
+        $this->assign('aid',$aid);
+        if($aid){
+            $map['aid'] = $aid;
+        }
+
         $storename = I('get.storename');
         if($storename){
             $map['storename'] = array('like','%'.$storename.'%');
@@ -185,16 +191,16 @@ class UserController extends CommonController
      */
     public function smoney(){
         $status = I('post.status',0,'number_int');
-        $amount = I('post.amount',0,'number_int');
+        $amount = I('post.amount',0,'float');
         $aid = I('post.aid',0,'number_int');
         $note = I('post.note','');
-        if(!in_array($status,array(4,5)) || $amount==0 || $aid==0)  $this->error('参数错误');
+        if(!in_array($status,array(4,3)) || $amount==0 || $aid==0)  $this->error('参数错误');
 
         //扣钱 添加财务记录
         $User = M('Admin');
         $User->startTrans();
 
-        if($status==5){     //扣除
+        if($status==3){     //扣除
             $r1 = $User->where('aid='.$aid)->setDec('money',$amount);
         }else if($status==4){     //添加
             $r1 = $User->where('aid='.$aid)->setInc('money',$amount);
@@ -205,7 +211,7 @@ class UserController extends CommonController
         $da2['note'] = $note;
         $da2['money'] = $amount;
         $da2['type'] = $status;
-        $r2 = M("smoney")->add($da2);
+        $r2 = M("adminmoney")->add($da2);
 
         if($r1 && $r2){
             $User->commit();

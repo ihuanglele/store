@@ -20,7 +20,7 @@ class MoneyController extends CommonController
      * 用户财务
      */
     public function index(){
-        $this->assign('MoneyType',C('UMoneyType'));
+        $this->assign('MoneyType',C('UserMoneyType'));
         $map = array();
         $id = I('get.id','','number_int');
         $this->assign('id',$id);
@@ -36,20 +36,20 @@ class MoneyController extends CommonController
             $uids[] = $v['uid'];
         }
         $users = M('user')->where(array('uid'=>array('in',$uids)))->getField('uid,nickname,headimgurl');
-//        var_dump($users);
+
         $this->assign('Users',$users);
         $this->display('index');
     }
 
     public function shang(){
-        $this->assign('MoneyType',C('SMoneyType'));
+        $this->assign('MoneyType',C('AdminMoneyType'));
         $map = array();
         $id = I('get.id','','number_int');
         $this->assign('id',$id);
         if($id){
             $map['aid'] = $id;
         }
-        $M = M('smoney');
+        $M = M('adminmoney');
         $order = 'mid desc';
         $this->getData($M,$map,$order);
         $this->display('shang');
@@ -60,6 +60,21 @@ class MoneyController extends CommonController
      * 微信账单
      */
     public function wxpay(){
+        $this->getData(M('pay'),$this->getMap(),'pid desc');
+        $this->assign('PayStatus',C('PayStatus'));
+        $this->display('wxpay');
+    }
+
+    /**
+     * 红包记录
+     */
+    public function packets(){
+        $this->getData(M('packets'),$this->getMap(),'pid desc');
+        $this->assign('PayStatus',C('PayStatus'));
+        $this->display('packets');
+    }
+
+    private function getMap(){
         $map = array();
         $uid = I('get.uid');
         $this->assign('uid',$uid);
@@ -79,15 +94,13 @@ class MoneyController extends CommonController
             $map['trade'] = $trade;
         }
 
-        $status = I('get.status',-1,'number_int');
+        $status = I('get.status',0,'number_int');
         $this->assign('status',$status);
-        if($status>=0){
+        if($status){
             $map['status'] = $status;
         }
 
-        $this->getData(M('pay'),$map,'pid desc');
-        $this->assign('PayStatus',C('PayStatus'));
-        $this->display('wxpay');
+        return $map;
     }
 
 }
