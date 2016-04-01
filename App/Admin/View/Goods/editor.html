@@ -21,86 +21,58 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-2 col-xs-offset-1">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <select class="form-control" name="status">
-                                    <option value="1" >保存草稿</option>
-                                    <option value="2" >提交审核</option>
-                                    <option value="4" >下架商品</option>
-                                </select>
+
+                    <neq name="info.status" value="4">
+                        <div class="col-xs-2 col-xs-offset-1">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">商品状态</div>
+                                    <select class="form-control" name="status">
+                                        <option value="1" >保存草稿</option>
+                                        <option value="2" >直接上架</option>
+                                        <option value="3" >保存下架</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </neq>
+
                     <div class="col-xs-2 col-xs-offset-1">
                         <input type="hidden" value="<{$info.gid}>" name="gid">
                         <button type="submit" name="submit" value="update" class="btn btn-success">修改</button>
                     </div>
                 </div>
                 <!--row 结束-->
-                <!--副标题-->
-                <div class="row myrow">
-                    <div class="col-xs-8">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-addon">副标题</div>
-                                <input type="text" style="color: #ff0000;" class="form-control" name="title" placeholder="红色文字显示" value="<{$info.title}>">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-4">
-                        <div class="form-group">
-                            <select class="form-control" name="type">
-                                <volist name="GoodsType" id="v">
-                                    <option value="<{$key}>" ><{$v}></option>
-                                </volist>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <!--row 结束-->
-                <!--图片、主题图片-->
+
+                <!--图片、商品分类、规格-->
                 <div class="row myrow">
                     <div class="col-xs-8">
                         <div class="row">
                             <div class="col-xs-12">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">图片1</div>
-                                        <input type="file" class="form-control" name="imgs[]" placeholder="图片展示" >
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">图片2</div>
-                                        <input type="file" class="form-control" name="imgs[]" placeholder="图片展示" >
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">图片3</div>
-                                        <input type="file" class="form-control" name="imgs[]" placeholder="图片展示" >
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input name="setimgsrc" value="on" type="checkbox"> 自定义主题图片
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-xs-8">
                                 <div class="form-group">
                                     <div class="input-group">
                                         <div class="input-group-addon">主题图片</div>
-                                        <input type="file" id="imgsrc"  class="form-control" disabled="disabled" name="imgs[]" placeholder="不选择使用图片1" onchange="javascript:setImagePreview('imgsrc','preview1');" >
+                                        <input type="file" id="imgsrc" class="form-control" name="file" placeholder="不选择使用图片1" onchange="javascript:setImagePreview('imgsrc','preview1');" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">商品分类</div>
+                                        <select class="form-control" name="type">
+                                            <volist name="GoodsType" id="v">
+                                                <option value="<{$key}>" ><{$v}></option>
+                                            </volist>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">商品规格</div>
+                                        <input type="text" class="form-control" name="format" placeholder="500g/袋" value="<{$info.format}>">
                                     </div>
                                 </div>
                             </div>
@@ -108,45 +80,31 @@
                     </div>
                     <div class="col-xs-4">
                         <div id="localImag">
-                            <img id="preview1" style="max-width: 100%" width="-1" height="-1" src="<{:C('imgHost')}><{$info.imgsrc}>" />
+                            <notempty name="info.img">
+                                <img id="preview1" style="max-width: 100%" width="-1" height="-1" src="<{:C('imgHost')}><{$info.img}>" />
+                            </notempty>
                         </div>
                     </div>
                 </div>
                 <!--row 结束-->
-                <!--显示三个图片-->
-                <div class="row myrow">
-                    <div class="col-xs-4">
-                        <notempty name="info.imgs.0"><img src="<{:C('imgHost')}><{$info.imgs.0}>"/><else /><p>图1无</p></notempty>
-                    </div>
-                    <div class="col-xs-4">
-                        <notempty name="info.imgs.1"><img src="<{:C('imgHost')}><{$info.imgs.1}>"/><else /><p>图2无</p></notempty>
-                    </div>
-                    <div class="col-xs-4">
-                        <notempty name="info.imgs.2"><img src="<{:C('imgHost')}><{$info.imgs.2}>"/><else /><p>图3无</p></notempty>
-                    </div>
-                </div>
-                <!--图片显示结束-->
-                <!--市场价、参与价、平台比例-->
+
+                <!--市场价、平台价、平台比例-->
                 <div class="row myrow">
                     <div class="col-xs-4">
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-addon">市场价</div>
-                                <input type="text" class="form-control" name="market_price" placeholder="该商品的市场价" value="<{$info.market_price}>">
+                                <input type="text" class="form-control" name="market_price" placeholder="市场价" value="<{$info.market_price}>">
+                                <div class="input-group-addon">¥</div>
                             </div>
                         </div>
                     </div>
                     <div class="col-xs-4">
                         <div class="form-group">
                             <div class="input-group">
-                                <div class="input-group-addon">参与价</div>
-                                <select class="form-control" name="price">
-                                    <option value="1">一元</option>
-                                    <option value="2">两元</option>
-                                    <option value="3">三元</option>
-                                    <option value="5">五元</option>
-                                    <option value="10">十元</option>
-                                </select>
+                                <div class="input-group-addon">平台价</div>
+                                <input type="text" class="form-control" name="buy_price" placeholder="平台价" value="<{$info.buy_price}>">
+                                <div class="input-group-addon">¥</div>
                             </div>
                         </div>
                     </div>
@@ -154,7 +112,7 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-addon">平台分成</div>
-                                <input type="text" class="form-control" disabled="disabled" placeholder="平台分成百分点" value="<{$info.rate}>">
+                                <input type="text" class="form-control" name="rate" disabled="disabled" placeholder="平台分成百分点" value="<{$info.rate}>">
                                 <div class="input-group-addon">%</div>
                             </div>
                         </div>
@@ -168,7 +126,8 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-addon">库存</div>
-                                <input type="text" class="form-control" name="kucun" placeholder="库存为0时不会发布" value="<{$info.kucun}>">
+                                <input type="text" class="form-control" name="left_num" placeholder="输入整数" value="<{$info.left_num}>">
+                                <div class="input-group-addon">件</div>
                             </div>
                         </div>
                     </div>
@@ -176,33 +135,23 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-addon">购买运费</div>
-                                <input type="text" class="form-control" name="yunfei" placeholder="直接购买需付运费" value="<{$info.yunfei}>">
+                                <input type="text" class="form-control" name="yunfei" placeholder="直接购买需付运费" value="">
+                                <div class="input-group-addon">¥</div>
                             </div>
                         </div>
                     </div>
                     <div class="col-xs-4">
                         <div class="form-group">
                             <div class="input-group">
-                                <div class="input-group-addon">参与人数</div>
-                                <input type="text" class="form-control" name="need_times" placeholder="单个任务需要参与人次" value="<{$info.need_times}>">
+                                <div class="input-group-addon">总销量</div>
+                                <input type="text" class="form-control" disabled="disabled" placeholder="总销量" value="<{$info.sold_num}>">
+                                <div class="input-group-addon">件</div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- row 结束-->
 
-                <!-- 返利-->
-                <div class="row">
-                    <div class="col-xs-4">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-addon">购买返饼</div>
-                                <input type="text" class="form-control" disabled="disabled" placeholder="用户直接购买返馅饼数" value="<{$info.fanli}>">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- row结束-->
 
                 <!--描述-->
                 <div class="row">
@@ -218,19 +167,10 @@
 <include file="Public:umeditor" />
 <script>
     $(window).ready(function(){
-        //设置自定义主题
-        $('input[name="setimgsrc"]').change(function(){
-            if($(this).is(':checked')){
-                $('#imgsrc').removeAttr('disabled');
-            }else{
-                $('#imgsrc').attr('disabled','disabled');
-            }
-        })
 
         //状态、级别、描述初始化
         $('select[name="status"]').val('<{$info.status}>');
         $('select[name="type"]').val('<{$info.type}>');
-        $('select[name="price"]').val('<{$info.price|round}>');
     })
 
     function setImagePreview(fileid, previewid) {

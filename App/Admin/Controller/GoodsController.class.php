@@ -78,7 +78,6 @@ class GoodsController extends CommonController
 
     /**
      * 管理员修改商品状态【管】
-     */
     public function handle(){
         $this->checkRole(1);
         if(isset($_POST['submit'])){
@@ -94,6 +93,8 @@ class GoodsController extends CommonController
             $this->error('参数错误');
         }
     }
+     *
+     */
 
     /**
      * 修改一个商品【商家】
@@ -104,7 +105,6 @@ class GoodsController extends CommonController
         $info = M('goods')->find($id);
         if($info){
             if($info['aid']!=$this->aid) $this->error('页面不存在');
-            $info['imgs'] = json_decode($info['imgs'],true);
             $this->assign('info',$info);
             $this->assign('rate',M('admin')->where(array('aid'=>$this->aid))->getField('rate'));
             $this->assign('GoodsType',json_decode(readConf('goodsType'),true));
@@ -116,14 +116,12 @@ class GoodsController extends CommonController
     }
 
     /**
-     * 添加商品 或者修改商品 处理表单【商家操作】
+     * 添加商品 或者修改商品 处理表单
      */
     public function update(){
-        $this->checkRole(2);
         if(isset($_POST['submit'])){
             $ac = I('post.submit');
             $data = $_POST;
-            if($data['status']==4)  $this->error('非法操作');
             $M = D('Goods');
             if(!$M->create($data))  $this->error($M->getError());
 
@@ -140,6 +138,8 @@ class GoodsController extends CommonController
             }
 
             if($ac == 'add'){
+                $this->checkRole(2);    //只有商家才能添加商品
+                if($data['status']==4)  $this->error('非法操作');
                 $data['aid'] = $this->aid;
                 //查找该商家的平台分成
                 $data['rate'] = M('admin')->where(array('aid'=>$this->aid))->getField('rate');

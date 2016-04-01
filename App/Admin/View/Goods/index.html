@@ -45,7 +45,7 @@
             <thead>
             <tr>
                 <th>商品ID</th>
-                <eq name="role" value="0"><th>商家ID</th></eq>
+                <eq name="role" value="1"><th>商家ID</th></eq>
                 <th>商品名</th>
                 <th>状态</th>
                 <th>销量</th>
@@ -57,7 +57,7 @@
             <volist name="list" id="vo">
                 <tr>
                     <td><{$vo.gid}></td>
-                    <eq name="role" value="0"><td><a href="<{:U('user/shangInfo')}>?id=<{$vo.aid}>"><{$vo.aid}></a></td></eq>
+                    <eq name="role" value="1"><td><a href="<{:U('user/shangInfo')}>?id=<{$vo.aid}>"><{$vo.aid}></a></td></eq>
                     <td><{$vo.name}></td>
                     <td><{$GoodsStatus[$vo['status']]}></td>
                     <td><{$vo.sold_num}></td>

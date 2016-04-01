@@ -1,0 +1,59 @@
+<div class="row text-center" style="margin: 20px auto">
+    <form class="form-inline form-group " action="" method="get">
+        <div class="input-group">
+            <span class="input-group-addon"><{$UserType}>ID</span>
+            <input type="text" class="form-control col-sm-1" name="id" value="<{$id}>" aria-describedby="inputGroupSuccess1Status">
+        </div>
+        <div class="input-group">
+            <select name="type" class="form-control">
+                <option value="0">全部</option>
+                <volist name="MoneyType" id="v">
+                    <option value="<{$key}>"><{$v}></option>
+                </volist>
+            </select>
+        </div>
+        <button type="submit" class="btn btn btn-primary" name="submit" >搜索</button>
+    </form>
+</div>
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-heading">用户财务记录</div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th><{$UserType}>ID</th>
+                <th>时间</th>
+                <th>金额</th>
+                <th>状态</th>
+                <th>备注</th>
+            </tr>
+            </thead>
+            <tbody>
+            <volist name="list" id="vo">
+                <tr>
+                    <td>
+                        <if condition="(ACTION_NAME eq 'index')">
+                            <a href="<{:U('user/index')}>?uid=<{$vo.uid}>" target="_blank"> <{$vo.uid}></a>
+                            <else />
+                            <a href="<{:U('user/shang')}>?aid=<{$vo.aid}>" target="_blank"><{$vo.aid}></a>
+                        </if>
+                    </td>
+                    <td><{$vo.time|date='Y-m-d H:i:s',###}></td>
+                    <td><{$vo.money}></td>
+                    <td>
+                        <{$MoneyType[$vo['type']]}>
+                    </td>
+                    <td><{$vo.note}></td>
+                </tr>
+            </volist>
+            </tbody>
+        </table>
+    </div>
+    <div><{$page}></div>
+</div>
+<!--<script>-->
+    <!--$(window).ready(function(){-->
+        <!--$('select[name="type"]').val("<{$type}>");-->
+
+    <!--})-->
+<!--</script>-->

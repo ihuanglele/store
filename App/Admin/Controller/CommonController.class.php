@@ -102,6 +102,7 @@ class CommonController extends Controller
                 $data['role'] = 2;
 //                $data['status'] = readConf('adminDefaultStatus');
                 $data['status'] = 2;
+                $data['create_time'] = time();
                 $data['rate'] = readConf('adminDefaultRate')?readConf('adminDefaultRate'):5;
 
                 $uplaod = new \Think\Upload(C('UploadConfig'));
