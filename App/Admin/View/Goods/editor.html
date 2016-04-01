@@ -1,0 +1,251 @@
+<style>
+    img{
+        max-width: 200px !important;
+    }
+</style>
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            修改商品
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" action="<{:U('update')}>" method="post" enctype="multipart/form-data">
+                <!--商品名字、状态、提交-->
+                <div class="row myrow">
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">商品名字</div>
+                                <input type="text" class="form-control" name="name" placeholder="商品名字" value="<{$info.name}>">
+                                <div class="input-group-addon"><{$GoodsStatus[$info['status']]}></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-2 col-xs-offset-1">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <select class="form-control" name="status">
+                                    <option value="1" >保存草稿</option>
+                                    <option value="2" >提交审核</option>
+                                    <option value="4" >下架商品</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-2 col-xs-offset-1">
+                        <input type="hidden" value="<{$info.gid}>" name="gid">
+                        <button type="submit" name="submit" value="update" class="btn btn-success">修改</button>
+                    </div>
+                </div>
+                <!--row 结束-->
+                <!--副标题-->
+                <div class="row myrow">
+                    <div class="col-xs-8">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">副标题</div>
+                                <input type="text" style="color: #ff0000;" class="form-control" name="title" placeholder="红色文字显示" value="<{$info.title}>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <select class="form-control" name="type">
+                                <volist name="GoodsType" id="v">
+                                    <option value="<{$key}>" ><{$v}></option>
+                                </volist>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!--row 结束-->
+                <!--图片、主题图片-->
+                <div class="row myrow">
+                    <div class="col-xs-8">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">图片1</div>
+                                        <input type="file" class="form-control" name="imgs[]" placeholder="图片展示" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">图片2</div>
+                                        <input type="file" class="form-control" name="imgs[]" placeholder="图片展示" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">图片3</div>
+                                        <input type="file" class="form-control" name="imgs[]" placeholder="图片展示" >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="checkbox">
+                                    <label>
+                                        <input name="setimgsrc" value="on" type="checkbox"> 自定义主题图片
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-8">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">主题图片</div>
+                                        <input type="file" id="imgsrc"  class="form-control" disabled="disabled" name="imgs[]" placeholder="不选择使用图片1" onchange="javascript:setImagePreview('imgsrc','preview1');" >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div id="localImag">
+                            <img id="preview1" style="max-width: 100%" width="-1" height="-1" src="<{:C('imgHost')}><{$info.imgsrc}>" />
+                        </div>
+                    </div>
+                </div>
+                <!--row 结束-->
+                <!--显示三个图片-->
+                <div class="row myrow">
+                    <div class="col-xs-4">
+                        <notempty name="info.imgs.0"><img src="<{:C('imgHost')}><{$info.imgs.0}>"/><else /><p>图1无</p></notempty>
+                    </div>
+                    <div class="col-xs-4">
+                        <notempty name="info.imgs.1"><img src="<{:C('imgHost')}><{$info.imgs.1}>"/><else /><p>图2无</p></notempty>
+                    </div>
+                    <div class="col-xs-4">
+                        <notempty name="info.imgs.2"><img src="<{:C('imgHost')}><{$info.imgs.2}>"/><else /><p>图3无</p></notempty>
+                    </div>
+                </div>
+                <!--图片显示结束-->
+                <!--市场价、参与价、平台比例-->
+                <div class="row myrow">
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">市场价</div>
+                                <input type="text" class="form-control" name="market_price" placeholder="该商品的市场价" value="<{$info.market_price}>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">参与价</div>
+                                <select class="form-control" name="price">
+                                    <option value="1">一元</option>
+                                    <option value="2">两元</option>
+                                    <option value="3">三元</option>
+                                    <option value="5">五元</option>
+                                    <option value="10">十元</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">平台分成</div>
+                                <input type="text" class="form-control" disabled="disabled" placeholder="平台分成百分点" value="<{$info.rate}>">
+                                <div class="input-group-addon">%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--row 结束-->
+
+                <!-- 库存 运费 参与人数-->
+                <div class="row">
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">库存</div>
+                                <input type="text" class="form-control" name="kucun" placeholder="库存为0时不会发布" value="<{$info.kucun}>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">购买运费</div>
+                                <input type="text" class="form-control" name="yunfei" placeholder="直接购买需付运费" value="<{$info.yunfei}>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">参与人数</div>
+                                <input type="text" class="form-control" name="need_times" placeholder="单个任务需要参与人次" value="<{$info.need_times}>">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- row 结束-->
+
+                <!-- 返利-->
+                <div class="row">
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">购买返饼</div>
+                                <input type="text" class="form-control" disabled="disabled" placeholder="用户直接购买返馅饼数" value="<{$info.fanli}>">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- row结束-->
+
+                <!--描述-->
+                <div class="row">
+                    <div class="col-lg-10 col-xs-offset-1">
+                        <script type="text/plain" name="detail" id="editor" style="width:100%;height:500px;"><{$info.detail}></script>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<include file="Public:umeditor" />
+<script>
+    $(window).ready(function(){
+        //设置自定义主题
+        $('input[name="setimgsrc"]').change(function(){
+            if($(this).is(':checked')){
+                $('#imgsrc').removeAttr('disabled');
+            }else{
+                $('#imgsrc').attr('disabled','disabled');
+            }
+        })
+
+        //状态、级别、描述初始化
+        $('select[name="status"]').val('<{$info.status}>');
+        $('select[name="type"]').val('<{$info.type}>');
+        $('select[name="price"]').val('<{$info.price|round}>');
+    })
+
+    function setImagePreview(fileid, previewid) {
+        var c, d, e, a = document.getElementById(fileid),b = a.value;
+        if (!b.match(/.jpg|.gif|.png|.bmp/i)) return alert("您上传的图片格式不正确，请重新选择！"), !1;
+        if (c = document.getElementById(previewid), a.files && a.files[0]) c.style.display = "block", c.style.width = "200px", c.style.height = "200px", c.src = window.navigator.userAgent.indexOf("Chrome") >= 1 || window.navigator.userAgent.indexOf("Safari") >= 1 ? window.webkitURL.createObjectURL(a.files[0]) : window.URL.createObjectURL(a.files[0]);
+        else {
+            a.select(), a.blur(), d = document.selection.createRange().text, e = document.getElementById("localImag"), e.style.width = "63px", e.style.height = "63px";
+            try {
+                e.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)", e.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = d
+            } catch (f) {
+                return alert("您上传的图片格式不正确，请重新选择！"), !1
+            }
+            c.style.display = "none", document.selection.empty()
+        }
+        return document.getElementById("DivUp").style.display = "block", !0
+    }
+</script>

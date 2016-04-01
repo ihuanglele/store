@@ -1,0 +1,151 @@
+<style>
+    .headimgBig{
+        width: 300px;
+        position: absolute;
+        top: 10px;
+        right: 150px;
+        display: none;
+    }
+</style>
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-heading">商家详情</div>
+        <table class="table">
+            <tbody>
+            <tr>
+                <td>用户名：<{$info.username}></td>
+                <td>邮箱：<{$info.email}></td>
+            </tr>
+            <tr>
+                <td>商家ID：<{$info.aid}></td>
+                <td>
+                    余额：<{$info.money}>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    状态：<{$AdminStatus[$info['status']]}>
+                </td>
+                <td>注册时间<{$info.time|Mydate}></td>
+            </tr>
+            <tr>
+                <td>
+                    店铺名称：<{$info.storename}>
+                </td>
+                <td>
+                    <a target="_blank" href="__APP__/../upload/<{$info.headimgurl}>" >
+                        <img id="headimg" class="headimg" src="__APP__/../upload/<{$info.headimgurl}>" />
+                    </a>
+                    <img id="headimgBig" src="__APP__/../upload/<{$info.headimgurl}>" class="headimgBig" />
+                </td>
+            </tr>
+
+            <tr>
+                <td width="60%">
+                    <form id="update" name="row form-inline update" action="<{:U('user/update')}>" method="post">
+                        <input type="hidden" name="aid" value="<{$info.aid}>">
+                        <input type="hidden" name="type" value="shang">
+                        <div class="col-sm-5">
+                            <div class="input-group">
+                                <span class="input-group-addon">平台分成</span>
+                                <input class="form-control" type="text" name="rate" value="<{$info.rate}>">
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="input-group">
+                                <span class="input-group-addon">状态</span>
+                                <select name="status" class="form-control">
+                                    <volist name="AdminStatus" id="v">
+                                        <option value="<{$key}>"><{$v}></option>
+                                    </volist>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="submit" class="btn btn-info" name="submit" value="更新">
+                        </div>
+                    </form>
+                </td>
+                <td>
+                    <a href="<{:U('user/pwd',array('id'=>$info['aid']))}>" class="resetPwd btn btn-danger" role="button" >重置密码</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!--添加自定义财务记录-->
+    <div class="panel panel-default">
+        <div class="panel-heading">财务管理</div>
+        <div class="panel-body">
+            <div class="col-xs-8 col-xs-offset-2">
+                <form id="money" class="form-horizontal" name="money" action="<{:U('user/smoney')}>" method="post">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <select name="status" class="form-control">
+                                <option value="5">扣除</option>
+                                <option value="4">奖励</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-3">
+                            <input class="form-control" name="amount" placeholder="金额" type="text" />
+                        </div>
+                        <div class="col-xs-3">
+                            <input type="hidden" name="aid" value="<{$info.aid}>" />
+                            <button class="btn btn-warning" name="submit">添加记录</button>
+                        </div>
+                        <div class="col-xs-3 text-center">
+                            <a href="<{:U('money/shang',array('id'=>$info['aid']))}>" target="_blank" role="button" class="btn btn-default">查看详细记录</a>
+                        </div>
+                        <div class="col-xs-12" style="margin-top: 20px;">
+                            <textarea name="note" class="form-control" placeholder="说明"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(window).ready(function(){
+        $('#headimg').mouseover(function(){
+            $('#headimgBig').css('display','block');
+        }).mouseout(function(){
+            $('#headimgBig').css('display','none');
+        })
+        var form = $("#update");
+        oldStatus = "<{$info.status}>";
+        rate = "<{$info.rate}>"
+        $('select[name="status"]',form).val(oldStatus);
+        form.submit(function(){
+            newRate = $('input[name="rate"]').val();
+            if(isNaN(newRate)){
+                alert('请填写正确的金额');
+                return false;
+            }
+            if(newRate<=0 || newRate>100){
+                alert('分成应该为0~100直接的值');
+                return false;
+            }
+            if($('select[name=status]',form).val() == oldStatus && newRate==rate){
+                alert('你没有改变信息');
+                return false;
+            }else {
+                return true;
+            }
+        })
+
+        var $moneyForm = $('#money');
+        $moneyForm.submit(function(){
+            if(isNaN($('input[name="amount"]').val())){
+                alert('请填写正确的金额');
+                return false;
+            }
+            if($('textarea[name="exp"]').val()==''){
+                if(!confirm('你没有填写记录说明，确定提交?')){
+                    return false;
+                }
+            }
+        });
+    })
+</script>

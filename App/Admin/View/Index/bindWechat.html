@@ -1,0 +1,38 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        绑定微信
+    </div>
+    <div class="panel-body">
+        <div class="form-horizontal" style="margin: 30px auto;">
+            <div class="row">
+                <div class="col-xs-5 col-sm-offset-3">
+                    <div class="form-group">
+                        <label class="sr-only">微信昵称</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">微信昵称</div>
+                            <input type="text" class="form-control" value="<{$info.wx_nickname}>" disabled="disabled" placeholder='' >
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-5 col-sm-offset-3">
+                    <div class="form-group">
+                        <label class="sr-only">微信OpenId</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">微信OpenId</div>
+                            <input type="text" class="form-control" value="<{$info.wx_openid}>" disabled="disabled" placeholder='' >
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-5 col-sm-offset-3">
+                    <div class="form-group text-center">
+                        <img src="http://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<{$url}>" title="微信扫一扫绑定账号" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

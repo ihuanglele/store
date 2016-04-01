@@ -2,7 +2,7 @@
 
 return array(
     //网站名字
-    'SITE_NAME' => '掉馅饼',
+    'SITE_NAME' => '方正大米',
 
     //微信支付配置项
     'Wx' => array(
@@ -19,7 +19,7 @@ return array(
     ),
     //微信公众号
     'Wechat' => array(
-        'name' => '联合推客',
+        'name' => '方正大米',
         'num' => '',
     ),
 

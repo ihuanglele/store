@@ -1,0 +1,183 @@
+<style>
+    img{
+        max-width: 200px;
+    }
+</style>
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            添加商品
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" action="<{:U('update')}>" method="post" enctype="multipart/form-data">
+                <!--商品名字、状态、提交-->
+                <div class="row myrow">
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">商品名字</div>
+                                <input type="text" class="form-control" name="name" placeholder="商品名字" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-2 col-xs-offset-1">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <select class="form-control" name="status">
+                                    <option value="1" >保存草稿</option>
+                                    <option value="2" >直接上架</option>
+                                    <option value="3" >保存下架</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-2 col-xs-offset-1">
+                        <button type="submit" name="submit" value="add" class="btn btn-success">添加</button>
+                    </div>
+                </div>
+                <!--row 结束-->
+
+                <!--图片、分类、商品规格-->
+                <div class="row myrow">
+                    <div class="col-xs-8">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">主题图片</div>
+                                        <input type="file" id="imgsrc" class="form-control" name="file" placeholder="不选择使用图片1" onchange="javascript:setImagePreview('imgsrc','preview1');" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">商品分类</div>
+                                        <select class="form-control" name="type">
+                                            <volist name="GoodsType" id="v">
+                                                <option value="<{$key}>" ><{$v}></option>
+                                            </volist>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">商品规格</div>
+                                        <input type="text" class="form-control" name="format" placeholder="500g/袋" value="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div id="localImag">
+                            <img id="preview1" width="-1" height="-1" style="display: none" />
+                        </div>
+                    </div>
+                </div>
+                <!--row 结束-->
+
+               <!--市场价、平台价、平台比例-->
+                <div class="row myrow">
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">市场价</div>
+                                <input type="text" class="form-control" name="market_price" placeholder="市场价" value="">
+                                <div class="input-group-addon">¥</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">平台价</div>
+                                <input type="text" class="form-control" name="buy_price" placeholder="平台价" value="">
+                                <div class="input-group-addon">¥</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">平台分成</div>
+                                <input type="text" class="form-control" name="rate" disabled="disabled" placeholder="平台分成百分点" value="<{$rate}>">
+                                <div class="input-group-addon">%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--row 结束-->
+
+                <!-- 库存 运费 参与人数-->
+                <div class="row">
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">库存</div>
+                                <input type="text" class="form-control" name="left_num" placeholder="输入整数" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">购买运费</div>
+                                <input type="text" class="form-control" name="yunfei" placeholder="直接购买需付运费" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">参与人数</div>
+                                <input type="text" class="form-control" name="need_times" placeholder="单个任务需要参与人次" value="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- row 结束-->
+
+
+                <!--描述-->
+                <div class="row">
+                    <div class="col-lg-10 col-xs-offset-1">
+                        <script type="text/plain" name="detail" id="editor" style="width:100%;height:500px;"></script>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<include file="Public:umeditor" />
+<script>
+    $(window).ready(function(){
+        //设置自定义主题
+        $('input[name="setimgsrc"]').change(function(){
+            if($(this).is(':checked')){
+                $('#imgsrc').removeAttr('disabled');
+            }else{
+                $('#imgsrc').attr('disabled','disabled');
+            }
+        })
+    })
+
+    function setImagePreview(fileid, previewid) {
+        var c, d, e, a = document.getElementById(fileid),b = a.value;
+        if (!b.match(/.jpg|.gif|.png|.bmp/i)) return alert("您上传的图片格式不正确，请重新选择！"), !1;
+        if (c = document.getElementById(previewid), a.files && a.files[0]) c.style.display = "block", c.style.width = "200px", c.style.height = "200px", c.src = window.navigator.userAgent.indexOf("Chrome") >= 1 || window.navigator.userAgent.indexOf("Safari") >= 1 ? window.webkitURL.createObjectURL(a.files[0]) : window.URL.createObjectURL(a.files[0]);
+        else {
+            a.select(), a.blur(), d = document.selection.createRange().text, e = document.getElementById("localImag"), e.style.width = "63px", e.style.height = "63px";
+            try {
+                e.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)", e.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = d
+            } catch (f) {
+                return alert("您上传的图片格式不正确，请重新选择！"), !1
+            }
+            c.style.display = "none", document.selection.empty()
+        }
+        return document.getElementById("DivUp").style.display = "block", !0
+    }
+</script>

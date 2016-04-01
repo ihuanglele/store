@@ -1,0 +1,29 @@
+<div class="nav-header"><i class="icon-dashboard"></i>商品管理</div>
+<ul class="nav nav-list collapse in">
+    <li ><a href="<{:U('goods/index')}>">所有商品</a></li>
+    <li ><a href="<{:U('goods/add')}>">添加商品</a></li>
+    <li ><a href="<{:U('goods/index',array('status'=>2))}>">上架商品</a></li>
+</ul>
+
+<div class="nav-header"><i class="icon-dashboard"></i>任务管理</div>
+<ul class="nav nav-list collapse in">
+    <li ><a href="<{:U('task/inndex')}>">所有任务</a></li>
+    <li ><a href="<{:U('task/index',array('status'=>1))}>">进行中</a></li>
+</ul>
+
+<div class="nav-header"><i class="icon-dashboard"></i>兑奖管理</div>
+<ul class="nav nav-list collapse in">
+    <li ><a href="<{:U('gift/index')}>?from=guess">所有兑奖</a></li>
+    <li ><a href="<{:U('gift/index')}>?from=guess&status=0">兑奖申请</a></li>
+    <li ><a href="<{:U('gift/index')}>?from=buy">所有购买</a></li>
+    <li ><a href="<{:U('gift/index')}>?from=buy&status=1">购买申请</a></li>
+    <li ><a href="<{:U('gift/index')}>?from=free">所有零元购</a></li>
+    <li ><a href="<{:U('gift/index')}>?from=free&status=1">零元购申请</a></li>
+</ul>
+
+<div class="nav-header"><i class="icon-dashboard"></i>信息管理</div>
+<ul class="nav nav-list collapse in">
+    <li ><a href="<{:U('index/pwd')}>">修改密码</a></li>
+    <li ><a href="<{:U('index/bindWechat')}>">绑定微信</a></li>
+    <li ><a href="<{:U('index/money')}>">财务记录</a></li>
+</ul>

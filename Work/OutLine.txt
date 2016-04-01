@@ -1,0 +1,53 @@
+缓存数据说明
+    adminNoteDoc        //后台页面通知
+    adminDefaultPwd     //商家默认重置密码
+    goodsType           //商品分类（json）
+    adminDefaultRate   //商家默认分成比例
+
+部分数据字典
+    admin.Role
+        '1' => '管理员','2' => '商家',
+    admin.Status
+        '1' => '待审核','2' => '正常','3' => '限制',
+    goods.Status
+        '1' => '草稿','2' => '上架','3' => '下架','4' => '禁售'
+    orders.Status
+        '1' => '待发货','2' => '已发货','3' => '已取消',
+    userMoney.Type
+       '1' => '支出','2' => '退款','3' => '充值', '4' => '奖励','5' => '提现',
+    adminMoney.Type
+        '1' => '收入','2' => '退款','3' => '提现',
+
+
+
+Admin
+    |- CommonController         //后台都继承该class
+        |- login            //登录
+        |- register         //注册
+        |- logout           // 退出登录
+        |- getData          //查询数据，并分配变量到模板，返回查询到的数据数组
+
+    |-IndexController
+        |- index             //显示自己的基本信息,显示网站通知
+        |- pwd                  //修改自己的密码
+
+    |- GoodsController  //商品信息
+        |- index            //列出所有商品
+        |- add              //添加一个商品【商】
+        |- editor    (?id)  //修改一个商品【商】
+        |- update (处理post数据)     //商家添加、修改商品操作【商】
+        |- view    (?id)    //查看一个商品【管】
+        |- handle           //管理员审核一个商品【管】
+
+    |- UserController   //用户管理 【管】
+        |- index                //用户列表
+        |- shang                //商家列表
+        |- shangInfo (?id)      //查看某个商家的信息
+        |- userInfo  (?id)      //查看某个用户的信息
+        |- update               //更新商家状态
+
+    |- AdminController     //【管】
+        |- index                //所有管理员
+        |- deluser     (?id)    //删除管理员
+        |- adduser              //添加管理员
+        |- notify               //后台通知文档

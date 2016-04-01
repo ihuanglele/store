@@ -1,0 +1,197 @@
+<style>
+    img{
+        max-width: 200px !important;
+    }
+</style>
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            查看商品
+        </div>
+        <div class="panel-body">
+            <div class="form-horizontal">
+                <!--商品名字、状态、商户-->
+                <div class="row myrow">
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">商品名字</div>
+                                <input type="text" class="form-control" disabled="disabled" value="<{$info.name}>">
+                                <div class="input-group-addon"><{$GoodsStatus[$info['status']]}></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="form-group">
+                            <a role="button" href="<{:U('user/shangInfo')}>?id=<{$info.aid}>" class="btn btn-info">查看商家</a>
+                        </div>
+                    </div>
+                    <eq name="info.status" value="2">
+                        <form action="<{:U('handle')}>" method="post">
+                            <div class="col-xs-2">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <select class="form-control" name="status">
+                                            <option value="1" >驳回审核</option>
+                                            <option value="3" >通过审核</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-2">
+                                <input type="hidden" value="<{$info.gid}>" name="gid">
+                                <button type="submit" name="submit" class="btn btn-success">修改</button>
+                            </div>
+                        </form>
+                    </eq>
+
+                </div>
+                <!--row 结束-->
+
+                <!--副标题-->
+                <div class="row myrow">
+                    <div class="col-xs-8">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">副标题</div>
+                                <input type="text"  class="form-control"  disabled="disabled" value="<{$info.title}>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">类别</div>
+                                <input type="text" class="form-control" style="color: #ff0000;"  disabled="disabled" value="<{$GoodsType[$info['type']]}>">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--row 结束-->
+
+                <!--显示三个图片-->
+                <div class="row myrow text-center">
+                    <div class="col-xs-3">
+                        <notempty name="info.imgs.0">
+                            <img src="<{:C('imgHost')}><{$info.imgs.0}>"/>
+                            <br/>图1
+                            <else />
+                            <p>图1无</p>
+                        </notempty>
+                    </div>
+                    <div class="col-xs-3">
+                        <notempty name="info.imgs.1"><img src="<{:C('imgHost')}><{$info.imgs.1}>"/><br/>图2<else /><p>图2无</p></notempty>
+                    </div>
+                    <div class="col-xs-3">
+                        <notempty name="info.imgs.2"><img src="<{:C('imgHost')}><{$info.imgs.2}>"/><br/>图3<else /><p>图3无</p></notempty>
+                    </div>
+                    <div class="col-xs-3">
+                        <notempty name="info.imgsrc"><img src="<{:C('imgHost')}><{$info.imgsrc}>"/><br/>缩略图<else /><p>无缩略图</p></notempty>
+                    </div>
+                </div>
+                <!--图片显示结束-->
+
+                <!--市场价、参与价、平台比例-->
+                <div class="row myrow">
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">市场价</div>
+                                <input type="text" class="form-control" disabled="disabled" value="<{$info.market_price}>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">参与价</div>
+                                <input type="text" class="form-control" disabled="disabled" value="<{$info.price}>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">平台分成</div>
+                                <input type="text" class="form-control" disabled="disabled" value="<{$info.rate}>">
+                                <div class="input-group-addon">%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--row 结束-->
+
+                <!-- 库存 运费 参与人数-->
+                <div class="row">
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">库存</div>
+                                <input type="text" class="form-control" disabled="disabled" placeholder="库存为0时不会发布" value="<{$info.kucun}>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">购买运费</div>
+                                <input type="text" class="form-control" disabled="disabled" placeholder="直接购买需付运费" value="<{$info.yunfei}>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">参与人数</div>
+                                <input type="text" class="form-control" disabled="disabled" placeholder="单个任务需要参与人次" value="<{$info.need_times}>">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- row 结束-->
+
+                <!-- 返利-->
+                <div class="row">
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">购买返饼</div>
+                                <input type="text" class="form-control" disabled="disabled" placeholder="用户直接购买返馅饼数" value="<{$info.fanli}>">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- row结束-->
+
+                <!--描述-->
+                <div class="row">
+                    <div class="col-lg-10 col-xs-offset-1">
+                        <script type="text/plain" name="detail" id="editor" style="width:100%;height:500px;"><{$info.detail}></script>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<include file="Public:umeditor" />
+<script>
+    $(window).ready(function(){
+        //设置自定义主题
+        $('input[name="setimgsrc"]').change(function(){
+            if($(this).is(':checked')){
+                $('#imgsrc').removeAttr('disabled');
+            }else{
+                $('#imgsrc').attr('disabled','disabled');
+            }
+        })
+
+        um.ready(function(){
+            um.setDisabled();   //设置编辑器为不可编辑状态
+        })
+
+    })
+
+</script>

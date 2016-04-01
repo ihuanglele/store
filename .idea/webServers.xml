@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="005b5a14-7eb3-48d6-8f7f-3a299a6ea80f" name="方正商城" url="http://116.255.185.220/">
+        <fileTransfer host="116.255.185.220" port="21" username="fzstore">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
