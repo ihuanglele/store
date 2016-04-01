@@ -20,7 +20,7 @@
 
 
 
-Admin
+Admin        //网站后台模块
     |- CommonController         //后台都继承该class
         |- login            //登录
         |- register         //注册
@@ -51,3 +51,18 @@ Admin
         |- deluser     (?id)    //删除管理员
         |- adduser              //添加管理员
         |- notify               //后台通知文档
+
+
+Home        //网站前台模块
+    |- IndexController
+        |- index            //显示首页
+        |- cart             //显示我的订单
+        |- getCartNum       //Ajax返回购物车商品的数量
+
+    |- GoodsController
+        |- index            //显示所有商品列表
+        |- item  (?id)       //显示具体的某个商品
+
+    |- StoreController
+        |- index            //显示所有店铺
+        |- store (?id)      //显示店铺首页
