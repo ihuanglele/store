@@ -23,4 +23,15 @@ class IndexController extends Controller
 
     }
 
+
+    /**
+     * 本地自动登录
+     */
+    public function login(){
+        $uid = 1;
+        $openId = 'oqAACwZkLzSmZjrn_aTpQfY36-rg';
+        session('uid',$uid);
+        session('openid',$openId);
+    }
+
 }

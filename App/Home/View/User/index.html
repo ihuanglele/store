@@ -15,26 +15,26 @@
 <link href="__PUBLIC__/css/user.css" rel="stylesheet" type="text/css">
 
 <div class="user_top w">
-    <div class="user_logo"><div class="img"><img src="__PUBLIC__/images/user_logo.jpg"></div></div>
+    <div class="user_logo"><div class="img"><img src="<{$info.headimgurl}>"></div></div>
     <div class="user_info">
-        <div class="user_name">忆乡人</div>
-        <div class="user_dengji">会员等级：黄金会员</div>
+        <div class="user_name"><{$info.nickname}></div>
+        <div class="user_dengji">账户余额：<{$info.money}></div>
     </div>
 </div>
 
 
 
 <div class="zx w">
-    <a href="#"><div class="ico_img"><img src="__PUBLIC__/images/zhongxin1.jpg"></div><span style="color:#00bb9c">我的订单</span><br><label>17</label></a>
-    <a href="#"><div class="ico_img"><img src="__PUBLIC__/images/zhongxin2.jpg"></div><span style="color:#eb4f38">我的收藏</span><br><label>51</label></a>
-    <a href="#" style="border-right:none;"><div class="ico_img"><img src="__PUBLIC__/images/zhongxin3.jpg"></div><span>我的红包</span><br><label>325</label></a>
+    <a href="#"><div class="ico_img"><img src="__PUBLIC__/images/zhongxin1.jpg"></div><span style="color:#00bb9c">我的订单</span><br><label><{$info.ordersNum}></label></a>
+    <a href="#"><div class="ico_img"><img src="__PUBLIC__/images/zhongxin2.jpg"></div><span style="color:#eb4f38">我的收藏</span><br><label><{$info.favNum}></label></a>
+    <a href="#" style="border-right:none;"><div class="ico_img"><img src="__PUBLIC__/images/zhongxin3.jpg"></div><span>我的红包</span><br><label><{$info.packetsNum}></label></a>
 </div>
 
 
 <div class="user_nav_list w">
     <ul>
         <li>
-            <a href="#">
+            <a href="<{:U('user/myOrder')}>">
                 <div class="u_nav_icon money"></div>
                 <div class="u_nav_name">我的订单</div>
                 <div class="nt_icon"></div>
@@ -42,7 +42,7 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="<{:U('user/myAddr')}>">
                 <div class="u_nav_icon huibi"></div>
                 <div class="u_nav_name">收货地址</div>
                 <div class="nt_icon"></div>
@@ -58,7 +58,7 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="<{:U('user/myPacket')}>">
                 <div class="u_nav_icon tixian"></div>
                 <div class="u_nav_name">红包提现</div>
                 <div class="nt_icon"></div>
@@ -66,7 +66,7 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="<{:U('user/myInvite')}>">
                 <div class="u_nav_icon dingdan"></div>
                 <div class="u_nav_name">我推荐的好友</div>
                 <div class="nt_icon"></div>

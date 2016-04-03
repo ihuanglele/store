@@ -57,6 +57,7 @@ Home        //网站前台模块
     |- IndexController
         |- index            //显示首页
         |- cart             //显示我的订单
+        |- addCart ($id&num)  //添加到购物车
         |- getCartNum       //Ajax返回购物车商品的数量
 
     |- GoodsController
@@ -66,3 +67,17 @@ Home        //网站前台模块
     |- StoreController
         |- index            //显示所有店铺
         |- store (?id)      //显示店铺首页
+
+    |- UserController
+        |- index            //显示个人中心
+        |- myOrder          //我的订单
+        |- orderDetail (?id) //订单详情
+        |- myAddr           //我的收获地址
+        |- addAddress           //添加收货地址
+        |- delAddress   (?id)   //删除收货地址
+        |- myPacket         //我的红包
+        |- myInvite         //我的邀请
+        |- login            //登录
+        |- addFav  (?id$ac[do|undo])        //添加|删除收藏
+        |- myFav            //显示我的收藏
+        |- changeMoney  ((array)data )      //改变用户钱数

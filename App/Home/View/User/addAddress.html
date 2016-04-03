@@ -1,0 +1,38 @@
+<div class="toper navbar-fixed-top">
+    <div class="row color_white " >
+        <div class="col-xs-2" style="padding-left:25px;"><a class="cwhite" href="<{:U('user/myAddr')}>"><img src="__PUBLIC__/images/jt.png" ></a></div>
+        <div class="col-xs-8 text-center font20">方正大米</div>
+        <div class="col-xs-2"><a href="#"><div class="photo_25" style="margin-top:3px;"></div></a></div>
+    </div>
+</div>
+<!-- toper -->
+<div class="height53"></div>
+
+<form action="<{:U('user/addAddress')}>" method="post">
+    <div class="exitBox">
+        <dl class="clearfix exitBoxT1">
+            <dt>姓名</dt>
+            <dd><input name="name" value="<{$info.name}>" type="text" class="exitIpt"></dd>
+        </dl>
+        <div class="exitLine"></div>
+
+        <dl class="clearfix exitBoxT1">
+            <dt>电话</dt>
+            <dd><input name="tel" value="<{$info.tel}>" type="text" class="exitIpt"></dd>
+        </dl>
+        <div class="exitLine"></div>
+
+
+        <dl class="clearfix exitBoxT2">
+            <dt>详细地址</dt>
+            <dd><input name="addr" value="<{$info.addr}>" type="text" class="exitIpt"></dd>
+        </dl>
+        <div class="exitLine"></div>
+    </div>
+    <div class="add">
+        <notempty name="info.vip_addressid">
+            <input type="hidden" name="id" value="<{$info.id}>">
+        </notempty>
+        <button type="submit" name="submit" class="dizhi">提交</button>
+    </div>
+</form>

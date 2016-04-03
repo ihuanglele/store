@@ -1,0 +1,37 @@
+<div class="toper navbar-fixed-top">
+    <div class="row color_white " >
+        <div class="col-xs-2" style="padding-left:25px;"><a class="cwhite" href="<{:U('user/index')}>"><img src="__PUBLIC__/images/jt.png" ></a></div>
+        <div class="col-xs-8 text-center font20">我的收货地址</div>
+        <div class="col-xs-2"><a href="#"><div class="photo_25" style="margin-top:3px;"></div></a></div>
+    </div>
+</div>
+
+<!-- toper -->
+
+<div class="height53"></div>
+
+<div class="clearfix allOrder">
+    <volist name="list" id="vo">
+        <li class="list-unstyled">
+            <dl class="clearfix">
+                <dt><{$vo.name}></dt>
+                <dd>
+                    <a href="<{:U('user/addAddress')}>?id=<{$vo.id}>">
+                        <div class="orderInfo">
+                            <p>城市：<{$vo.addr}></p>
+                            <p>手机：<{$vo.tel}></p>
+                        </div>
+                        <em class="orderIco"></em>
+                    </a>
+                </dd>
+            </dl>
+            <div class="orderBtn clearfix">
+                <a href="<{:U('user/delAddress')}>?id=<{$vo.id}>" class="fl">删除</a>
+                <a href="<{:U('user/addAddress')}>?id=<{$vo.id}>" class="fr">修改</a>
+            </div>
+        </li>
+    </volist>
+</div>
+<div class="height53">
+    <a class="color_greenyellow" href="<{:U('user/addAddress')}>">添加新地址</a>
+</div>
