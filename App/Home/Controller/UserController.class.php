@@ -283,10 +283,10 @@ class UserController extends Controller
     public function addAddress(){
         if (isset($_POST['submit'])) {
             $data = $_POST;
+            $data['uid'] = $this->uid;
             $id = I('post.id', 0, 'number_int');
             if ($id) {
                 $data['id'] = $id;
-                $data['uid'] = $this->uid;
                 $r1 = M('addr')->save($data);
             } else {
                 $r1 = M('addr')->add($data);
@@ -320,6 +320,42 @@ class UserController extends Controller
         }else{
             $this->error('删除失败');
         }
+    }
+
+    /**
+     * 显示我的购物车
+     */
+    public function myCart(){
+        $cart = session('cart');
+        $info = array();
+        $goodsInfo = array();
+        if(is_array($cart)){
+            $goodsIds = array(0);
+            foreach($cart as $k=>$v){
+                $goodsIds[] = $k;
+            }
+            $goodsInfo = M('goods')->where(array('gid'=>array('in',$goodsIds)))->getField('gid,name,left_num,status,buy_price,img');
+        }else{
+            $cart = array();
+        }
+
+        //获取收货地址
+        $map['uid'] = $this->uid;
+        $addr = M('addr')->where($map)->getField('id,name,tel,addr');
+
+        $this->assign('goodsInfo',$goodsInfo);
+        $this->assign('GoodsStatus',C('GoodsStatus'));
+        $this->assign('addr',$addr);
+        $this->assign('addrsJosn',json_encode($addr));
+        $this->assign('cart',$cart);
+        $this->display('myCart');
+    }
+
+    /**
+     * 购物
+     */
+    public function buy(){
+        var_dump($_POST);
     }
 
 }

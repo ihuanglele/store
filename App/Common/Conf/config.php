@@ -26,17 +26,6 @@ return array(
     //图片路径
     'imgHost' => 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . '/../upload/',
 
-    //商品分类
-    'GoodsType' => array(
-        '1' => '手机数码',
-        '2' => '家电护理',
-        '3' => '潮流时尚',
-        '4' => '电脑办公',
-        '5' => '金银首饰',
-        '6' => '汽车',
-        '7' => '其他',
-    ),
-
 
     //文件上传配置
     'UploadConfig' => array(

@@ -4,6 +4,14 @@
     goodsType           //商品分类（json）
     adminDefaultRate   //商家默认分成比例
 
+Session存储说明
+    uid  用户uid
+    openid  用户微信openid
+    cart   用户购物车
+    aid     管理员id
+    role    后台用户角色
+
+
 部分数据字典
     admin.Role
         '1' => '管理员','2' => '商家',
@@ -55,10 +63,9 @@ Admin        //网站后台模块
 
 Home        //网站前台模块
     |- IndexController
-        |- index            //显示首页
-        |- cart             //显示我的订单
-        |- addCart ($id&num)  //添加到购物车
-        |- getCartNum       //Ajax返回购物车商品的数量
+        |- index                //显示首页
+        |- addCart ($id&num)    //添加到购物车
+        |- getCartNum           //Ajax返回购物车商品的数量
 
     |- GoodsController
         |- index            //显示所有商品列表
@@ -69,10 +76,11 @@ Home        //网站前台模块
         |- store (?id)      //显示店铺首页
 
     |- UserController
-        |- index            //显示个人中心
-        |- myOrder          //我的订单
-        |- orderDetail (?id) //订单详情
-        |- myAddr           //我的收获地址
+        |- index                //显示个人中心
+        |- myCart               //显示我的购物车
+        |- myOrder              //我的订单
+        |- orderDetail (?id)    //订单详情
+        |- myAddr               //我的收获地址
         |- addAddress           //添加收货地址
         |- delAddress   (?id)   //删除收货地址
         |- myPacket         //我的红包

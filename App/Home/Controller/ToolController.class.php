@@ -36,7 +36,7 @@ class ToolController extends Controller
      */
     public function getData($M,$map,$order,$field=false){
         $count = $M->where($map)->count();
-        $Page = new\Think\Page($count,25);
+        $Page = new\Think\Page($count,20);
         $show = $Page->show();
         if($field){
             $list = $M->where($map)->field($field)->order($order)->limit($Page->firstRow,$Page->listRows)->select();

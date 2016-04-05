@@ -16,6 +16,7 @@ class GoodsController extends Controller
      * 所有商品
      */
     public function index(){
+
         $this->display();
     }
 
@@ -24,6 +25,10 @@ class GoodsController extends Controller
      * 显示单个商品
      */
     public function item(){
+        $id = I('get.id');
+        $info = M('goods')->find($id);
+        if(!$info){$this->error('页面不存在',U('goods/index'));}
+        $this->assign('info',$info);
         $this->display();
     }
 
