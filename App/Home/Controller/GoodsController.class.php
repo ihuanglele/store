@@ -16,8 +16,10 @@ class GoodsController extends Controller
      * 所有商品
      */
     public function index(){
-
-        $this->display();
+        $Tool = A('Tool');
+        $map['status'] = 2;
+        $Tool->getData(M('goods'),'','gid desc','gid,name,img,market_price,buy_price');
+        $this->display('index');
     }
 
 

@@ -1,7 +1,7 @@
 <div class="toper navbar-fixed-top">
     <div class="row color_white " >
         <div class="col-xs-2" style="padding-left:25px;"><a class="cwhite" href="#"><img src="__PUBLIC__/Images/jt.png" ></a></div>
-        <div class="col-xs-8 text-center font20">方正大米</div>
+        <div class="col-xs-8 text-center font20">所有商品 ·</div>
         <div class="col-xs-2"><a href="#"><div class="photo_25" style="margin-top:3px;"><img src="__PUBLIC__/Images/ss.png" ></div></a></div>
     </div>
 </div>
@@ -11,48 +11,23 @@
 <div class="height20"></div>
 <div class=" container-fluid">
     <div class="row">
-
-        <div class="col-xs-6" style="padding-right:5px;" >
-            <div class="thumbnail" style="padding:0px;">
-                <a href="#"><div class="sosophoto"><img src="__PUBLIC__/Images/tu.jpg"></div></a>
-                <div class="caption">
-                    <h4>东北方正有机大米</h4>
-                    <p class="color_gray"><span class="font16 color_orange">¥ 12</span>/斤</p>
-                    <div class="text-center" style="text-align:right;"><a href="#" data-toggle="modal" data-target="#shopcar"><i class="icon-shopping-cart font16 color_green"><img src="__PUBLIC__/Images/che.png"></i> 加入购物车</a></div>
+        <volist name="list" id="vo">
+            <div class="col-xs-6" style="padding-right:5px;" >
+                <div class="thumbnail" style="padding:0px;">
+                    <a href="<{:U('goods/item')}>?id=<{$vo.gid}>"><div class="sosophoto"><img src="<{:C('imgHost')}><{$vo.img}>"></div></a>
+                    <div class="caption">
+                        <h4><{$vo.name}></h4>
+                    </div>
+                    <p class="color_gray">
+                        <span class="font16 color_orange">¥ <{$vo.buy_price}></span>&nbsp;&nbsp;
+                        <span class="font16 color_gray" style="text-decoration:line-through;">¥ <{$vo.market_price}></span>
+                    </p>
                 </div>
             </div>
-        </div>
-        <div class="col-xs-6" style="padding-right:5px;" >
-            <div class="thumbnail" style="padding:0px;">
-                <a href="#"><div class="sosophoto"><img src="__PUBLIC__/Images/tu.jpg"></div></a>
-                <div class="caption">
-                    <h4>东北方正有机大米</h4>
-                    <p class="color_gray"><span class="font16 color_orange">¥ 12</span>/斤</p>
-                    <div class="text-center" style="text-align:right;"><a href="#" data-toggle="modal" data-target="#shopcar"><i class="icon-shopping-cart font16 color_green"><img src="__PUBLIC__/Images/che.png"></i> 加入购物车</a></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-6" style="padding-right:5px;" >
-            <div class="thumbnail" style="padding:0px;">
-                <a href="#"><div class="sosophoto"><img src="__PUBLIC__/Images/tu.jpg"></div></a>
-                <div class="caption">
-                    <h4>东北方正有机大米</h4>
-                    <p class="color_gray"><span class="font16 color_orange">¥ 12</span>/斤</p>
-                    <div class="text-center" style="text-align:right;"><a href="#" data-toggle="modal" data-target="#shopcar"><i class="icon-shopping-cart font16 color_green"><img src="__PUBLIC__/Images/che.png"></i> 加入购物车</a></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-6" style="padding-right:5px;" >
-            <div class="thumbnail" style="padding:0px;">
-                <a href="#"><div class="sosophoto"><img src="__PUBLIC__/Images/tu.jpg"></div></a>
-                <div class="caption">
-                    <h4>东北方正有机大米</h4>
-                    <p class="color_gray"><span class="font16 color_orange">¥ 12</span>/斤</p>
-                    <div class="text-center" style="text-align:right;"><a href="#" data-toggle="modal" data-target="#shopcar"><i class="icon-shopping-cart font16 color_green"><img src="__PUBLIC__/Images/che.png"></i> 加入购物车</a></div>
-                </div>
-            </div>
-        </div>
-
+        </volist>
+    </div>
+    <div class="pagination">
+        <{$page}>
     </div>
 
     <div class="height20"></div>

@@ -67,10 +67,10 @@
         <a class="cgray1 sort" data-sort="gid" href="#"><div class="photo_60_60"><img src="__PUBLIC__/images/nav13.png"><br>全部宝贝</div></a>
     </div>
     <div class="col-xs-31  text-center">
-        <a class="cgray1 sort" data-sort="gid" href="#"><div class="photo_60_60"><img src="__PUBLIC__/images/nav14.png"><br>新品上架</div></a>
+        <a class="cgray1 sort" data-sort="create_time" href="#"><div class="photo_60_60"><img src="__PUBLIC__/images/nav14.png"><br>新品上架</div></a>
     </div>
     <div class="col-xs-31  text-center">
-        <a class="cgray1" href="#"><div class="photo_60_60"><img src="__PUBLIC__/images/nav15.png"><br>店铺动态</div></a>
+        <a class="cgray1 sort" data-sort="trends" href="#"><div class="photo_60_60"><img src="__PUBLIC__/images/nav15.png"><br>店铺动态</div></a>
     </div>
 
 </div>
@@ -111,23 +111,19 @@
             page = 1;
             hasMore = true;
             getGoods('click');
+            return false;
         });
         $('#addMore').click(function(){
-            console.log('发送点击');
             if(hasMore){
                 $(this).html('加载中');
                 getGoods();
             }
         })
     })
+    //滚动加载
     $(window).scroll(function(){
-//        var srollPos = $(window).scrollTop();    //滚动条距顶部距离(页面超出窗口的高度)
-//        console.log("滚动条到顶部的垂直高度: "+$(document).scrollTop());
-//        console.log("页面的文档高度 ："+$(document).height());
-//        console.log('浏览器的高度：'+$(window).height());
         var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop());
         if((parseFloat($(document).height())-totalheight)<120){
-            console.log('请求加载');
             $('#addMore').click();
         }
     })

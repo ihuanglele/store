@@ -43,16 +43,26 @@ class StoreController extends Controller
         $storeid = I('get.storeid');
         $sort = I('get.sort');
         $p = I('get.p',1,'number_int');
-        switch($sort){
-            case 'sold_num':$title = '热销宝贝';break;
-            case 'gid':$title = '所有宝贝';break;
-            default:$title = '热销宝贝';
-        }
-        $order = $sort.' desc';
-        //获取热销商品
+
         $Tool = A('Tool');
         $map['aid'] = $storeid;
         $map['status'] = 2;
+        switch($sort){
+            case 'sold_num':
+                $order = $sort.' desc';
+                $title = '热销宝贝';break;
+            case 'gid':
+                $order = $sort.' desc';
+                $title = '所有宝贝';break;
+            case 'create_time':
+                $order = $sort.' desc';
+                $title = '最新上架';break;
+            case 'trends':
+                $order = 'gid desc';
+                $title = '最新订单';$map['gid'] = array('in',$this->getBuyRecord($storeid));break;
+            default:$title = '热销宝贝';
+        }
+
         $list = $Tool->getData(M('goods'),$map,$order,'gid,name,img,market_price,buy_price');
         $num = count($list);
         $data['title'] = $title;
@@ -62,6 +72,18 @@ class StoreController extends Controller
         $data['list'] = $list;
         $data['status'] = 1;
         $this->ajaxReturn($data);
+    }
+
+    /**
+     * 获取一个店铺的最近销售的
+     */
+    private function getBuyRecord($aid){
+        $arr[] = 0;
+        $arr = M('orders')->where(array('aid'=>$aid))->getField('gid',true);
+        if(!is_array($arr)){
+            $arr = array('0');
+        }
+        return $arr;
     }
 
 }
