@@ -11,7 +11,7 @@ class IndexController extends Controller
      */
     public function index(){
         $Tool = A('Tool');
-        $Tool->getData(M('goods'),'','gid desc','gid,name,img');
+        $Tool->getData(M('goods'),'','gid desc','gid,name,img,market_price,buy_price');
         $this->display('index');
     }
 
