@@ -66,7 +66,6 @@ class GoodsController extends CommonController
         $id = I('get.id');
         $info = M('goods')->find($id);
         if($info){
-            $info['imgs'] = json_decode($info['imgs'],true);
             $this->assign('info',$info);
             $this->assign('GoodsType',json_decode(readConf('goodsType'),true));
             $this->assign('GoodsStatus',C('GoodsStatus'));

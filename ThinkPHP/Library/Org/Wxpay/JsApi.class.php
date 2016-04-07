@@ -40,9 +40,9 @@ class JsApi
     public function GetOpenid()
     {
         //通过code获得openid
-        if (!isset($_GET['code'])) {
+        if (!isset($_GET['code'])){
             //触发微信返回code码
-            $baseUrl = urlencode('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . $_SERVER['QUERY_STRING']);
+            $baseUrl = urlencode('http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].$_SERVER['QUERY_STRING']);
             $url = $this->__CreateOauthUrlForCode($baseUrl);
             Header("Location: $url");
             exit();
@@ -64,10 +64,11 @@ class JsApi
      */
     public function GetJsApiParameters($UnifiedOrderResult)
     {
-        if (!array_key_exists("appid", $UnifiedOrderResult)
+        if(!array_key_exists("appid", $UnifiedOrderResult)
             || !array_key_exists("prepay_id", $UnifiedOrderResult)
-            || $UnifiedOrderResult['prepay_id'] == ""
-        ) {
+            || $UnifiedOrderResult['prepay_id'] == "")
+        {
+            var_dump($UnifiedOrderResult);
             throw new WxPayException("参数错误");
         }
         $jsapi = new WxPayJsApiPay();
@@ -97,21 +98,20 @@ class JsApi
         //设置超时
         curl_setopt($ch, CURLOPT_TIMEOUT, 6);
         curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER,FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST,FALSE);
         curl_setopt($ch, CURLOPT_HEADER, FALSE);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-        if (C('Wx.CURL_PROXY_HOST') != "0.0.0.0"
-            && C('Wx.CURL_PROXY_PORT') != 0
-        ) {
-            curl_setopt($ch, CURLOPT_PROXY, C('Wx.CURL_PROXY_HOST'));
-            curl_setopt($ch, CURLOPT_PROXYPORT, C('Wx.CURL_PROXY_PORT'));
+        if(C('Wx.CURL_PROXY_HOST') != "0.0.0.0"
+            && C('Wx.CURL_PROXY_PORT') != 0){
+            curl_setopt($ch,CURLOPT_PROXY, C('Wx.CURL_PROXY_HOST'));
+            curl_setopt($ch,CURLOPT_PROXYPORT, C('Wx.CURL_PROXY_PORT'));
         }
         //运行curl，结果以jason形式返回
         $res = curl_exec($ch);
         curl_close($ch);
         //取出openid
-        $data = json_decode($res, true);
+        $data = json_decode($res,true);
         $this->data = $data;
         $openid = $data['openid'];
         return $openid;
@@ -127,8 +127,9 @@ class JsApi
     private function ToUrlParams($urlObj)
     {
         $buff = "";
-        foreach ($urlObj as $k => $v) {
-            if ($k != "sign") {
+        foreach ($urlObj as $k => $v)
+        {
+            if($k != "sign"){
                 $buff .= $k . "=" . $v . "&";
             }
         }
@@ -148,7 +149,7 @@ class JsApi
         $getData = $this->data;
         $data = array();
         $data["appid"] = C('Wx.AppID');
-        $data["url"] = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        $data["url"] = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
         $time = time();
         $data["timestamp"] = "$time";
         $data["noncestr"] = "1234568";
@@ -182,15 +183,15 @@ class JsApi
         $urlObj["redirect_uri"] = "$redirectUrl";
         $urlObj["response_type"] = "code";
         $urlObj["scope"] = "snsapi_base";
-        $urlObj["state"] = "STATE" . "#wechat_redirect";
+        $urlObj["state"] = "STATE"."#wechat_redirect";
         $bizString = $this->ToUrlParams($urlObj);
-        return "https://open.weixin.qq.com/connect/oauth2/authorize?" . $bizString;
+        return "https://open.weixin.qq.com/connect/oauth2/authorize?".$bizString;
     }
 
     /**
      *
      * 构造获取open和access_toke的url地址
-     * @param string $code ，微信跳转带回的code
+     * @param string $code，微信跳转带回的code
      *
      * @return 请求的url
      */
@@ -201,6 +202,6 @@ class JsApi
         $urlObj["code"] = $code;
         $urlObj["grant_type"] = "authorization_code";
         $bizString = $this->ToUrlParams($urlObj);
-        return "https://api.weixin.qq.com/sns/oauth2/access_token?" . $bizString;
+        return "https://api.weixin.qq.com/sns/oauth2/access_token?".$bizString;
     }
 }
