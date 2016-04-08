@@ -1,0 +1,71 @@
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+<script>
+    wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: '<{$signPackage["appId"]}>', // 必填，公众号的唯一标识
+        timestamp: '<{$signPackage["timestamp"]}>', // 必填，生成签名的时间戳
+        nonceStr: '<{$signPackage["nonceStr"]}>', // 必填，生成签名的随机串
+        signature: '<{$signPackage["signature"]}>',// 必填，签名，见附录1
+        jsApiList: [
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage'
+        ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+
+    wx.ready(function(){
+
+        var shareData = {
+            title: "这里有好货你要不要",
+            desc: '快来看看吧',
+            link: '<{$url}>',
+            imgUrl: 'http://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<{$url}>'
+        };
+        wx.onMenuShareAppMessage(shareData);
+        wx.onMenuShareTimeline(shareData);
+
+    })
+
+
+</script>
+
+<div class="toper navbar-fixed-top">
+    <div class="row color_white " >
+        <div class="col-xs-2" style="padding-left:25px;"><a class="cwhite" href="<{:U('user/index')}>"><img src="__PUBLIC__/images/jt.png" ></a></div>
+        <div class="col-xs-8 text-center font20">我的推广链接</div>
+        <div class="col-xs-2"><a href="#"><div class="photo_25" style="margin-top:3px;"></div></a></div>
+    </div>
+</div>
+<div class="height53"></div>
+<style>
+    *{padding: 0px;margin:0px}
+    .heaer{
+        background: #eeeeee;
+    }
+    .heaer .img{
+        display: inline-block;
+        margin: 10px 10px 10px 20px;
+    }
+    .heaer .img img{
+        width: 36px;
+        border-radius: 50%;
+    }
+    .heaer .info{
+        display: inline-block;
+    }
+    .heaer h4{color:#424242;}
+    .heaer p{color:#a2a2a2;margin-top: 5px;}
+
+    .main{
+        width: 100%;
+        margin: 20px auto;
+        text-align: center;
+    }
+    .qrcode{width: 55%;}
+    .tip1{color:#ff902d;margin-top: 30px;}
+    .tip2{color:#bdbdbd;margin-top: 10px;    font-size: 15px;}
+</style>
+<div class="main">
+    <img class="qrcode" src="http://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<{$url}>" />
+    <p class="tip1">我的推广二维码</p>
+    <p class="tip2">分享该页面也可以推广</p>
+</div>

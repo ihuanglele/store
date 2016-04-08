@@ -90,6 +90,7 @@ Home        //网站前台模块
         |- delAddress   (?id)   //删除收货地址
         |- myPacket         //我的红包
         |- myInvite         //我的邀请
+        |- myLink           //我的邀请链接
         |- login            //登录
         |- addFav  (?id$ac[do|undo])        //添加|删除收藏
         |- myFav            //显示我的收藏

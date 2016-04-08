@@ -352,6 +352,19 @@ class UserController extends Controller
     }
 
     /**
+     * 显示我的推广链接
+     */
+    public function myLink(){
+        //生成js签名
+        $WxJS = A('Wxjs');
+        $this->assign('signPackage',$WxJS->GetSignPackage());
+        $url = U('user/login',array('invite'=>$this->uid),true,true);
+        $this->assign('url',$url);
+        $this->assign('uid',$this->uid);
+        $this->display('myLink');
+    }
+
+    /**
      * 购物
      */
     public function buy(){
