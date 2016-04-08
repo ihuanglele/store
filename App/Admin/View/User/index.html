@@ -55,7 +55,6 @@
                 <th>昵称</th>
                 <th>是否关注</th>
                 <th>关注时间</th>
-                <th>参与次数</th>
                 <th>账户余额</th>
                 <th>最后登录时间</th>
                 <th>更多</th>
@@ -69,7 +68,6 @@
                     <td><{$vo.nickname}></td>
                     <td><{$Status[$vo['subscribe']]}></td>
                     <td><{:Mydate($vo['subscribe_time'])}></td>
-                    <td><{$vo.guess_times}></td>
                     <td><{$vo['money']}></td>
                     <td><{:Mydate($vo['last_time'])}></td>
                     <td><a href="<{:U('user/userInfo',array('uid'=>$vo['uid']))}>">更多</a></td>
