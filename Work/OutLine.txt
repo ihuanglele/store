@@ -1,3 +1,8 @@
+微信公众号信息
+    AppId:wxed5b296d4910abe6
+    AppSecert:80bd81e91b99deae2f895c0179aa7e54
+    tepinhui123@sina.com
+    tepinhui123
 缓存数据说明
     adminNoteDoc        //后台页面通知
     adminDefaultPwd     //商家默认重置密码
