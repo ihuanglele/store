@@ -8,6 +8,7 @@
     adminDefaultPwd     //商家默认重置密码
     goodsType           //商品分类（json）
     adminDefaultRate   //商家默认分成比例
+    InviteReward       //邀请红包大小
 
 Session存储说明
     uid  用户uid

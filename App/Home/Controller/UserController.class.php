@@ -253,7 +253,7 @@ class UserController extends Controller
         $UserInfo = $User->field('uid,money,openid')->find();
         if($UserInfo){
             //来自合法的邀请
-            $da['money'] = C('InviteReward');
+            $da['money'] = readConf('InviteReward')?readConf('InviteReward'):C('InviteReward');
             $da['type'] = 4;
             $da['note'] = '邀请用户注册';
             $da['time'] = time();

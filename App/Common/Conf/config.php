@@ -104,7 +104,7 @@ return array(
         '3' => '已过期',
     ),
 
-    //设置邀请红包大小
-    'InviteReward' => 3,
+    //默认邀请红包大小
+    'InviteReward' => 1,
 
 );

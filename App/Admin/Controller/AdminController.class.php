@@ -229,4 +229,19 @@ class AdminController extends CommonController
         $this->display('setGoodsType');
     }
 
+    /**
+     * 设置邀请红包大小
+     */
+    public function setInviteReward(){
+        if(isset($_POST['submit'])){
+            $value = $_POST['value'];
+            writeConf('InviteReward',$value);
+        }else{
+            $value = readConf('InviteReward');
+        }
+        if(!$value) $value = C('InviteReward');
+        $this->assign('value',$value);
+        $this->display('setInviteReward');
+    }
+
 }
