@@ -65,4 +65,48 @@ class IndexController extends Controller
         session('openid',$openId);
     }
 
+    /**
+     * 申请代理
+     */
+    public function applyAgent(){
+        if(isset($_POST['submit'])){
+            $data = $_POST;
+            $M = D('Admin');
+            if($M->create($data)){
+                $data['password'] = md5($data['password']);
+                $data['time'] = time();
+                $data['role'] = 3;
+//                $data['status'] = readConf('adminDefaultStatus');
+                $data['status'] = 1;
+                $data['create_time'] = time();
+                $data['rate'] = readConf('adminDefaultRate')?readConf('adminDefaultRate'):5;
+
+                $uplaod = new \Think\Upload(C('UploadConfig'));
+                $file = $uplaod->upload();
+                if(!$file){
+                    $this->error($uplaod->getError());
+                }
+                if(!isset($file['img'])){
+                    $this->error('请上传店铺图片');
+                }else{
+                    $data['headimgurl'] = $file['img']['savepath'].$file['img']['savename'];
+                    $image = new \Think\Image();
+                    $image->open('./upload/'.$data['headimgurl']);
+                    $image->thumb(150,150,2)->save('./upload/'.$data['headimgurl']);
+                }
+
+                if($M->add($data)){
+//                    sendAdminEmail('reg');
+                    $this->success('申请成功',U('index'));
+                }else{
+                    $this->error('申请失败');
+                }
+            }else{
+                $this->error($M->getError());
+            }
+        }else {
+            $this->display('applyAgent');
+        }
+    }
+
 }

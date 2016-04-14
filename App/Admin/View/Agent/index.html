@@ -1,0 +1,76 @@
+<style>
+    .headimg{
+        width: 25px;
+        border-radius: 50%;
+    }
+</style>
+<form class="form-horizontal" action="<{:U('index')}>" method="get">
+    <div class="row">
+        <div class="col-xs-3">
+            <div class="form-group">
+                <label class="sr-only">店铺名</label>
+                <div class="input-group">
+                    <div class="input-group-addon">店铺名</div>
+                    <input type="text" class="form-control" id="storename" name="storename" placeholder="填写店铺名" value="<{$storename}>">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-5">
+            <div class="form-group">
+                <label class="sr-only" for="username">代理用户名</label>
+                <div class="input-group">
+                    <div class="input-group-addon">代理用户名</div>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="填写代理用户名" value="<{$username}>">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-2">
+            <select class="form-control" name="status">
+                <option value="-1">全部用户</option>
+                <volist name="Status" id="v">
+                    <option value="<{$key}>" ><{$v}></option>
+                </volist>
+            </select>
+        </div>
+        <div class="col-xs-2 ">
+            <button type="submit" class="btn btn-primary">搜索</button>
+        </div>
+    </div>
+</form>
+<script>
+    $(window).ready(function(){
+        $('select[name="status"]').val('<{$status}>');
+    })
+</script>
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            用户列表
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>代理ID</th>
+                <th>用户名</th>
+                <th>店铺名</th>
+                <th>状态</th>
+                <th>账户余额</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <volist name="list" id="vo">
+                <tr>
+                    <td><{$vo.aid}></td>
+                    <td><{$vo.username}></td>
+                    <td><{$vo.storename}></td>
+                    <td><{$Status[$vo['status']]}></td>
+                    <td><{$vo['money']}></td>
+                    <td><a href="<{:U('info')}>?id=<{$vo.aid}>">详情</a></td>
+                </tr>
+            </volist>
+            </tbody>
+        </table>
+    </div>
+    <div><{$page}></div>
+</div>
