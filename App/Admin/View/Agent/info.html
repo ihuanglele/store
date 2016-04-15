@@ -42,7 +42,7 @@
 
             <tr>
                 <td width="60%">
-                    <form id="update" name="row form-inline update" action="<{:U('user/update')}>" method="post">
+                    <form id="update" name="row form-inline update" action="<{:U('agentUpdate')}>" method="post">
                         <input type="hidden" name="aid" value="<{$info.aid}>">
                         <input type="hidden" name="type" value="shang">
                         <div class="col-sm-5">
@@ -112,16 +112,7 @@
         rate = "<{$info.rate}>"
         $('select[name="status"]',form).val(oldStatus);
         form.submit(function(){
-            newRate = $('input[name="rate"]').val();
-            if(isNaN(newRate)){
-                alert('请填写正确的金额');
-                return false;
-            }
-            if(newRate<=0 || newRate>100){
-                alert('分成应该为0~100直接的值');
-                return false;
-            }
-            if($('select[name=status]',form).val() == oldStatus && newRate==rate){
+            if($('select[name=status]',form).val() == oldStatus ){
                 alert('你没有改变信息');
                 return false;
             }else {

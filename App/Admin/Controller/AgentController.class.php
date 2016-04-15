@@ -15,7 +15,7 @@ class AgentController extends CommonController
      * 列出所有的代理
      */
     public function index(){
-
+        $this->checkRole(1);
         $map = array();
         $map['role'] = 3;
         $aid = I('get.aid');
@@ -55,6 +55,7 @@ class AgentController extends CommonController
      * 设置商品属性
      */
     public function goods(){
+        $this->checkRole(1);
         if(isset($_POST['submit'])){
             $data = $_POST;
             //判断是否有文件上传
@@ -83,6 +84,7 @@ class AgentController extends CommonController
 
 
     public function info(){
+        $this->checkRole(1);
         $id = I('get.id');
         $info = M('admin')->find($id);
         if(!$info) $this->error('用户不存在',U('shang'));
@@ -95,6 +97,7 @@ class AgentController extends CommonController
      * 添加推手自定义财务
      */
     public function smoney(){
+        $this->checkRole(1);
         $status = I('post.status',0,'number_int');
         $amount = I('post.amount',0,'float');
         $aid = I('post.aid',0,'number_int');
@@ -187,6 +190,28 @@ class AgentController extends CommonController
 
 
     /**
+     * 更新代理状态
+     */
+    public function agentUpdate(){
+        $this->checkRole(1);
+        if(isset($_POST['submit'])){
+            $M = M('admin');
+            $aid = I('post.aid');
+            $data['status'] = I('post.status');
+            $data['aid'] = $aid;
+            if($M->save($data)){
+                $this->success('更新成功');
+            }else{
+                $this->error('更新失败');
+            }
+        }else{
+            $this->error('参数错误');
+        }
+
+    }
+
+
+    /**
      * 订单详情
      */
     public function orderDetail(){
@@ -220,5 +245,14 @@ class AgentController extends CommonController
         }
     }
 
+    /**
+     * 显示我的二维码
+     */
+    public function qrCode(){
+        $url = U('goods/machine',array('aid'=>$this->aid),true,true);
+        $url = str_replace('admin.php','index.php',$url);
+        $this->assign('url',$url);
+        $this->display('qrCode');
+    }
 
 }

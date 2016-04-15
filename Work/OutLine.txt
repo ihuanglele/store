@@ -78,6 +78,7 @@ Home        //网站前台模块
     |- GoodsController
         |- index            //显示所有商品列表
         |- item  (?id)       //显示具体的某个商品
+        |- machine  (?aid)  //机器购买
 
     |- StoreController
         |- index            //显示所有店铺

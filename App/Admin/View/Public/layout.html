@@ -48,11 +48,18 @@
     <div class="row">
         <div class="col-xs-3 col-md-3 col-lg-2">
             <div id="mainNav" class="sidebar-nav">
-                <eq name="role" value="1">
-                    <include file="Public/adminNav" />
-                    <else />
-                    <include file="Public/shangNav" />
-                </eq>
+                <switch name="role">
+                    <case value="1">
+                        <include file="Public/adminNav" />
+                    </case>
+                    <case value="2">
+                        <include file="Public/shangNav" />
+                    </case>
+                    <case value="3">
+                        <include file="Public/agentNav" />
+                    </case>
+                    <default />
+                </switch>
             </div>
         </div>
         <div class="col-sm-9 col-md-9 col-lg-10">
