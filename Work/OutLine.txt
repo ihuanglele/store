@@ -83,6 +83,8 @@ Home        //网站前台模块
     |- StoreController
         |- index            //显示所有店铺
         |- store (?id)      //显示店铺首页
+        |- selfStore (?aid)      //显示官方店铺
+
 
     |- UserController
         |- index                //显示个人中心

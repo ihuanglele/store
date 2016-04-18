@@ -114,4 +114,15 @@ return array(
     //默认邀请红包大小
     'InviteReward' => 1,
 
+    //自动产品的状态
+    'ProductStatus' => array(
+        '1' => '上架',
+        '2' => '下架',
+    ),
+    //自动产品的状态
+    'ProductType' => array(
+        '1' => '单品',
+        '2' => '套餐',
+    ),
+
 );

@@ -77,7 +77,8 @@ class IndexController extends CommonController {
 
     //查看自己的财务
     public function money(){
-        $this->checkRole(2);
+//        $this->checkRole(2);
+        if($this->role == 1){$this->error('没有权限');die;}
         $map = array();
         $mid = I('get.mid','','number_int');
         $this->assign('mid',$mid);

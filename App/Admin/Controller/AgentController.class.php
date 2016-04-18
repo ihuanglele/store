@@ -249,7 +249,7 @@ class AgentController extends CommonController
      * 显示我的二维码
      */
     public function qrCode(){
-        $url = U('goods/machine',array('aid'=>$this->aid),true,true);
+        $url = U('store/selfStore',array('aid'=>$this->aid),true,true);
         $url = str_replace('admin.php','index.php',$url);
         $this->assign('url',$url);
         $this->display('qrCode');

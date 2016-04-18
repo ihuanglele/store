@@ -86,4 +86,13 @@ class StoreController extends Controller
         return $arr;
     }
 
+    /**
+     *显示官方店铺（显示两个分类）
+     */
+    public function selfStore(){
+        $aid = I('get.aid',0,'number_int');
+        $this->assign('aid',$aid);
+        $this->display('selfStore');
+    }
+
 }
