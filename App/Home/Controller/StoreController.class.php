@@ -91,6 +91,10 @@ class StoreController extends Controller
      */
     public function selfStore(){
         $aid = I('get.aid',0,'number_int');
+        $listType1 = M('product')->where(array('status'=>1,'type'=>1))->order('pid desc')->field('pid,name,price,img')->select();
+        $listType2 = M('product')->where(array('status'=>1,'type'=>2))->order('pid desc')->field('pid,name,price,img')->select();
+        $this->assign('listType1',$listType1);
+        $this->assign('listType2',$listType2);
         $this->assign('aid',$aid);
         $this->display('selfStore');
     }

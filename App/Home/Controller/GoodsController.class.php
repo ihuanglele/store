@@ -43,7 +43,7 @@ class GoodsController extends Controller
         $type = I('get.type',0,'number_int');
         $Tool = A('Tool');
         $map['status'] = 1;
-        if(!$type){
+        if($type){
             $map['type'] = $type;
         }
         $this->assign('type',$type);
