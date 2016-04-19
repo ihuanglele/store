@@ -109,4 +109,9 @@ class IndexController extends Controller
         }
     }
 
+    public function test(){
+        echo THINK_PATH;
+        var_dump($_SERVER);
+    }
+
 }

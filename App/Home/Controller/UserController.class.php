@@ -355,13 +355,23 @@ class UserController extends Controller
      * 显示我的推广链接
      */
     public function myLink(){
-        //生成js签名
-        $WxJS = A('Wxjs');
-        $this->assign('signPackage',$WxJS->GetSignPackage());
-        $url = U('user/login',array('invite'=>$this->uid),true,true);
-        $this->assign('url',$url);
-        $this->assign('uid',$this->uid);
-        $this->display('myLink');
+        layout(false);
+        C('SHOW_PAGE_TRACE',false);
+        $qrImgPath = THINK_PATH.'../qrCodeImg/'.$this->uid.'.jpg';
+        $bgImgPath = THINK_PATH.'../Public/images/tg.jpg';
+        if(!is_file($qrImgPath)){
+            //没有自己的推广二维码
+            if(!$this->getQrCode()){
+                die('服务器出错');
+            }
+        }
+        header('Content-Type: image/jpeg');
+        $image = imagecreatefromjpeg($bgImgPath);
+        $water = imagecreatefromjpeg($qrImgPath);
+        imagecopy($image,$water,100,200,0,0,200,200);
+        imagedestroy($water);
+        $r = imagejpeg($image);
+        imagedestroy($image);
     }
 
     /**
@@ -370,5 +380,46 @@ class UserController extends Controller
     public function buy(){
         var_dump($_POST);
     }
+
+    /**
+     * 返回个人推广二维码地址
+     */
+    private function getQrCode(){
+        $ticket = $this->getTicke();
+        if($ticket){
+            $qrUrl = 'https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket='.urldecode($ticket);
+            $pic = myCurl($qrUrl);
+            $filePath = THINK_PATH.'../qrCodeImg/'.$this->uid.'.jpg';
+            file_put_contents($filePath,$pic);
+            $image = new \Think\Image();
+            $image->open($filePath)->thumb(200,200)->save($filePath);
+            return true;
+        }else{
+            die('没有获取到了ticket');
+            return false;
+        }
+    }
+
+    /**
+     * http请求方式: POST
+     *   URL: https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=TOKENPOST数据格式：json
+     *   POST数据例子：{"action_name": "QR_LIMIT_SCENE", "action_info": {"scene": {"scene_id": 123}}}
+     * 或者也可以使用以下POST数据创建字符串形式的二维码参数：
+     * {"action_name": "QR_LIMIT_STR_SCENE", "action_info": {"scene": {"scene_str": "123"}}}
+     */
+    private function getTicke(){
+        $url = 'https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token='.getWxAccessToken();
+        $data = '{"action_name": "QR_LIMIT_STR_SCENE", "action_info": {"scene": {"scene_str": "'.$this->uid.'"}}}';
+        $curlArr = array(CURLOPT_POSTFIELDS=>$data);
+        $res = json_decode(myCurl($url,$curlArr),true);
+        if(isset($res['ticket'])){
+            return $res['ticket'];
+        }else{
+            var_dump($res);
+            die();
+            return false;
+        }
+    }
+
 
 }
