@@ -1,3 +1,54 @@
+<body id="hometop">
+<nav class="navbar"><img src="images/dmlogo.jpg" width="100%">
+    <a href="javascript:history.go(-1);" class="topleft">
+        <img src="images/vipbk.png" width="25">
+    </a>
+</nav>
+
+<article>
+
+    <section class="commbox">
+        <h3><a href="<{:U('store/selfStore')}>">
+            <span>
+                <img src="images/title_arrow.png" width="90%" border="0">
+            </span>
+            <em>Settledmerchants</em></a></h3>
+
+        <div class="border">
+            入住商家列表
+        </div>
+
+        <ul class="pic_list">
+            <li>
+                <volist name="list" id="vo">
+                    <li>
+                        <a href="<{:U('store/store')}>?id=<{$vo.aid}>">
+                            <img src="<{:C('imgHost')}><{$vo.img}>" />
+                            <div class="info">
+                                <div class="sat"><{$vo.storename}><img src="__PUBLIC__/images/dp.png" align="right"></div>
+                                <div class="sat2">
+                                    <!--<span  class="shu">产品总数：<small>464</small></span>-->
+                                    <span class="bnt">进入店铺</span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </volist>
+            </li>
+        </ul>
+    </section>
+    <div class="pagination">
+        <{$page}>
+    </div>
+
+</article>
+
+<footer class="ft">
+    <div class="copyright">
+        <p><a href="#hometop"><img width="20%" src="images/top.png"/></a></p>
+    </div>
+</footer>
+
 <div class="toper navbar-fixed-top">
     <div class="row color_white " >
         <div class="col-xs-2" style="padding-left:25px;"><a class="cwhite" href="#"><img src="__PUBLIC__/images/jt.png" ></a></div>

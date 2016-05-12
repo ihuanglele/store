@@ -1,0 +1,209 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <meta name="apple-mobile-web-app-capable" content="no"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <title>网站模板 </title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <meta http-equiv="Cache-Control" content="must-revalidate,no-cache" />
+
+    <link rel="stylesheet" href="css/index2.css" />
+
+</head>
+<body>
+<article id="hometop" class="home ">
+    <section class="scroll_tou"><img src="images/logo.png" width="100%" border="0"></section>
+    <section class="scroll_img">
+        <ul class="icon_nav">
+            <li><a href="#"><img src="images/icon11.png" ><br><span>大米商城</span><br>DAMISHANGCHENG</a></li>
+            <li><a href="#"><img src="images/icon12.png" ><br><span>鲜米专区</span><br>XIANMIZHUANQU</a></li>
+            <li><a href="#"><img src="images/icon13.png" ><br><span>代理专区</span><br>DAILIZHUANQU</a></li>
+            <li><a href="#"><img src="images/icon14.png" ><br><span>会员专区</span><br>HUIYUANZHUANQU</a></li>
+
+        </ul>
+    </section>
+    <script type="text/javascript" src="js/iscroll.js"></script>
+    <script type="text/javascript">
+        var myScroll;
+        function loaded() {
+            myScroll = new iScroll('wrapper', {
+                snap: true,
+                momentum: false,
+                hScrollbar: false,
+                onScrollEnd: function () {
+                    document.querySelector('#indicator > li.on').className = '';
+                    document.querySelector('#indicator > li:nth-child(' + (this.currPageX+1) + ')').className = 'on';
+                }
+            });
+        }
+        document.addEventListener('DOMContentLoaded', loaded, false);
+        setInterval(function(){
+            if(myScroll.currPageX==2){
+                myScroll.scrollToPage(0, 0);
+            }else{
+                myScroll.scrollToPage('next', 0);}
+        },5000);
+    </script>
+
+
+    <style type="text/css">
+        #scroller {
+            width:1920px;
+            height:100%;
+            float:left;
+        }
+        #wrapper {
+            width:320px;
+            height:125px;
+            float:left;
+        }
+    </style>
+    <section class="main_focus">
+        <div class="img_focus" id="wrapper">
+            <div id="scroller">
+                <ul id="thelist">
+                    <li><a href="#"><img width="320" height="125" src="images/banner1.jpg"/></a></li>
+                    <li><a href="#"><img width="320" height="125" src="images/banner2.jpg"/></a></li>
+                    <li><a href="#"><img width="320" height="125" src="images/banner3.jpg"/></a></li>
+
+                </ul>
+            </div>
+            <div class="img_mornitor"  >
+                <ol id="indicator">
+                    <li class="on">1</li>
+                    <li>2</li><li>3</li>			</ol>
+            </div>
+        </div>
+    </section>
+    <section class="notice">
+        <div class="noticebar"><div class="barline"><img src="images/line.png"></div><div class="barline2"><img src="images/line.png"></div></div>
+    </section>
+
+    <section class="index_search">
+        <div class="search_field">
+            <form id="index_search_form" method="get" action='search.php' target="_parent" onSubmit="$('#keywords').val($('#input_keyword').val());" >
+                <input name="keyword" type="text" value="尾品汇" onKeyDown="this.style.color='#404040'" onBlur="if(this.value==''){this.value='尾品汇';this.style.color='#b6b7b9';}" onFocus="if(this.value!='尾品汇'){this.style.color='#404040';}else{this.value='';this.style.color='#404040'}" class="keyword"/>
+                <input type="submit" value="" />
+
+            </form>
+        </div>
+    </section>
+
+
+    <section class="link_area">
+        <img src="images/dsj.png" width="100%" border="0">
+        <p>方正——中国水稻寒地旱育稀植技术发源地。早在嘉庆22年就有种植“红毛”稻的记载。</p>
+        <p align="right"><img src="images/niu.png" width="40%" border="0"></p>
+        <p>200年来，勤劳的方正人民凭借得天独厚的自然环境，丰富的水资源，肥沃的黑土地，不断优化改良品种与种植技术。</p>
+        <p class="lk1"><img src="images/lvline.png" width="100%" border="0"></p>
+        <p><img src="images/1981.png" width="20%" border="0"></p>
+        <p class="lk1">1981年引进日本水稻专家藤原长作老先生的寒地水稻旱育稀植栽培技术,确立了“优质品种是前提,旱育壮秧是基础,早插稀植是核心，科学管理是保证”,开创北方稻作生产发展新模式。</p>
+
+    </section>
+    <p align="right"><img src="images/zhaopian.png" width="80%" border="0"></p>
+    <section class="link_area">
+        <p class="lk1">三面环山一面靠水的地理环境，肥沃的黑土地和长达半年的土地休养期，多达十几度的昼夜温差，孕育了无与伦比的方正大米。</p>
+        <p>
+        <table width="100%" border="0" style="line-height:24px">
+            <tr><td width="20%" height="60"><img src="images/tiao1.png" width="80%" border="0"></td><td>地处<br>北纬45度</td><td width="20%"><img src="images/tiao2.png" width="80%" border="0"></td><td>年活动积温<br>2700度</td></tr>
+            <tr><td width="20%" height="60"><img src="images/tiao3.png" width="80%" border="0"></td><td>年均降水量<br>516毫米</td><td width="20%"><img src="images/tiao4.png" width="80%" border="0"></td><td>年均无霜期<br>130天</td></tr>
+            <tr><td width="20%" height="60"><img src="images/tiao5.png" width="80%" border="0"></td><td>有机土壤厚度<br>深达200厘米</td><td width="20%"><img src="images/tiao6.png" width="80%" border="0"></td><td>21条天然河<br>流,纵横交错</td></tr>
+        </table></p>
+
+        <p class="lk1"><img src="images/lanline.png" width="100%" border="0"></p>
+        <p><img src="images/1999.png" width="20%" border="0"></p>
+        <p class="lk1">1999年方正县被中国特产之乡推荐暨宣传组委会授予“中国富硒大米之乡”。</p>
+    </section>
+    <p align="left"><img src="images/zhengshu.png" width="80%" border="0"></p>
+    <section class="link_area">
+        <p class="lk1"><img src="images/huang.png" width="100%" border="0"></p>
+        <p><img src="images/2005.png" width="20%" border="0"></p>
+        <p class="lk1">
+            2005年，方正大米正式被国家质监总局列为<br>
+            “地理标志保护产品”。</p>
+    </section>
+    <p align="right"><img src="images/baohu.png" width="80%" border="0"></p>
+    <section class="link_area">
+        <p class="lk1"><img src="images/lvline.png" width="100%" border="0"></p>
+        <p><img src="images/weilai.png" width="20%" border="0"></p>
+        <p class="lk1">
+            方正大米好似出淤泥而不染的晶莹珍珠，饱含着方正劳动人民的汗水，汲取着大自然的养分,以其香、醇、鲜、糯的口感和富硒多元的营养，把健康与美味奉献给全国各地的消费者。</p>
+        <p align="center"><img src="images/shou.png" width="60%" border="0"></p>
+    </section>
+    <img src="images/bian.png" width="100%" border="0">
+</article>
+
+
+<article>
+
+    <section class="commbox">
+        <h3><a href="product.html"><span><img src="images/title_arrow.png" width="90%" border="0">  </span><em>Settled merchants</em></a></h3>
+        <div class="border">
+            入住商家列表
+        </div>
+
+        <ul class="pic_list">
+            <li>
+                <a href="product.html">
+
+                    <img src="http://img4.ddimg.cn/00161/wapdd/290-140106-20689276.jpg" />
+                    <div class="info">
+                        <div class="sat">有限公司地方<img src="images/dp.png" align="right"></div>
+                        <div class="sat2"><span  class="shu">产品总数：<small>464</small></span>
+                            <span class="bnt">进入店铺</span>
+                        </div>
+                    </div></a>
+            </li>
+
+            <li>
+                <a href="product.html">
+
+                    <img src="http://img4.ddimg.cn/00161/wapdd/290-140106-20689276.jpg" />
+                    <div class="info">
+                        <div class="sat">有限公司地方<img src="images/dp.png" align="right"></div>
+                        <div class="sat2"><span  class="shu">产品总数：<small>464</small></span>
+                            <span class="bnt">进入店铺</span>
+                        </div>
+                    </div></a>
+            </li>
+
+            <li>
+                <a href="product.html">
+
+                    <img src="http://img4.ddimg.cn/00161/wapdd/290-140106-20689276.jpg" />
+                    <div class="info">
+                        <div class="sat">有限公司地方<img src="images/dp.png" align="right"></div>
+                        <div class="sat2"><span  class="shu">产品总数：<small>464</small></span>
+                            <span class="bnt">进入店铺</span>
+                        </div>
+                    </div></a>
+            </li>
+
+            <li>
+                <a href="product.html">
+
+                    <img src="http://img4.ddimg.cn/00161/wapdd/290-140106-20689276.jpg" />
+                    <div class="info">
+                        <div class="sat">有限公司地方<img src="images/dp.png" align="right"></div>
+                        <div class="sat2"><span  class="shu">产品总数：<small>464</small></span>
+                            <span class="bnt">进入店铺</span>
+                        </div>
+                    </div></a>
+            </li>
+
+        </ul>
+    </section>
+</article>
+
+<footer class="ft">
+    <div class="copyright">
+        <p><a href="#hometop"><img width="20%"src="images/top.png" /></a></p>
+    </div>
+</footer>
+
+</body>
+</html>

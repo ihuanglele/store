@@ -3254,7 +3254,7 @@ HTML DOM to match. */
 
 /* Sort of singletons, since there should only be one per editable math
 textbox, but any one HTML document can contain many such textboxes, so any one
-JS environment could actually contain many instances. */
+js environment could actually contain many instances. */
 
 //A fake cursor in the fake textbox that the math is rendered in.
 var Cursor = P(Point, function(_) {

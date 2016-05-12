@@ -1,8 +1,5 @@
-<style>
-    #regForm{
-        margin-top: 10px;
-    }
-</style>
+<body class="huibg">
+
 <script>
     $(window).ready(function(){
         $('#regForm').submit(function(){
@@ -51,52 +48,50 @@
         });
     });
 </script>
-<div class="container">
+<nav class="navbar text-center">
+    <img src="__PUBLIC__/images/dllogo.jpg" width="100%">
+    <button class="topleft" onclick="javascript:history.go(-1);">
+        <span class="iconfont icon-fanhui"></span>
+    </button>
+</nav>
+
+
+<div class="usercenter  accdv">
     <form class="form-horizontal" id="regForm" action="<{:U('index/applyAgent')}>" method="post" enctype="multipart/form-data">
-        <div class="form-group">
-            <label class="col-sm-3 control-label">用户名</label>
-            <div class="col-sm-8">
-                <input type="text" name="username" class="form-control" placeholder="用户名">
+        <div class="inpt">
+            <div class="col-md-2">用户名：</div>
+            <div class="col-md-10">
+                <input type="text" name="username"  class="form-control" placeholder="用户名">
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">邮箱</label>
-            <div class="col-sm-8">
-                <input type="email" name="email" class="form-control" placeholder="邮箱">
+        <div class="inpt">
+            <div class="col-md-2">邮箱：</div>
+            <div class="col-md-10"><input type="text" name="email" class="form-control" placeholder="邮箱"></div>
+        </div>
+        <div class="inpt">
+            <div class="col-md-2">密码：</div>
+            <div class="col-md-10"><input type="password" name="password" class="form-control" placeholder="密码"></div>
+        </div>
+        <div class="inpt">
+            <div class="col-md-2">确认密码：</div>
+            <div class="col-md-10"><input type="password"  name="password2" class="form-control" placeholder="确认密码"></div>
+        </div>
+        <div class="inpt">
+            <div class="col-md-2">店铺名：</div>
+            <div class="col-md-10"><input type="text" name="storename" class="form-control" placeholder="店铺名"></div>
+        </div>
+
+        <div class="inpt">
+            <div class="col-md-2">店铺头像</div>
+            <div class="col-md-10">
+                <input type="file" name="img" class="form-control">
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">密码</label>
-            <div class="col-sm-8">
-                <input type="password" name="password" class="form-control" placeholder="密码">
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">确认密码</label>
-            <div class="col-sm-8">
-                <input type="password" name="password2" class="form-control" placeholder="确认密码">
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">店铺名</label>
-            <div class="col-sm-8">
-                <input type="text" name="storename" class="form-control" placeholder="店铺名">
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">店铺头像</label>
-            <div class="col-sm-8">
-                <input type="file" name="img" class="form-control" placeholder="头像">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-8">
-                <button type="submit" name="submit" class="btn btn-default">申请代理</button>
+        <div class="inpt">
+            <div class="col-md-2"></div>
+            <div class="col-md-10" align="center">
+                <button type="button" name="submit" class="btn btn-danger btn-block btn-lg">申请代理</button>
             </div>
         </div>
     </form>
-
-    <div class="row">
-
-    </div>
 </div>

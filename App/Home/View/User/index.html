@@ -1,84 +1,72 @@
-<div class="toper navbar-fixed-top">
-    <div class="row color_white " >
-        <div class="col-xs-2" style="padding-left:25px;"><a class="cwhite" href="#"><img src="__PUBLIC__/images/jt.png" ></a></div>
-        <div class="col-xs-8 text-center font20">会员中心</div>
-        <div class="col-xs-2"><a href="#"><div class="photo_25" style="margin-top:3px;"></div></a></div>
+<body class="huibg">
+<nav class="navbar text-center"><img src="images/viplogo.jpg" width="100%">
+    <button class="topleft" onclick="javascript:history.go(-1);"><span class="iconfont icon-fanhui"></span></button>
+</nav>
+<div class="vipcenter">
+    <div class="vipheader">
+        <a href="userinfo.html">
+            <div class="touxiang"><img src="images/tx.jpg" alt=""></div>
+            <div class="name">
+                <{$info.nickname}>&nbsp;&nbsp;账户余额：<font color="#ffb31c"><{$info.money}></font>
+            </div>
+        </a>
     </div>
-</div>
+    <div class="vipsan">
+        <div class="col-xs-4 text-center"><a><img src="images/vip1.jpg" width="30"><h4 style="color:#11bfa2">我的订单</h4>
+            <p><{$info.ordersNum}></p></a></div>
+        <div class="col-xs-4 text-center"><a><img src="images/vip2.jpg" width="30"><h4 style="color:#e64d3b">我的收藏</h4>
 
-<!-- toper -->
+            <p><{$info.favNum}></p></a></div>
+        <div class="col-xs-4 text-center"><a><img src="images/vip3.jpg" width="30"><h4>我的红包</h4>
 
-<div class="height53"></div>
-
-<!-- zhongxin -->
-<link href="__PUBLIC__/css/public.css" rel="stylesheet" type="text/css">
-<link href="__PUBLIC__/css/user.css" rel="stylesheet" type="text/css">
-
-<div class="user_top w">
-    <div class="user_logo"><div class="img"><img src="<{$info.headimgurl}>"></div></div>
-    <div class="user_info">
-        <div class="user_name"><{$info.nickname}></div>
-        <div class="user_dengji">账户余额：<{$info.money}></div>
+            <p><{$info.packetsNum}></p></a></div>
     </div>
-</div>
-
-
-
-<div class="zx w">
-    <a href="#"><div class="ico_img"><img src="__PUBLIC__/images/zhongxin1.jpg"></div><span style="color:#00bb9c">我的订单</span><br><label><{$info.ordersNum}></label></a>
-    <a href="#"><div class="ico_img"><img src="__PUBLIC__/images/zhongxin2.jpg"></div><span style="color:#eb4f38">我的收藏</span><br><label><{$info.favNum}></label></a>
-    <a href="#" style="border-right:none;"><div class="ico_img"><img src="__PUBLIC__/images/zhongxin3.jpg"></div><span>我的红包</span><br><label><{$info.packetsNum}></label></a>
-</div>
-
-
-<div class="user_nav_list w">
-    <ul>
+    <ul class="vipul">
         <li>
             <a href="<{:U('user/myOrder')}>">
-                <div class="u_nav_icon money"></div>
-                <div class="u_nav_name">我的订单</div>
-                <div class="nt_icon"></div>
-                <div class="u_money"><i><img src="__PUBLIC__/images/you.png"></i></div>
+                <div class="icc"><i class="iconfont icon-wenjian1"></i></div>
+                <div class="lzz">订单中心</div>
+                <div class="rizi"><i class="iconfont icon-jiantouri"></i></div>
             </a>
         </li>
         <li>
             <a href="<{:U('user/myAddr')}>">
-                <div class="u_nav_icon huibi"></div>
-                <div class="u_nav_name">收货地址</div>
-                <div class="nt_icon"></div>
-                <div class="u_money"><i><img src="__PUBLIC__/images/you.png"></i></div>
+                <div class="icc"><i class="iconfont icon-chakangonglve"></i></div>
+                <div class="lzz">收货地址</div>
+                <div class="rizi"><i class="iconfont icon-jiantouri"></i></div>
             </a>
         </li>
-
         <li>
             <a href="<{:U('user/myPacket')}>">
-                <div class="u_nav_icon tixian"></div>
-                <div class="u_nav_name">红包提现</div>
-                <div class="nt_icon"></div>
-                <div class="u_money"><i><img src="__PUBLIC__/images/you.png"></i></div>
+                <div class="icc"><i class="iconfont icon-youhuiquan"></i></div>
+                <div class="lzz">红包提现</div>
+                <div class="rizi"><i class="iconfont icon-jiantouri"></i></div>
             </a>
         </li>
         <li>
             <a href="<{:U('user/myLink')}>">
-                <div class="u_nav_icon dingdan"></div>
-                <div class="u_nav_name">我的推广链接</div>
-                <div class="nt_icon"></div>
-                <div class="u_money"><i><img src="__PUBLIC__/images/you.png"></i></div>
+                <div class="icc"><i class="iconfont icon-wenjian2"></i></div>
+                <div class="lzz">我的推广链接</div>
+                <div class="rizi"><i class="iconfont icon-jiantouri"></i></div>
             </a>
         </li>
-        <li>
-            <a href="<{:U('user/myInvite')}>">
-                <div class="u_nav_icon dingdan"></div>
-                <div class="u_nav_name">我推荐的好友</div>
-                <div class="nt_icon"></div>
-                <div class="u_money"><i><img src="__PUBLIC__/images/you.png"></i></div>
-            </a>
-        </li>
+
 
     </ul>
 </div>
+<div class="footnav">
+    <div class="col-xs-3 text-center">
+        <a href="<{:U('index/index')}>"><i class="iconfont icon-home"></i>
+        <p>商城首页</p></a>
+    </div>
+    <div class="col-xs-3 text-center"><a href="<{:U('user/myOrder')}>"><i class="iconfont icon-wenjian1"></i>
 
-<div class="login_out w"><a href="javascript:void(0);"><span><img src="__PUBLIC__/images/iconfont-tuichu.png"></span><i>安全退出</i></a></div>
-<!-- zhongxin end-->
+        <p>我的订单</p></a></div>
+    <div class="col-xs-3 text-center"><a href="<{:U('user/myCart')}>"><i class="iconfont icon-gouwuche"></i>
 
-<div class="height53"></div>
+        <p>购&nbsp;物&nbsp;车</p></a></div>
+
+    <div class="col-xs-3 text-center"><a href="<{:U('user/index')}>"><i class="iconfont icon-yonghux"></i>
+
+        <p>个人中心</p></a></div>
+</div>

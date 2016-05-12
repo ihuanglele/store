@@ -17,6 +17,7 @@ class StoreController extends Controller
      */
     public function index(){
         $Tool = A('Tool');
+        $this->assign('title','大米商城');
         $map['role'] = 2;
         $map['status'] = 2;
         $Tool->getData(M('admin'),$map,'aid desc','aid,storename,headimgurl as img');

@@ -1,16 +1,19 @@
 <!DOCTYPE HTML>
-<html lang="zh-CN">
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>方正大米</title>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <meta name="apple-mobile-web-app-capable" content="no"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <title><{$title}></title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
 
-    <!-- Bootstrap -->
-    <link href="__PUBLIC__/css/home.bootstrap.min.css" rel="stylesheet">
-    <link href="__PUBLIC__/css/font-awesome.min.css" rel="stylesheet">
-    <link href="__PUBLIC__/css/alongsty.css" rel="stylesheet">
+    <meta http-equiv="Cache-Control" content="must-revalidate,no-cache" />
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/font_1459473269_4751618.css">
+    <link href="__PUBLIC__/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="__PUBLIC__/css/index2.css" />
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -20,53 +23,9 @@
     <![endif]-->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="__PUBLIC__/js/jquery_min1_11_2.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="__PUBLIC__/js/bootstrap.min.js"></script>
-    <style type="text/css">
-        <!--
-        body{ background:#eeeeee;  font-family:"微软雅黑"; }
-        input[type="text"],input[type="password"],input[type="date"],input[type="month"],input[type="month"],input[type="time"],input[type="week"],input[type="email"],select{border:none; outline:none; transition:border 0.2s ease-in 0s;  }
-        input[type="button"],input[type="submit"]{outline:none;cursor:pointer;border:none;}		input[type="text"]:focus,input[type="password"]:focus,input[type="date"]:focus,input[type="month"]:focus,input[type="month"]:focus,input[type="time"]:focus,input[type="week"]:focus,input[type="email"]:focus,select:focus{border:1px solid #17a862;  }
-        -->
-    </style>
-</head>
-<body >
-{__CONTENT__}
-<div class="height53"></div>
-<!-- footer -->
-<div class="footer navbar-fixed-bottom">
-    <div class="row">
-        <div class="col-xs-3 text-center" style=" padding-top:5px;">
-            <a class="cgreen" href="<{:U('index/index')}>"><div class="photo_30"><img src="__PUBLIC__/images/nav11.png"><br>首页</div></a>
-        </div>
-        <div class="col-xs-3  text-center" style=" padding-top:5px;">
-            <a class="cgray" href="<{:U('user/myOrder')}>"><div class="photo_30"><img src="__PUBLIC__/images/nav5.png"><br>我的订单</div></a>
-        </div>
-        <div class="col-xs-3  text-center" style=" padding-top:5px;">
-            <a class="cgray" href="<{:U('user/myCart')}>"><div class="photo_30"><img src="__PUBLIC__/images/nav3.png"><br>购物车</div></a>
-        </div>
-        <div class="col-xs-3  text-center" style="padding-top:5px;">
-            <a class="cgray" href="<{:U('user/index')}>"><div class="photo_30"><img src="__PUBLIC__/images/nav7.png"><br>个人中心</div></a>
-        </div>
-    </div>
-</div>
-<!-- footer end -->
-<script>
-    $(window).ready(function(){
-        getCartNum();
-    })
 
-    //获取购物车商品数量
-    function getCartNum(){
-        $.ajax({
-            url:"<{:U('index/getCartNum')}>",
-            dataType:'Html',
-            success:function(data){
-                $('#cartNum').html(data);
-            }
-        })
-    }
-</script>
+</head>
+{__CONTENT__}
 
 </body>
 </html>

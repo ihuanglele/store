@@ -11,6 +11,7 @@ class IndexController extends Controller
      */
     public function index(){
         $Tool = A('Tool');
+        $this->assign('title','首页');
         $map['role'] = 2;
         $map['status'] = 2;
         $Tool->getData(M('admin'),$map,'aid desc','aid,storename,headimgurl as img');
@@ -105,6 +106,7 @@ class IndexController extends Controller
                 $this->error($M->getError());
             }
         }else {
+            $this->assign('title','申请代理');
             $this->display('applyAgent');
         }
     }
@@ -112,6 +114,14 @@ class IndexController extends Controller
     public function test(){
         echo THINK_PATH;
         var_dump($_SERVER);
+    }
+
+    public function game(){
+        layout(false);
+        C('SHOW_PAGE_TRACE',0);
+        $WxJS = A('Wxjs');
+        $this->assign('signPackage',$WxJS->GetSignPackage());   //js分享
+        $this->display('game');
     }
 
 }

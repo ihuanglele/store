@@ -1,0 +1,114 @@
+@charset "utf-8";
+/*css reset*/
+body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,fieldset,legend,button,input,textarea,th,td{margin:0;padding:0}
+body{ font-size:15px; font-family:'Microsoft Yahei','Simsun'; color:#444; line-height:150%;  -webkit-text-size-adjust:none; min-width:320px;}
+h1,h2,h3,h4,h5,h6{ font-size:100%; }
+ul,li,ol{ list-style:none;}
+img{ vertical-align:middle;border:0;}
+.fl{ float:left;}
+.fr{ float:right;}
+.clear{ clear:both;}
+a{ text-decoration:none; color:#646464}
+a:hover,a:active,a:focus{ text-decoration: none;}
+b{ font-weight:normal;}
+/*-index-*/
+.home{background: url(../images/bg.jpg) repeat-y #f0f0f0; background-size:100%;}
+.dd_hd{ height:23px; overflow:hidden; padding:10px;}
+.dd_logo{ display:block; background:url(../images/index_ico.png) no-repeat -2px -4px; width:81px; height:23px;}
+.top_nav{ overflow:hidden;}
+.top_nav li{ float:left;}
+.top_nav li a span{ display:block; width:30px; height:25px; background:url(../images/index_ico.png) no-repeat; text-indent:-9999px; margin-left:10px;}
+.top_nav li a span.dd_category{ background-position:-156px -4px;}
+.top_nav li a span.dd_cart{ background-position:-190px -4px;}
+.top_nav li a span.dd_my{ background-position:-223px -4px;}
+.navbar { margin-bottom: 0px; position: relative;}
+.navbar .topleft { position: absolute; left: 10px; top: 20px; color: #fff; border: 0px; background: none;}
+
+.main_focus{ position:relative; width:320px; height:125px; overflow:hidden; margin:0 auto;}
+.img_focus ul{width:100%; height:100%;}
+.img_focus ul li{ float:left; width:320px; height:125px;}
+.img_focus img{ border-radius:10px}
+.img_mornitor{ position:absolute; bottom:5px; left:80%; overflow:hidden;}
+.img_mornitor ol li{ float:left; background:url(../images/focus_dot.png) no-repeat -8px center; width:10px; height:10px; text-indent:-9999px; margin-right:5px;}
+.img_mornitor ol li.on{ background-position:2px center;}
+.noticebar{ height:30px; width:100%; margin:0px auto;}
+.barline{ margin-left:10%;float:left;}
+.barline2{ margin-right:10%;float:right;}
+.category_nav{ padding:10px 0; width:84%; margin:0 auto;}
+.category_nav p{ overflow:hidden; font-size:15px; line-height:35px;}
+.category_nav p a{ color:#646464; margin:0 3.125%;}
+.index_search{ overflow:hidden; width:90%; margin:0px auto; margin-bottom:50px; }
+.search_field input{ float:left;}
+.search_field{ width:100%; margin:0 auto}
+.search_field input[type="text"]{background:none; background-color:#a8dd45; width:70%; height:38px; font-size:15px; color:#FFF; padding:0px 0px 0px 10px;  margin-left:0; border-radius:5px 0px 0px 5px; border:0px;}
+.search_field input[type="submit"]{ background:url(../images/search.png) no-repeat;  width:27%; height:38px; border:none; border-radius:0px 5px 5px 0px;}
+.suggest{ display:none; position:absolute; z-index:9999; top:259px; background:#f0f0f0; width:100%;}
+.suggest ul{width: 300px; font-size: 15px; color: #646464; margin: 0 auto;}
+.suggest ul li{ line-height:38px; height:38px; background:url(../images/li_line.jpg) left bottom repeat-x; overflow:hidden; padding:0 10px; cursor:pointer;}
+.suggest ul li span:first-child{ float:left; color:#323232;}
+.suggest ul li span:last-child{ float:right; color:#969696}
+.suggest ul li.on{ color:#e10000; background:#fff;}
+.suggest ul li.close{ text-align:center; }
+.scroll_tou{margin:0px auto;}
+.scroll_img{ overflow:hidden; margin:50px auto;}
+.icon_nav{ width:100%;}
+.icon_nav li{ float:left; width:25%;text-align:center; padding-top:5px}
+.icon_nav li a{ font-size:8px;  color:#fff;}
+.icon_nav li span{ font-size:16px;}
+.link_area{ margin:0px auto; font-size:14px; color:#fff; line-height:30px; width:90%; overflow:hidden;}
+.link_area .lk1{ margin:10px 0px;}
+
+.product_list li{ background:url(../images/li_border.jpg) repeat-x left bottom; padding:10px; overflow:hidden; font-size:15px;}
+.product_list li:last-child{ background:none;}
+.commbox { width:95%;margin:10px auto;}
+.commbox h3{height:40px; line-height:40px; padding:0 10px;}
+.commbox h3 a{  color:#000;}
+.commbox h3 span{width:35px; float:left;}
+.commbox h3 em{ color:#000;font-size:24px; line-height:40px;  float:left; padding-left:10px; font-style:normal;}
+.border {
+	padding:10px;
+	color:#666;
+	font-size:16px;
+    border-bottom: 1px solid gainsboro;
+}
+
+.pic_list{ overflow:hidden; width:100%; margin:10px auto}
+.pic_list li{ float:left; width:50%; text-align:center;}
+.pic_list li a{ color:#333;}
+.pic_list li a img{ width:90%; border:1px solid #f1f1f1;}
+.info{ width:90%; margin:0px auto; line-height:35px;}
+.info .sat{
+width:100%;
+float:left;
+font-size: 15px;
+text-align:left;
+border-bottom:1px solid #ccc;
+	
+}
+.info .sat img{width:15%; border:0px; margin-top:5px;}
+.info .sat2{width:100%; margin:0px auto;}
+.info .sat2 .shu{ float:left;}
+.info .sat2 .bnt{ background-color:#ff6765;float:right; height:20px; line-height:20px; padding:2px 5px; margin:10px auto; border-radius:5px; color:#fff; font-size:14px; }
+.downloadbar{ overflow:hidden; height:70px; width:100%; background:#323232;}
+.downloadbar ul{ float:left; overflow:hidden; padding:10px 0}
+.downloadbar ul li{ float:left; border-right:1px solid #969696; height:50px; line-height:50px; font-size:18px;}
+.downloadbar ul li:last-child{ border:none; }
+.downloadbar ul li a{ color:#f0f0f0; }
+.btn1,.bn1{ background:url(../images/logo_icon.png) no-repeat 15px 7px; padding:0 15px 0 60px; display:block;}
+.btn2,.bn2{ background:url(../images/logo_icon.png) no-repeat 15px -56px; padding:0 0 0 60px; display:block;}
+.closebtn{ float:right; background:url(../images/close.png) center center no-repeat; height:32px; width:32px; display:block;}
+.download_btn ul{ overflow:hidden; width:95%; margin:20px auto 10px}
+.download_btn ul li{ float:left; height:50px; line-height:50px; border:1px solid #dcdcdc; margin-right:10px; background:#fff; border-radius: 5px; width:47%; text-align:center;}
+.download_btn ul li:last-child{ margin-right:0;}
+.bn1{ color:#646464; background-position:15px 7px; }
+.bn2{ color:#646464; background-position:15px -57px;}
+.ft{ background:#f3f3f3; overflow:hidden; padding:10px 0 30px; clear:both}
+
+.ft_nav{ clear:both; padding:10px}
+.ft_nav p{ text-align:center; padding-bottom:10px;}
+.ft_nav p span{ margin-right:10px; font-size:15px; color:#323232; padding:0 10px;}
+.ft_nav p span.site_now{ border-bottom:2px solid #fd9a0c;}
+
+
+.copyright{ margin-top:10px;}
+.copyright p{ text-align:center; color:#969696; font-size:12px;}

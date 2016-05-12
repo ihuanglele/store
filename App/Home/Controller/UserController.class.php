@@ -27,7 +27,7 @@ class UserController extends Controller
                 die;
             }
         }
-        $this->assign('footerNav',5);
+        $this->assign('title','会员中心');
 
     }
 
