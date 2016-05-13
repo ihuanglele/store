@@ -53,10 +53,10 @@ class StoreController extends Controller
                 $order = $sort.' desc';
                 $title = '热销宝贝';break;
             case 'gid':
-                $order = $sort.' desc';
+                $order = 'gid asc';
                 $title = '所有宝贝';break;
             case 'create_time':
-                $order = $sort.' desc';
+                $order = 'gid desc';
                 $title = '最新上架';break;
             case 'trends':
                 $order = 'gid desc';

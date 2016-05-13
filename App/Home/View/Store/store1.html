@@ -1,0 +1,163 @@
+<style>
+    .adphoto{
+        position: relative;
+    }
+    .store_info{
+        position: absolute;
+        left: 0px;
+        bottom: 0px;
+        height: 65px;
+        padding: 0px;
+        margin: 0px;
+    }
+    .store_info .store_logo{
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 65px;
+        height: 65px;
+        display: inline-block;
+    }
+    .store_info .store_logo img{
+        width: 65px;
+        height: 65px;
+        border-radius: 50%;
+    }
+    .store_info .store_name{
+        position: absolute;
+        width: 300px;
+        left: 70px;
+        top: 0px;
+        color: #ffffff;
+    }
+    .store_name .storename{
+        font-size: 24px;
+        margin-top: 8px;
+        margin-bottom: 0px;
+    }
+</style>
+<div class="toper navbar-fixed-top">
+    <div class="row color_white " >
+        <div class="col-xs-2" style="padding-left:25px;"><a class="cwhite" href="#"><img src="__PUBLIC__/images/jt.png" ></a></div>
+        <div class="col-xs-8 text-center font20"><{$info.storename}></div>
+        <div class="col-xs-2"><a href="#"><div class="photo_25" style="margin-top:3px;"></div></a></div>
+    </div>
+</div>
+<!-- toper -->
+
+<div class="height53"></div>
+
+<div class="adphoto">
+    <img src="__PUBLIC__/images/dian.jpg" class="img-rounded" width="100%">
+    <div class="store_info">
+        <div class="store_logo"><img src="<{:C('imgHost')}><{$info.headimgurl}>"></div>
+        <div class="store_name">
+            <p class="storename"><{$info.storename}></p>
+            <p>店铺ID：<{$info.aid}></p>
+        </div>
+    </div>
+</div>
+
+<!-- 导航 -->
+<div class="nav-dian">
+    <div class="col-xs-31 text-center">
+        <a class="cgray1 sort" data-sort="sold_num" href="#"><div class="photo_60_60"><img src="__PUBLIC__/images/nav12.png"><br>店铺首页</div></a>
+    </div>
+    <div class="col-xs-31  text-center">
+        <a class="cgray1 sort" data-sort="gid" href="#"><div class="photo_60_60"><img src="__PUBLIC__/images/nav13.png"><br>全部宝贝</div></a>
+    </div>
+    <div class="col-xs-31  text-center">
+        <a class="cgray1 sort" data-sort="create_time" href="#"><div class="photo_60_60"><img src="__PUBLIC__/images/nav14.png"><br>新品上架</div></a>
+    </div>
+    <div class="col-xs-31  text-center">
+        <a class="cgray1 sort" data-sort="trends" href="#"><div class="photo_60_60"><img src="__PUBLIC__/images/nav15.png"><br>店铺动态</div></a>
+    </div>
+
+</div>
+<!-- 导航 end -->
+
+
+<a href="#"><div class="adphoto11" ><img src="__PUBLIC__/images/ad3.jpg" class="img-rounded" width="100%"></div></a>
+
+<div class="height20" style=" background:#eeeeee;"></div>
+
+<div class="row-1">
+    <div class="container-fluid">
+
+        <h3 id="sort" class="tit1">热销宝贝</h3>
+        <div id="goodsList">
+
+        </div>
+
+    </div>
+    <div class="text-center">
+        <button class="btn btn-default" id="addMore">加载更多</button>
+    </div>
+
+</div>
+<div class="height53"></div>
+
+<script>
+    var storeId = "<{$info.aid}>";
+    var sort = 'sold_num';
+    var page = 1;
+    var hasMore = true;
+    $(window).ready(function(){
+        getGoods();
+        $('.sort').click(function(){
+            $('.sort').removeClass('hover');
+            $(this).addClass('hover');
+            sort = $(this).attr('data-sort');
+            page = 1;
+            hasMore = true;
+            getGoods('click');
+            return false;
+        });
+        $('#addMore').click(function(){
+            if(hasMore){
+                $(this).html('加载中');
+                getGoods();
+            }
+        })
+    })
+    //滚动加载
+    $(window).scroll(function(){
+        var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop());
+        if((parseFloat($(document).height())-totalheight)<120){
+            $('#addMore').click();
+        }
+    })
+
+    function getGoods(type){
+        $.ajax({
+            url:"<{:U('store/getGoods')}>",
+            data:{
+                'storeid':storeId,
+                'sort':sort,
+                'p':page
+            },
+            success:function(data){
+                if(data.status){
+                    if(data.num==10){
+                        hasMore = true;
+                        $('#addMore').html('加载更多');
+                    }else{
+                        hasMore = false;
+                        $('#addMore').html('到底了');
+                    }
+                    $('#sort').html(data.title);
+                    page = data.p;
+                    var list = '';
+                    $.each(data['list'],function(i,vo){
+                        list += '<div class="col-xs-6" style="padding-right:5px;" ><div class="thumbnail" style="padding:0px;"><a href="<{:U('goods/item')}>?id='+vo.gid+'"><div class="sosophoto"><img src="<{:C('imgHost')}>'+vo.img+'"></div></a><div class="caption"><h4>'+vo.name+'</h4></div><p class="color_gray"> <span class="font16 color_orange">¥ '+vo.buy_price+'</span>&nbsp;&nbsp; <span class="font16 color_gray" style="text-decoration:line-through;">¥ '+vo.market_price+'</span> </p> </div> </div>';
+                    })
+                    if(type=='click'){
+                        $('#goodsList').html(list);
+                    }else{
+                        $('#goodsList').append(list);
+                    }
+                }
+            }
+        })
+    }
+</script>

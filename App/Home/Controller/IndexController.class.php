@@ -19,6 +19,14 @@ class IndexController extends Controller
     }
 
 
+    public function img(){
+        $url = 'http://wx.qlogo.cn/mmopen/TTjn2M4VCzJQGSlQ4uyVWdUpjKExCGptS3HDjG0CCibCNQZ8zjmAMDGZr2yiaeuxVbZHndV9HnHqaor8PrPVTIct8OhzPdFq5c/132';
+
+        $file = myCurl($url);
+        file_put_contents('img2.jpg',$file);
+        $image = new \Think\Image();
+        //$image->open('img1.jpg')->thumb(100,100)->save('img.jpg');
+    }
 
     /**
      * 获取购物车里面的数量

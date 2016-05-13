@@ -183,10 +183,11 @@ class UserController extends Controller
         $openId = $tools->GetOpenid();
         $wxInfo = $tools->getInfo();
         if(!$wxInfo || isset($wxInfo['errcode'])){
-            $this->error('登录出了点状况',U('index/index'));
+            $this->error('微信授权出错',U('index/index'));
         }
         $info = getWxUserInfo($openId);
         if(!$info || isset($info['errcode'])){
+            var_dump($info);die;
             $this->error('登录出了点状况',U('index/index'));
         }
 
@@ -196,6 +197,7 @@ class UserController extends Controller
 
         $data['last_time'] = time();
         if(isset($data['headimgurl'])){
+            $headimg = trim($data['headimgurl'],'0').'132';
             $data['headimgurl'] = trim($data['headimgurl'],'0').'64';
         }
         $uInfo = $M->where(array('openid'=>$openId))->field('uid,last_time')->find();
@@ -226,6 +228,12 @@ class UserController extends Controller
                 $jump = $referer;
             }else{
                 $jump = U('User/index');
+            }
+            //保存图像
+            if(isset($headimg)){
+                $pic = myCurl($headimg);
+                $filePath = THINK_PATH.'../headerImg/'.$uid.'.jpg';
+                file_put_contents($filePath,$pic);
             }
             session('referer',null);
             $this->redirect($jump);
@@ -358,6 +366,7 @@ class UserController extends Controller
         layout(false);
         C('SHOW_PAGE_TRACE',false);
         $qrImgPath = THINK_PATH.'../qrCodeImg/'.$this->uid.'.jpg';
+        $headerImgPath = THINK_PATH.'../headerImg/'.$this->uid.'.jpg';
         $bgImgPath = THINK_PATH.'../Public/images/tg.jpg';
         if(!is_file($qrImgPath)){
             //没有自己的推广二维码
@@ -365,11 +374,19 @@ class UserController extends Controller
                 die('服务器出错');
             }
         }
+        if(!is_file($headerImgPath)){
+            //没有获取到头像
+            $headerImgPath = THINK_PATH.'../headerImg/default.jpg';
+        }
+
         header('Content-Type: image/jpeg');
         $image = imagecreatefromjpeg($bgImgPath);
-        $water = imagecreatefromjpeg($qrImgPath);
-        imagecopy($image,$water,100,200,0,0,200,200);
-        imagedestroy($water);
+        $qr = imagecreatefromjpeg($qrImgPath);
+        $header = imagecreatefromjpeg($headerImgPath);
+        imagecopy($image,$qr,254,792,0,0,120,120);
+        imagecopy($image,$header,120,792,0,0,120,120);
+        imagedestroy($qr);
+        imagedestroy($header);
         $r = imagejpeg($image);
         imagedestroy($image);
     }
@@ -392,7 +409,7 @@ class UserController extends Controller
             $filePath = THINK_PATH.'../qrCodeImg/'.$this->uid.'.jpg';
             file_put_contents($filePath,$pic);
             $image = new \Think\Image();
-            $image->open($filePath)->thumb(200,200)->save($filePath);
+            $image->open($filePath)->thumb(150,150)->save($filePath);
             return true;
         }else{
             die('没有获取到了ticket');
