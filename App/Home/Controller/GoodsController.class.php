@@ -38,6 +38,7 @@ class GoodsController extends Controller
      * 列举自营产品
      */
     public function selfList(){
+        layout(false);
         $aid = I('get.aid',0,'number_int');
         $this->assign('aid',$aid);
         $type = I('get.type',0,'number_int');
@@ -45,12 +46,18 @@ class GoodsController extends Controller
         $map['status'] = 1;
         if($type){
             $map['type'] = $type;
+            $Tool->getData(M('product'),$map,'pid desc','pid,name,img,price');
+        }else{
+            $map['type'] = 1;
+            $list1 = $Tool->getData(M('product'),$map,'pid desc','pid,name,img,price');
+            $this->assign('list1',$list1);
+
+            $map['type'] = 2;
+            $list2 = $Tool->getData(M('product'),$map,'pid desc','pid,name,img,price');
+            $this->assign('list2',$list2);
         }
-        $this->assign('type',$type);
-        $TitleArr = array('所有商品','糙米专区','套餐组合');
-        $this->assign('Title',$TitleArr[$type]);
-        $Tool->getData(M('product'),$map,'pid desc','pid,name,img,price');
-        $this->display('selfList');
+        $tpl = 'selfList.'.$type;
+        $this->display($tpl);
     }
 
     /**

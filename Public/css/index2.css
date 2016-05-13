@@ -22,8 +22,25 @@ b{ font-weight:normal;}
 .top_nav li a span.dd_cart{ background-position:-190px -4px;}
 .top_nav li a span.dd_my{ background-position:-223px -4px;}
 .navbar { margin-bottom: 0px; position: relative;}
-.navbar .topleft { position: absolute; left: 10px; top: 20px; color: #fff; border: 0px; background: none;}
-
+.navbar .topleft { position: absolute; left: 10px; top: 20px; color: #fff; border: 0px; z-index:2; background: none;}
+.navbar .topright { position: absolute; right: 5px; top: 20px;}
+.navbar .topcenter{z-index:10;position: absolute; left:40%; top: 80px;}
+.navbar .topcenter .touxiang img{
+    width: 72px;
+    height: 72px;
+    border-radius: 100%;
+    border: 2px solid #fff;
+}
+.navbar .topcenter .name {
+    font-size: 16px;
+    text-align: center;
+    color: #fff;
+}
+.navbar .topcenter .name p{
+    font-size: 12px;
+    text-align: center;
+    color: #fff;
+}
 .main_focus{ position:relative; width:320px; height:125px; overflow:hidden; margin:0 auto;}
 .img_focus ul{width:100%; height:100%;}
 .img_focus ul li{ float:left; width:320px; height:125px;}
@@ -55,6 +72,10 @@ b{ font-weight:normal;}
 .icon_nav li{ float:left; width:25%;text-align:center; padding-top:5px}
 .icon_nav li a{ font-size:8px;  color:#fff;}
 .icon_nav li span{ font-size:16px;}
+.icon_nav2{ width:100%;}
+.icon_nav2 li{ float:left; width:50%;text-align:center; padding-top:5px}
+.icon_nav2 li a{ font-size:8px;  color:#fff;}
+.icon_nav2 li span{ font-size:16px;}
 .link_area{ margin:0px auto; font-size:14px; color:#fff; line-height:30px; width:90%; overflow:hidden;}
 .link_area .lk1{ margin:10px 0px;}
 
@@ -65,14 +86,14 @@ b{ font-weight:normal;}
 .commbox h3 a{  color:#000;}
 .commbox h3 span{width:35px; float:left;}
 .commbox h3 em{ color:#000;font-size:24px; line-height:40px;  float:left; padding-left:10px; font-style:normal;}
+
 .border {
 	padding:10px;
 	color:#666;
 	font-size:16px;
-    border-bottom: 1px solid gainsboro;
 }
 
-.pic_list{ overflow:hidden; width:100%; margin:10px auto}
+.pic_list{ overflow:hidden;    border-top: 1px solid gainsboro; width:100%; margin:10px auto; margin-top:15px; padding-top:15px;}
 .pic_list li{ float:left; width:50%; text-align:center;}
 .pic_list li a{ color:#333;}
 .pic_list li a img{ width:90%; border:1px solid #f1f1f1;}
@@ -87,8 +108,10 @@ border-bottom:1px solid #ccc;
 }
 .info .sat img{width:15%; border:0px; margin-top:5px;}
 .info .sat2{width:100%; margin:0px auto;}
-.info .sat2 .shu{ float:left;}
+.info .sat2 .shu{ float:left;}.info .sat2 .shu small{ color:#ff6765;}
 .info .sat2 .bnt{ background-color:#ff6765;float:right; height:20px; line-height:20px; padding:2px 5px; margin:10px auto; border-radius:5px; color:#fff; font-size:14px; }
+.info .sat2 a.adcart{ float:right;  margin:0px auto; }
+.info .sat2 a.adcart img{ width:80%; border:none;}
 .downloadbar{ overflow:hidden; height:70px; width:100%; background:#323232;}
 .downloadbar ul{ float:left; overflow:hidden; padding:10px 0}
 .downloadbar ul li{ float:left; border-right:1px solid #969696; height:50px; line-height:50px; font-size:18px;}
@@ -112,3 +135,22 @@ border-bottom:1px solid #ccc;
 
 .copyright{ margin-top:10px;}
 .copyright p{ text-align:center; color:#969696; font-size:12px;}
+.dpbg{ z-index:1;}
+.vipsan2 { padding: 14px 0; background: #fff; overflow: auto; margin:10px auto;}
+.vipsan2 div { border-right:1px solid #ccc;}
+.vipsan2 div:last-child { border: 0px;}
+.vipsan2 .dpzi{  color:#666; font-size: 1em; line-height: 1.5em;}
+.vipsan2 p { color:#ff6563; font-size: 1.5em; padding: 0px; margin: 0px;}
+.col2{ width:33%; float:left; text-align:center;}
+.commbox2 { width:100%;margin:10px auto;}
+.commbox2 h3{height:30px; line-height:30px; padding:10px;}
+.commbox2 h3 a{  color:#000;}
+.commbox2 h3 span{width:35px; float:left;}
+.commbox2 h3 em{ color:#fff;font-size:24px; line-height:40px;  float:left; padding-left:10px; font-style:normal;}
+.border2 {
+padding:10px 5% 15px 5%;
+	color:#fff;
+	font-size:16px;
+
+}
+.dpdao{background:url(../images/dpdao.jpg) no-repeat; background-size:100% 100%;}

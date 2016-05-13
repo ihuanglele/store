@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+    <meta name="apple-mobile-web-app-capable" content="no"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <title>官方自营</title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <meta http-equiv="Cache-Control" content="must-revalidate,no-cache"/>
+    <link rel="stylesheet" href="__PUBLIC__/css/index2.css"/>
+
+</head>
+<body id="hometop">
+<nav class="navbar"><img src="__PUBLIC__/images/xmlogo3.jpg" width="100%">
+    <a href="javascript:history.go(-1);" class="topleft"><img src="__PUBLIC__/images/vipbk.png" width="25" ></a>
+</nav>
+
+<article>
+
+    <section class="commbox">
+        <h3><a href="#"><span><img src="__PUBLIC__/images/title_arrow.png" width="90%" border="0">  </span><em>Batch combination</em></a></h3>
+        <div class="border">
+            糙米专区
+        </div>
+        <ul class="pic_list">
+            <volist name="list" id="vo">
+                <li>
+                    <a href="<{:U('goods/product',array('aid'=>$aid,'id'=>$vo['pid']))}>">
+
+                        <img src="<{:C('imgHost')}><{$vo.img}>"/> </a>
+
+                    <div class="info">
+                        <div class="sat" style="border-bottom:none"><{$vo.name}></div>
+                        <div class="sat2"><span class="shu"><small style="font-size:18px;">￥<{$vo.price}></small></span>
+                            <a href="" class="adcart"><img src="__PUBLIC__/images/cart.png"></a>
+                        </div>
+                    </div>
+                </li>
+            </volist>
+        </ul>
+    </section>
+</article>
+
+<footer class="ft">
+    <div class="copyright">
+        <p><a href="#hometop"><img width="20%"src="__PUBLIC__/images/top.png" /></a></p>
+    </div>
+</footer>
+
+</body>
+</html>

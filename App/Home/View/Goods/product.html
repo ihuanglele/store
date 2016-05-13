@@ -1,70 +1,91 @@
-<div class="toper navbar-fixed-top">
-    <div class="row color_white " >
-        <div class="col-xs-2" style="padding-left:25px;"><a class="cwhite" href="#"><img src="__PUBLIC__/images/jt.png" ></a></div>
-        <div class="col-xs-8 text-center font20"><{$info.name}></div>
-        <div class="col-xs-2" >
-            <div class="icon_shopcar">
-                <div id="cartNum" class="icon_shopcar_ts">0</div>
-                <a class="cwhite" href="#"><div class="photo_30"><img src="__PUBLIC__/images/icon_shopcar.png" ></div></a>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/swiper.min.css"/>
+<body id="hometop">
+
+<nav class="navbar">
+    <section class="detail">
+        <button class="topleft" onClick="javascript:history.go(-1);"><span class="iconfont icon-fanhui"></span></button>
+        <figure class="swiper-container">
+            <ul class="swiper-wrapper">
+                <li class="swiper-slide">
+                    <a href="#">
+                        <img src="<{:C(imgHost)}><{$info.img}>"/>
+                    </a>
+                </li>
+            </ul>
+            <div class="swiper-pagination">
             </div>
+
+        </figure>
+        <img src="__PUBLIC__/images/bian.png" width="100%"
+             style=" margin-top:-22px; position:absolute; bottom:2; left:0; z-index:3;"/>
+
+        <div class="jiage">
+            <h3><{$info.name}></h3>
+            <b>￥<{$info.price}></b>
+            <span class="pull-right">
+               <div class="col-xs-12 text-center">
+                   <a href="<{:U('goods/buyProduct')}>?aid=<{$aid}>" class="btn btn-danger">购买</a>
+               </div>
+            </span>
         </div>
-    </div>
-</div><!-- toper -->
-<div class="height53"></div>
+    </section>
 
-<a href="#"><div class="adphoto"><img src="<{:C(imgHost)}><{$info.img}>" class="img-rounded"></div></a>
-<!-- 焦点图 -->
+</nav>
 
 
-<div class=" width100 bg_white" style="padding:10px;">
-    <h4><{$info.name}></h4>
-        <span class="pull-right">
-           <div class="col-xs-12 text-center">
-               <a href="<{:U('goods/buyProduct')}>?aid=<{$aid}>" class="btn btn-danger">购买</a>
-           </div>
+<section class="commbox">
+    <h3>
+        <span>
+            <img src="__PUBLIC__/images/title_arrow.png" border="0" width="90%">
         </span>
-    <p class=" color_gray font16"><span class="color_orange font20">¥<{$info.price}></span></p>
-    <div class="height10"></div>
+        <em>Product details</em>
+    </h3>
 
-    <div class="height10"></div>
-</div><!--a-->
-<div class="height10"></div>
-<div class=" width100 bg_white border_bottom" style="padding:10px;">
-    <span class=" font16">商品介绍</span>
-    <span class="pull-right">
-        <a title="收起" class=" cgreen" href="#">
-            <i class="icon-angle-up" style="font-size:24px;">
-            <img src="__PUBLIC__/images/shouqi.jpg">
-            </i>
-        </a>
-    </span>
-</div>
-<div class=" width100 bg_white" style="padding:10px;">
-    <div class="artic14">
+    <div class="border">
+        产品详情
+    </div>
+
+    <div class="xxinfo">
         <{$info.detail}>
     </div>
-</div><!--a-->
-<div class="height10"></div>
+</section>
 
-<script>
-    GoodsId = <{$info.gid}>;
-    $(window).ready(function(){
-        $('#btnmin').click(function(){
+<script src="__PUBLIC__/js/swiper.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var mySwiper = new Swiper('.swiper-container', {
+            loop: true,
+            speed: 1000,
+            autoplay: 2000,
+            pagination: '.swiper-pagination',
+        });
+    })
+
+
+    GoodsId =
+    <
+    {
+        $info.gid
+    }
+    >
+    ;
+    $(window).ready(function () {
+        $('#btnmin').click(function () {
             var num = $('#num').val();
-            if(num>1){
+            if (num > 1) {
                 num--;
             }
             $('#num').val(num);
         })
-        $('#btnadd').click(function(){
+        $('#btnadd').click(function () {
             var num = $('#num').val();
             num++;
             $('#num').val(num);
         })
-        $('#addCart').click(function(){
+        $('#addCart').click(function () {
             addCart();
         })
-        $('#buyNow').click(function(){
+        $('#buyNow').click(function () {
             buyNow();
         })
     })
@@ -72,18 +93,18 @@
     /**
      * 添加到购物车
      */
-    function addCart(){
+    function addCart() {
         $.ajax({
-            url:"<{:U('index/addCart')}>",
-            data:{
-                id:GoodsId,
-                num:$('#num').val()
+            url: "<{:U('index/addCart')}>",
+            data: {
+                id: GoodsId,
+                num: $('#num').val()
             },
-            success:function(data){
-                if(data.status){
+            success: function (data) {
+                if (data.status) {
                     alert('添加成功');
                     getCartNum();
-                }else{
+                } else {
                     alert(data.info);
                 }
             }
@@ -93,24 +114,47 @@
     /**
      * 直接购物
      */
-    function buyNow(){
+    function buyNow() {
         $.ajax({
-            url:"<{:U('index/addCart')}>",
-            data:{
-                id:GoodsId,
-                num:$('#num').val()
+            url: "<{:U('index/addCart')}>",
+            data: {
+                id: GoodsId,
+                num: $('#num').val()
             },
-            success:function(data){
-                if(data.url!=''){
+            success: function (data) {
+                if (data.url != '') {
                     alert(data.info);
                     window.location.href = data.url;
                 }
-                if(data.status){
+                if (data.status) {
                     //添加到购物车成功
                     window.location.href = "<{:U('user/myCart')}>";
                 }
             }
         })
     }
-
 </script>
+<div class="footnav">
+    <div class="col-xs-3 text-center">
+        <a href="<{:U('index/index')}>"><i class="iconfont icon-home"></i>
+
+            <p>商城首页</p></a>
+    </div>
+    <div class="col-xs-3 text-center"><a href="<{:U('user/myOrder')}>"><i class="iconfont icon-wenjian1"></i>
+
+        <p>我的订单</p></a></div>
+    <div class="col-xs-3 text-center"><a href="<{:U('user/myCart')}>"><i class="iconfont icon-gouwuche"></i>
+
+        <p>购&nbsp;物&nbsp;车</p></a></div>
+
+    <div class="col-xs-3 text-center"><a href="<{:U('user/index')}>"><i class="iconfont icon-yonghux"></i>
+
+        <p>个人中心</p></a></div>
+</div>
+<footer class="ft">
+    <div class="copyright">
+        <p><a href="#hometop"><img width="15%" src="__PUBLIC__/images/top.png"/></a></p>
+    </div>
+</footer>
+</body>
+</html>

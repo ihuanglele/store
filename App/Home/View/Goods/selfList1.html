@@ -14,7 +14,8 @@
         <volist name="list" id="vo">
             <div class="col-xs-6" style="padding-right:5px;" >
                 <div class="thumbnail" style="padding:0px;">
-                    <a href="<{:U('goods/product',array('aid'=>$aid,'id'=>$vo['pid']))}>"><div class="sosophoto"><img src="<{:C('imgHost')}><{$vo.img}>"></div></a>
+                    <a href="<{:U('goods/product',array('aid'=>$aid,'id'=>$vo['pid']))}>"><div class="sosophoto">
+                        <img src="<{:C('imgHost')}><{$vo.img}>"></div></a>
                     <div class="caption">
                         <h4><{$vo.name}></h4>
                     </div>

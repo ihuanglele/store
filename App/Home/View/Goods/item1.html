@@ -1,0 +1,132 @@
+<div class="toper navbar-fixed-top">
+    <div class="row color_white " >
+        <div class="col-xs-2" style="padding-left:25px;"><a class="cwhite" href="#"><img src="__PUBLIC__/images/jt.png" ></a></div>
+        <div class="col-xs-8 text-center font20">商品详情</div>
+        <div class="col-xs-2" >
+            <div class="icon_shopcar">
+                <div id="cartNum" class="icon_shopcar_ts">0</div>
+                <a class="cwhite" href="#"><div class="photo_30"><img src="__PUBLIC__/images/icon_shopcar.png" ></div></a>
+            </div>
+        </div>
+    </div>
+</div><!-- toper -->
+<div class="height53"></div>
+
+<a href="#"><div class="adphoto"><img src="<{:C(imgHost)}><{$info.img}>" class="img-rounded"></div></a>
+<!-- 焦点图 -->
+
+
+<div class=" width100 bg_white" style="padding:10px;">
+    <h4><{$info.name}></h4>
+        <span class="pull-right">
+            <div class="btn-group" role="group" aria-label="...">
+                <button type="button" id="btnadd" class="btn btn-default"><i class="icon-plus"><img src="__PUBLIC__/images/jia.png"></i></button>
+                <input role="button" style="width: 50px;" id="num" class="btn btn-default disabled" value="1">
+                <button type="button" id="btnmin" class="btn btn-default"><i class="icon-minus"><img src="__PUBLIC__/images/jian.png"></i></button>
+            </div>
+        </span>
+    <p class=" color_gray font16"><span class="color_orange font20">¥<{$info.buy_price}></span>&nbsp;&nbsp;&nbsp;&nbsp;<del>¥<{$info.market_price}></del></p>
+    <div class="height10"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6">
+                <button id="buyNow" class="btn btn-danger">直接购买</button>
+            </div>
+            <div class="col-xs-6">
+                <button id="addCart" class="btn btn-success">加入购物车</button>
+            </div>
+        </div>
+    </div>
+    <div class="height10"></div>
+    <div class=" width100 bg_white border_top hang32">
+        <span class=" font16">商品规格</span>
+        <span class="pull-right"><{$info.format}></span>
+    </div>
+    <div class="height10"></div>
+</div><!--a-->
+<div class="height10"></div>
+<div class=" width100 bg_white border_bottom" style="padding:10px;">
+    <span class=" font16">商品介绍</span>
+    <span class="pull-right">
+        <a title="收起" class=" cgreen" href="#">
+            <i class="icon-angle-up" style="font-size:24px;">
+            <img src="__PUBLIC__/images/shouqi.jpg">
+            </i>
+        </a>
+    </span>
+</div>
+<div class=" width100 bg_white" style="padding:10px;">
+    <div class="artic14">
+        <{$info.detail}>
+    </div>
+</div><!--a-->
+<div class="height10"></div>
+
+<script>
+    GoodsId = <{$info.gid}>;
+    $(window).ready(function(){
+        $('#btnmin').click(function(){
+            var num = $('#num').val();
+            if(num>1){
+                num--;
+            }
+            $('#num').val(num);
+        })
+        $('#btnadd').click(function(){
+            var num = $('#num').val();
+            num++;
+            $('#num').val(num);
+        })
+        $('#addCart').click(function(){
+            addCart();
+        })
+        $('#buyNow').click(function(){
+            buyNow();
+        })
+    })
+
+    /**
+     * 添加到购物车
+     */
+    function addCart(){
+        $.ajax({
+            url:"<{:U('index/addCart')}>",
+            data:{
+                id:GoodsId,
+                num:$('#num').val()
+            },
+            success:function(data){
+                if(data.status){
+                    alert('添加成功');
+                    getCartNum();
+                }else{
+                    alert(data.info);
+                }
+            }
+        })
+    }
+
+    /**
+     * 直接购物
+     */
+    function buyNow(){
+        $.ajax({
+            url:"<{:U('index/addCart')}>",
+            data:{
+                id:GoodsId,
+                num:$('#num').val()
+            },
+            success:function(data){
+                if(data.url!=''){
+                    alert(data.info);
+                    window.location.href = data.url;
+                }
+                if(data.status){
+                    //添加到购物车成功
+                    window.location.href = "<{:U('user/myCart')}>";
+                }
+            }
+        })
+    }
+
+</script>

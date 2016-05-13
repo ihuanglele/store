@@ -1,0 +1,224 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+    <meta name="apple-mobile-web-app-capable" content="no"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <title>官方自营</title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <meta http-equiv="Cache-Control" content="must-revalidate,no-cache"/>
+    <link rel="stylesheet" href="__PUBLIC__/css/index2.css"/>
+
+</head>
+<body>
+<article id="hometop" class="home ">
+    <section class="scroll_tou"><img src="__PUBLIC__/images/xmlogo.png" width="100%" border="0"></section>
+    <section class="scroll_img">
+        <ul class="icon_nav2">
+
+            <li><a href="<{:U('goods/selfList',array('aid'=>$aid,'type'=>2))}>"><img src="__PUBLIC__/images/xmicon1.png"><br><span>超值套餐</span><br>CHAOZHITAOCAN</a></li>
+            <li><a href="<{:U('goods/selfList',array('aid'=>$aid,'type'=>1))}>"><img src="__PUBLIC__/images/xmicon2.png"><br><span>糙米专区</span><br>CHAOMIZHUANQU</a></li>
+
+        </ul>
+    </section>
+    <script type="text/javascript" src="__PUBLIC__/js/iscroll.js"></script>
+    <script type="text/javascript">
+        var myScroll;
+        function loaded() {
+            myScroll = new iScroll('wrapper', {
+                snap: true,
+                momentum: false,
+                hScrollbar: false,
+                onScrollEnd: function () {
+                    document.querySelector('#indicator > li.on').className = '';
+                    document.querySelector('#indicator > li:nth-child(' + (this.currPageX + 1) + ')').className = 'on';
+                }
+            });
+        }
+        document.addEventListener('DOMContentLoaded', loaded, false);
+        setInterval(function () {
+            if (myScroll.currPageX == 2) {
+                myScroll.scrollToPage(0, 0);
+            } else {
+                myScroll.scrollToPage('next', 0);
+            }
+        }, 5000);
+    </script>
+
+
+    <style type="text/css">
+        #scroller {
+            width: 1920px;
+            height: 100%;
+            float: left;
+        }
+
+        #wrapper {
+            width: 320px;
+            height: 125px;
+            float: left;
+        }
+    </style>
+    <section class="main_focus">
+        <div class="img_focus" id="wrapper">
+            <div id="scroller">
+                <ul id="thelist">
+                    <li><a href="#"><img width="320" height="125" src="__PUBLIC__/images/xian1.jpg"/></a></li>
+                    <li><a href="#"><img width="320" height="125" src="__PUBLIC__/images/xian2.jpg"/></a></li>
+                    <li><a href="#"><img width="320" height="125" src="__PUBLIC__/images/xian3.jpg"/></a></li>
+
+                </ul>
+            </div>
+            <div class="img_mornitor">
+                <ol id="indicator">
+                    <li class="on">1</li>
+                    <li>2</li>
+                    <li>3</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+    <section class="notice">
+        <div class="noticebar">
+            <div class="barline"><img src="__PUBLIC__/images/line.png"></div>
+            <div class="barline2"><img src="__PUBLIC__/images/line.png"></div>
+        </div>
+    </section>
+
+    <section class="index_search">
+        <div class="search_field">
+            <form id="index_search_form" method="get" action='search.php' target="_parent"
+                  onSubmit="$('#keywords').val($('#input_keyword').val());">
+                <input name="keyword" type="text" value="尾品汇" onKeyDown="this.style.color='#404040'"
+                       onBlur="if(this.value==''){this.value='尾品汇';this.style.color='#b6b7b9';}"
+                       onFocus="if(this.value!='尾品汇'){this.style.color='#404040';}else{this.value='';this.style.color='#404040'}"
+                       class="keyword"/>
+                <input type="submit" value=""/>
+
+            </form>
+        </div>
+    </section>
+
+
+    <section class="link_area">
+        <img src="__PUBLIC__/images/xianmi1.png" width="100%" border="0">
+
+        <p class="lk1">大自然中的生物的种皮都有着极强的抗氧化作用。比如一个苹果可以放置数月，可是剥掉外皮很快就会被空气氧化腐烂。</p>
+
+        <p align="center"><img src="__PUBLIC__/images/xianmi2.png" width="80%" border="0"></p>
+
+        <p class="lk1">大米也是一样，在磨掉外壳之后，大米的表层会在空气中氧化，形成酸化层，甚至产生黄曲霉素，不仅口感变差，同时危害人的健康。</p>
+
+        <p><img src="__PUBLIC__/images/lvline.png" width="100%" border="0"></p>
+
+        <p style="font-size:20px; padding-top:10px; color:#a7dc44;">如何打破传统的不健康食米观念？</p>
+
+        <p class="lk1">哈尔滨浩迈农业科技发展有限公司经过多年研发创新,率先推出“家用鲜米机”并获得多项发明专利。</p>
+
+        <p align="center"><img src="__PUBLIC__/images/xianmi3.png" width="90%" border="0"></p>
+
+        <p><img src="__PUBLIC__/images/hong.png" width="100%" border="0"></p>
+
+        <p class="lk1">浩迈科技以人为本，倡导安全、营养、新鲜的食米方式。鲜米机设置多档变换，根据消费者对营养与口感的不同追求，可以磨制出的米种有：</p>
+    </section>
+    <p align="right"><img src="__PUBLIC__/images/xianmi4.png" width="92%" border="0"></p>
+    <section class="link_area">
+        <p class="lk1">真正实现了量身定制，同时设有白米专用档，可对陈旧大米重新打磨恢复新米口感。</p>
+
+        <p class="lk1"><img src="__PUBLIC__/images/lanline.png" width="100%" border="0"></p>
+    </section>
+    <p align="left"><img src="__PUBLIC__/images/xianmi5.png" width="80%" border="0"></p>
+    <section class="link_area">
+        <p class="lk1">浩迈科技依托方正优质大米基地，全面打造种植、加工、销售健康产业链，所供产品从田间到餐桌全程溯源，切实保证了消费者的食米安全。</p>
+
+        <p>
+        <table width="100%" border="0" style="line-height:24px">
+            <tr>
+                <td width="20%" height="60"><img src="__PUBLIC__/images/xianmi11.png" width="80%" border="0"></td>
+                <td>优质稻米<br>youzhidaomi</td>
+                <td width="20%"><img src="__PUBLIC__/images/xianmi22.png" width="80%" border="0"></td>
+                <td>现磨现吃<br>xianmoxianchi</td>
+            </tr>
+            <tr>
+                <td width="20%" height="60"><img src="__PUBLIC__/images/xianmi33.png" width="80%" border="0"></td>
+                <td>量身定制<br>lianshendingzhi</td>
+                <td width="20%"><img src="__PUBLIC__/images/xianmi44.png" width="80%" border="0"></td>
+                <td>新鲜营养<br>
+                    xinxianyingyang
+                </td>
+            </tr>
+
+        </table>
+        </p></section>
+    <img src="__PUBLIC__/images/bian.png" width="100%" border="0">
+</article>
+
+
+<article>
+
+    <section class="commbox">
+        <h3>
+            <a href="<{:U('goods/selfList',array('aid'=>$aid,'type'=>1))}>">
+                <span><img src="__PUBLIC__/images/title_arrow.png" width="90%"
+                                              border="0"></span><em>Batch combination</em></a>
+        </h3>
+
+        <div class="border">
+            超值套餐
+        </div>
+
+        <ul class="pic_list">
+            <volist name="list2" id="vo">
+                <li>
+                    <a href="<{:U('goods/product',array('aid'=>$aid,'id'=>$vo['pid']))}>">
+
+                        <img src="<{:C('imgHost')}><{$vo.img}>"/> </a>
+
+                    <div class="info">
+                        <div class="sat" style="border-bottom:none"><{$vo.name}></div>
+                        <div class="sat2"><span class="shu"><small style="font-size:18px;">￥<{$vo.price}></small></span>
+                            <a href="" class="adcart"><img src="__PUBLIC__/images/cart.png"></a>
+                        </div>
+                    </div>
+                </li>
+            </volist>
+        </ul>
+    </section>
+    <section class="commbox">
+        <h3><a href="<{:U('goods/selfList',array('aid'=>$aid,'type'=>2))}>">
+            <span><img src="__PUBLIC__/images/title_arrow.png" width="90%"
+                                              border="0">  </span><em>Brown rice region</em></a></h3>
+
+        <div class="border">
+            糙米专区
+        </div>
+
+        <ul class="pic_list">
+            <volist name="list1" id="vo">
+                <li>
+                    <a href="<{:U('goods/product',array('aid'=>$aid,'id'=>$vo['pid']))}>">
+
+                        <img src="<{:C('imgHost')}><{$vo.img}>"/> </a>
+
+                    <div class="info">
+                        <div class="sat" style="border-bottom:none"><{$vo.name}></div>
+                        <div class="sat2"><span class="shu"><small style="font-size:18px;">￥<{$vo.price}></small></span>
+                            <a href="" class="adcart"><img src="__PUBLIC__/images/cart.png"></a>
+                        </div>
+                    </div>
+                </li>
+            </volist>
+        </ul>
+    </section>
+</article>
+
+<footer class="ft">
+    <div class="copyright">
+        <p><a href="#hometop"><img width="20%" src="__PUBLIC__/images/top.png"/></a></p>
+    </div>
+</footer>
+
+</body>
+</html>
