@@ -18,6 +18,11 @@ class GoodsController extends Controller
     public function index(){
         $Tool = A('Tool');
         $map['status'] = 2;
+        $name = I('post.name');
+        if($name){
+            $map['name'] = array('like','%'.$name.'%');
+        }
+        $this->assign('name',$name);
         $Tool->getData(M('goods'),$map,'gid desc','gid,name,img,market_price,buy_price');
         $this->display('index');
     }

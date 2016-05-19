@@ -20,7 +20,7 @@
 
             <li><a href="<{:U('goods/selfList',array('aid'=>$aid,'type'=>2))}>"><img src="__PUBLIC__/images/xmicon1.png"><br><span>超值套餐</span><br>CHAOZHITAOCAN</a></li>
             <li><a href="<{:U('goods/selfList',array('aid'=>$aid,'type'=>1))}>"><img src="__PUBLIC__/images/xmicon2.png"><br><span>糙米专区</span><br>CHAOMIZHUANQU</a></li>
-
+            <li><a href="<{:U('user/index')}>"><img src="__PUBLIC__/images/icon14.png"><br><span>会员专区</span><br>HUIYUANZHUANQU</a></li>
         </ul>
     </section>
     <script type="text/javascript" src="__PUBLIC__/js/iscroll.js"></script>
@@ -89,12 +89,9 @@
 
     <section class="index_search">
         <div class="search_field">
-            <form id="index_search_form" method="get" action='search.php' target="_parent"
+            <form id="index_search_form" method="get" action="<{:U('goods/index')}>" target="_parent"
                   onSubmit="$('#keywords').val($('#input_keyword').val());">
-                <input name="keyword" type="text" value="尾品汇" onKeyDown="this.style.color='#404040'"
-                       onBlur="if(this.value==''){this.value='尾品汇';this.style.color='#b6b7b9';}"
-                       onFocus="if(this.value!='尾品汇'){this.style.color='#404040';}else{this.value='';this.style.color='#404040'}"
-                       class="keyword"/>
+                <input name="name" type="text" value="" class="keyword"/>
                 <input type="submit" value=""/>
 
             </form>

@@ -7,10 +7,14 @@
     <div class="topcenter">
         <a href="userinfo.html">
             <div class="touxiang"><img src="<{:C('imgHost')}><{$info.headimgurl}>" alt=""></div>
-            <div class="name">职业设手<p>ID:0.00</p></div>
+            <div class="name"><{$info.storename}><p>ID:<{$info.nickname}></p></div>
         </a>
     </div>
-    <div class="topright"><img src="__PUBLIC__/images/sc.png" width="80%"/></div>
+    <div class="topright">
+        <a href="<{:U('user/addFav')}>?id=<{$info.aid}>">
+            <img src="__PUBLIC__/images/sc.png" width="80%"/>
+        </a>
+    </div>
 
 </nav>
 <article>

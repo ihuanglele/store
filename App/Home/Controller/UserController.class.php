@@ -223,12 +223,7 @@ class UserController extends Controller
         if($r){
             session('uid',$uid);
             session('openid',$openId);
-            $referer = session('referer');
-            if($referer){
-                $jump = $referer;
-            }else{
-                $jump = U('User/index');
-            }
+
             //保存图像
             if(isset($headimg)){
                 $pic = myCurl($headimg);
@@ -236,7 +231,7 @@ class UserController extends Controller
                 file_put_contents($filePath,$pic);
             }
             session('referer',null);
-            $this->redirect($jump);
+            $this->redirect('User/index');
         }else{
             $this->error('登录失败');
         }
