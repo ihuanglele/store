@@ -11,7 +11,7 @@ return array(
         'Token' => 'Z60z6Z6Q1aavK30K0GVv460t30bnA606',       //微信Token(令牌)
         'EncodingAESKey' => 'k6GOifBwDFG0IMEUDv9KDejLvEVnQh8A0XwsBfyDskH',//微信消息加解密密钥
         'key' => 'WeixingTianxia043187956777wxtx00',
-        'mch_id' => '1312824001', //商户号
+        'mch_id' => '1331093701', //商户号
         'notify_url' => 'http://' . $_SERVER['HTTP_HOST'] . '/index.php/wechat/notify',
         'SSLCERT_PATH' => LIB_PATH . "Org/Wxpay/apiclient_cert.pem",
         'SSLKEY_PATH' => LIB_PATH . "Org/Wxpay/apiclient_key.pem",
