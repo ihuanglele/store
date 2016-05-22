@@ -63,6 +63,22 @@ class IndexController extends Controller
         $this->success('添加成功');
     }
 
+    /**
+     * 添加商品到购物车
+     */
+    public function delCart(){
+        $id = I('get.id',0,'number_int');
+        if($id==0){$this->error('参数错误');}
+        $cart = session('cart');
+        if(is_array($cart)){
+            if(array_key_exists($id,$cart)){
+                unset($cart[$id]);
+            }
+        }
+        session('cart',$cart);
+        $this->success('移除成功');
+    }
+
 
     /**
      * 本地自动登录

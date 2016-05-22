@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="方正商城" />
+  <component name="PublishConfigData" serverName="方正商城" uploadOnCheckin="005b5a14-7eb3-48d6-8f7f-3a299a6ea80f">
+    <option name="myUploadOnCheckinName" value="方正商城" />
+  </component>
 </project>

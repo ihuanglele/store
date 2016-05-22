@@ -34,9 +34,7 @@
                     </button>
                 </div>
             </div>
-            <!--<p>运费：10.00</p>-->
-
-            <p>本店购物满68元包邮</p>
+            <p>运费：<{$info.yunfei}></p>
 
             <div class="ncart">
                 <a href="#" id="buyNow" class="buy">立即购买</a>
@@ -77,13 +75,7 @@
     })
 
 
-    GoodsId =
-    <
-    {
-        $info.gid
-    }
-    >
-    ;
+    GoodsId = <{$info.gid}>;
     $(window).ready(function () {
         $('#btnmin').click(function () {
             var num = $('#num').val();

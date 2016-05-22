@@ -176,9 +176,6 @@ class UserController extends Controller
      * 用户登录，如果之前有，直接读取用户名信息，如果没有添加一个新用户
      */
     public function login(){
-        //判断来源
-        $Tool = A('Tool');
-        $Tool->loginReferer();
         $tools = new \Org\Wxpay\UserApi();
         $openId = $tools->GetOpenid();
         $wxInfo = $tools->getInfo();
@@ -337,7 +334,7 @@ class UserController extends Controller
             foreach($cart as $k=>$v){
                 $goodsIds[] = $k;
             }
-            $goodsInfo = M('goods')->where(array('gid'=>array('in',$goodsIds)))->getField('gid,name,left_num,status,buy_price,img');
+            $goodsInfo = M('goods')->where(array('gid'=>array('in',$goodsIds)))->getField('gid,name,left_num,status,buy_price,img,yunfei');
         }else{
             $cart = array();
         }
@@ -355,14 +352,14 @@ class UserController extends Controller
     }
 
     /**
-     * 显示我的推广链接
+     * 显示我的关注推广链接
      */
     public function myLink(){
         layout(false);
         C('SHOW_PAGE_TRACE',false);
         $qrImgPath = THINK_PATH.'../qrCodeImg/'.$this->uid.'.jpg';
         $headerImgPath = THINK_PATH.'../headerImg/'.$this->uid.'.jpg';
-        $bgImgPath = THINK_PATH.'../Public/images/tg.jpg';
+        $bgImgPath = THINK_PATH.'../Public/images/myLinkBg.jpg';
         if(!is_file($qrImgPath)){
             //没有自己的推广二维码
             if(!$this->getQrCode()){
@@ -378,8 +375,37 @@ class UserController extends Controller
         $image = imagecreatefromjpeg($bgImgPath);
         $qr = imagecreatefromjpeg($qrImgPath);
         $header = imagecreatefromjpeg($headerImgPath);
-        imagecopy($image,$qr,254,792,0,0,120,120);
-        imagecopy($image,$header,120,792,0,0,120,120);
+        imagecopy($image,$qr,265,792,10,10,140,140);
+        imagecopy($image,$header,120,792,0,0,132,132);
+        imagedestroy($qr);
+        imagedestroy($header);
+        $r = imagejpeg($image);
+        imagedestroy($image);
+    }
+
+    public function storeLink(){
+        layout(false);
+        C('SHOW_PAGE_TRACE',false);
+        $qrImgPath = THINK_PATH.'../storeCodeImg/'.$this->uid.'.png';
+        $headerImgPath = THINK_PATH.'../headerImg/'.$this->uid.'.jpg';
+        $bgImgPath = THINK_PATH.'../Public/images/storeLinkBg.jpg';
+        if(!is_file($qrImgPath)){
+            //没有自己的推广二维码
+            if(!$this->storeCodeImg()){
+                die('服务器出错');
+            }
+        }
+        if(!is_file($headerImgPath)){
+            //没有获取到头像
+            $headerImgPath = THINK_PATH.'../headerImg/default.jpg';
+        }
+
+        header('Content-Type: image/jpeg');
+        $image = imagecreatefromjpeg($bgImgPath);
+        $qr = imagecreatefrompng($qrImgPath);
+        $header = imagecreatefromjpeg($headerImgPath);
+        imagecopy($image,$qr,265,792,10,10,140,140);
+        imagecopy($image,$header,120,792,0,0,132,132);
         imagedestroy($qr);
         imagedestroy($header);
         $r = imagejpeg($image);
@@ -390,11 +416,145 @@ class UserController extends Controller
      * 购物
      */
     public function buy(){
-        var_dump($_POST);
+        if(isset($_POST)){
+            $ids = I('post.ids');
+            $nums = I('post.nums');
+            $n = count($ids);
+            if($n){
+                //获取地址信息
+                $addr = M('addr')->find(I('addressid'));
+                if(!$addr){$this->error('位置信息错误');die;}
+                $User = M('user');
+                $mapUser['uid'] = $this->uid;
+                $userLeftMoney = $User->where($mapUser)->getField('money');
+                $goodInfo = M('goods')->where(array('gid'=>array('in',$ids)))->getField('gid,buy_price,left_num,sold_num,status,aid,rate,status,yunfei');
+                $needMoney = 0;
+                for($i=0;$i<$n;$i++){
+                    $needMoney += $goodInfo[$ids[$i]]['buy_price']*$nums[$i] + $goodInfo[$ids[$i]]['yunfei'];
+                }
+                if($needMoney<$userLeftMoney){
+                    for($i=0;$i<$n;$i++){
+                        $order['gid'] = $ids[$i];
+                        $order['buy_name'] = $addr['name'];
+                        $order['buy_addr'] = $addr['addr'];
+                        $order['tel'] = $addr['tel'];
+                        $this->handleBuy($ids[$i],$nums[$i],$goodInfo[$ids[$i]],$order);
+                    }
+                    session('cart',null);
+                    $this->success('下单成功',U('user/myOrder'));
+                }else{
+                    $this->error('余额不足',U('user/pay'));
+                }
+
+            }else{
+                $this->error('购物车为没有东西');
+            }
+        }
+    }
+
+    public function handleBuy($id,$num,$gInfo,$order){
+        if($gInfo['status']==2 && $gInfo['left_num']>=$num){
+            $User = M('user');
+            $User->startTrans();
+            $mapUser['uid'] = $this->uid;
+            //添加订单，用户扣钱，添加扣钱记录，商品减数，商家增钱，商家增钱记录
+
+            $userNeedMoney = $gInfo['buy_price']*$num+$gInfo['yunfei'];
+            $getMoney = $gInfo['buy_price']*$num*(100-$gInfo['rate'])/100+$gInfo['yunfei'];
+
+            $order['buy_price'] = $gInfo['buy_price'];
+            $order['money'] = $getMoney;
+            $order['buy_num'] = $num;
+            $order['uid'] = $this->uid;
+            $order['create_time'] = time();
+            $order['aid'] = $gInfo['aid'];
+            $order['status'] = 1;
+            $r1 = M('orders')->add($order);
+
+            $r2 = $User->where($mapUser)->setDec('money',$userNeedMoney);
+
+            $da3['time'] = time();
+            $da3['money'] = $userNeedMoney;
+            $da3['note'] = '购买商品，订单号'.$r1;
+            $da3['type'] = '1';
+            $da3['uid'] = $this->uid;
+            $r3 = M('usermoney')->add($da3);
+
+            //商品数量减数
+            $da4['left_num'] = $gInfo['left_num']-$num;
+            $da4['sold_num'] = $gInfo['sold_num']+$num;
+            if($da4['left_num']<1)  $da4['status'] = 3;
+            $r4 = M('Goods')->where(array('gid'=>$id))->save($da4);
+
+            //商家钱增多
+            $r5 = M('admin')->where(array('aid'=>$gInfo['aid']))->setInc('money',$getMoney);
+
+            //添加商家记录
+            $da6['time'] = time();
+            $da6['money'] = $getMoney;
+            $da6['note'] = '订单号'.$r1;
+            $da6['type'] = '1';
+            $da6['aid'] = $gInfo['aid'];
+            $r6 = M('adminmoney')->add($da6);
+
+            if($r1 && $r2 && $r3 && $r4 && $r5 && $r6){
+                $User->commit();return true;
+            }else{
+                $User->rollback();return false;
+            }
+
+        }
+    }
+
+    public function pay(){
+        if(isset($_POST['money'])){
+            $money = I('post.money',0,'number_float');
+            if($money>0){
+                $body = '充值';
+                $attach = '充值';
+                $tag = $this->uid;
+                $trade_no = creatTradeNum();
+                $openId = session('openid');
+                $Pay = A('Wechat');
+                $order = $Pay->pay($openId,$body,$attach,$trade_no,$money,$tag);
+                if($order['result_code']=='SUCCESS'){//生成订单信息成功
+                    $data['uid'] = $this->uid;
+                    $data['create_time'] = time();
+                    $data['money'] = $money;
+                    $data['paytrade'] = $trade_no;
+                    $data['status'] = 1;
+                    $data['pay_time'] = 0;
+                    if(M('pay')->add($data)){
+                        $this->assign('money',$money);
+                        $this->display('paySub');die;
+                    }else{
+                        $this->error('操作失败请重试');die;
+                    }
+                }else{
+                    $this->error('操作失败请重试');die;
+                }
+            }else{
+                $this->error('输入金额有误');
+            }
+        }else{
+            $this->display('pay');
+        }
+    }
+
+    //店铺推广二维码
+    private function storeCodeImg(){
+        $url = U('goods/selfList',array('from'=>$this->uid),true,true);
+        $qrUrl = 'http://qr.liantu.com/api.php?w=150&m=10&text='.urldecode($url);
+        $pic = myCurl($qrUrl);
+        $filePath = THINK_PATH.'../storeCodeImg/'.$this->uid.'.png';
+        file_put_contents($filePath,$pic);
+        $image = new \Think\Image();
+        $image->open($filePath)->thumb(150,150)->save($filePath);
+        return true;
     }
 
     /**
-     * 返回个人推广二维码地址
+     * 返回个人微信推广二维码地址
      */
     private function getQrCode(){
         $ticket = $this->getTicke();

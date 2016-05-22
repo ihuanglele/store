@@ -176,7 +176,7 @@
                     <div class="info">
                         <div class="sat" style="border-bottom:none"><{$vo.name}></div>
                         <div class="sat2"><span class="shu"><small style="font-size:18px;">￥<{$vo.price}></small></span>
-                            <a href="" class="adcart"><img src="__PUBLIC__/images/cart.png"></a>
+                            <a href="<{:U('goods/product',array('aid'=>$aid,'id'=>$vo['pid']))}>" class="adcart"><img src="__PUBLIC__/images/cart.png"></a>
                         </div>
                     </div>
                 </li>
@@ -202,7 +202,7 @@
                     <div class="info">
                         <div class="sat" style="border-bottom:none"><{$vo.name}></div>
                         <div class="sat2"><span class="shu"><small style="font-size:18px;">￥<{$vo.price}></small></span>
-                            <a href="" class="adcart"><img src="__PUBLIC__/images/cart.png"></a>
+                            <a href="<{:U('goods/product',array('aid'=>$aid,'id'=>$vo['pid']))}>" class="adcart"><img src="__PUBLIC__/images/cart.png"></a>
                         </div>
                     </div>
                 </li>

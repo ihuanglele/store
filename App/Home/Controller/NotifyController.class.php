@@ -20,7 +20,6 @@ class NotifyController extends Controller
 
 
 
-
     /**
      * 微信消息接口入口
      * 所有发送到微信的消息都会推送到该操作
@@ -98,7 +97,7 @@ class NotifyController extends Controller
      */
     private function demo($wechat, $data){
         switch ($data['MsgType']) {
-            //时间消息
+            //事件消息
             case Wechat::MSG_TYPE_EVENT:
                 switch ($data['Event']) {
                     case Wechat::MSG_EVENT_SUBSCRIBE:

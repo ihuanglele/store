@@ -31,43 +31,22 @@
     </div>
 </div>
 <div class="height53"></div>
-<form action="<{:U('user/buy')}>" class="form" method="post">
+<form action="<{:U('goods/buyMachine')}>" class="form" method="post">
+    <input type="hidden" name="aid" value="<{$aid}>">
     <div class="clearfix g-Record-lst">
         <ul class="z-minheight">
-            <volist name="cart" id="vo">
             <li>
-                <a class="fl z-Limg" href="<{:U('goods/item')}>?id=<{$key}>">
-                    <em class="z-Imgtxt"><{$OrdersStatus[$vo['status']]}></em>
-                    <img src="<{:C('imgHost')}><{$goodsInfo[$key]['img']}>" border="0" alt="">
+                <a class="fl z-Limg" href="#">
+                    <img src="<{:C('imgHost')}><{$Info['img']}>" border="0" alt="">
                 </a>
                 <div class="u-sgl-r ">
                     <a href="#">
-                        <p class="z-sgl-tt"><span class="gray6"><{$GoodsInfo[$vo['gid']]['name']}></span></p>
-                        <p>单价:<em class="orange">¥<{$goodsInfo[$key]['buy_price']}></em></p>
-                        <p>库存:<em class="orange">¥<{$goodsInfo[$key]['left_num']}></em></p>
-                        <p>状态:<em class="blue"><{$GoodsStatus[$goodsInfo[$key]['status']]}></em></p>
-                        <p>下单数:<em class="blue"><{$vo}></em></p>
+                        <p class="z-sgl-tt"><span class="gray6"><{$Info['name']}></span></p>
+                        <p>单价:<em class="orange">¥<{$Info['buy_price']}></em></p>
                     </a>
-                    <div class="fr see">
-                        <a href="<{:U('goods/item')}>?id=<{$key}>" role="button" class="btn btn-default">查看商品</a>
-                        <a href="<{:U('index/delCart')}>?id=<{$key}>" role="button" class="btn btn-danger">移除购物车</a>
-                    </div>
-                </div>
-                <div class="">
-                    <eq name="goodsInfo[$key]['status']" value="2">
-                            <egt name="goodsInfo[$key]['left_num']" value="$vo">
-                                    <input class="checkbox" type="checkbox" checked="checked" name="ids[]" value="<{$key}>">
-                                    <input type="hidden"  name="nums[]" value="<{$vo}>">
-                                    勾选购买
-                                <else />
-                                    库存不足
-                            </egt>
-                        <else />
-                            商品不可购买
-                    </eq>
                 </div>
             </li>
-        </volist>
+            </volist>
         </ul>
     </div>
 
@@ -101,13 +80,7 @@
             showAddress();
         })
         showAddress();
-        $('form').submit(function(){
-            chooseGoods = $('input[name="ids[]"]:checked').length;
-            if(!chooseGoods){
-                alert('请勾选需要结算的商品');
-                return false;
-            }
-        })
+
     })
 
     function showAddress(){

@@ -8,37 +8,23 @@
 <div class="toper navbar-fixed-top">
     <div class="row color_white " >
         <div class="col-xs-2" style="padding-left:25px;"><a class="cwhite" href="<{:U('user/index')}>"><img src="__PUBLIC__/images/jt.png" ></a></div>
-        <div class="col-xs-8 text-center font20">我的红包</div>
+        <div class="col-xs-8 text-center font20">微信充值</div>
         <div class="col-xs-2"><a href="#"><div class="photo_25" style="margin-top:3px;"></div></a></div>
     </div>
 </div>
 <div class="height53"></div>
 
 <div class="m-round m-member-nav">
-    <form class="form-inline" method="post" action="<{:U('user/askPacket')}>" >
-        <input type="hidden" name="left" value="<{$left_money}>" />
+    <form class="form-inline" method="post" action="<{:U('user/pay')}>" >
         <div class="col-xs-8 col-xs-offset-1">
             <div class="input-group">
-                <div class="input-group-addon">提现金额</div>
+                <div class="input-group-addon">充值金额</div>
                 <input class="form-control" name="money" type="text" >
                 <div class="input-group-addon">¥</div>
             </div>
         </div>
         <div class="col-xs-3">
-            <button type="submit" name="submit" role="button" class="btn btn-success">申请红包</button>
+            <button type="submit" role="button" class="btn btn-success">马上充值</button>
         </div>
     </form>
-</div>
-
-<div class="m-round m-member-nav">
-    <ul>
-        <volist name="list" id="vo">
-            <li class="">
-                <span><{$vo.money}></span>
-                <span><{$create_time|Mydate}></span>
-                <span><{$PacketStatus[$vo['status']]}></span>
-            </li>
-        </volist>
-        <div><{$page}></div>
-    </ul>
 </div>

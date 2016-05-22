@@ -91,3 +91,14 @@ function myCurl($url,$data=false){
     curl_close($ch);
     return $res;
 }
+
+/**
+ * @return string trade
+ */
+function creatTradeNum(){
+    $trade = date('YmdHis').rand(0,9).rand(0,9).rand(0,9);
+    if(M('Pay')->find($trade)){
+        $trade = creatTradeNum();
+    }
+    return $trade;
+}

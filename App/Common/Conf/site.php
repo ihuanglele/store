@@ -8,6 +8,8 @@ return array(
     'Wx' => array(
         'AppID' => 'wxed5b296d4910abe6',        //微信APPID
         'AppSecret' => '80bd81e91b99deae2f895c0179aa7e54',  //微信APPsecret
+        'Token' => 'Z60z6Z6Q1aavK30K0GVv460t30bnA606',       //微信Token(令牌)
+        'EncodingAESKey' => 'k6GOifBwDFG0IMEUDv9KDejLvEVnQh8A0XwsBfyDskH',//微信消息加解密密钥
         'key' => 'WeixingTianxia043187956777wxtx00',
         'mch_id' => '1312824001', //商户号
         'notify_url' => 'http://' . $_SERVER['HTTP_HOST'] . '/index.php/wechat/notify',

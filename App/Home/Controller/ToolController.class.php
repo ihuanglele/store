@@ -64,5 +64,39 @@ class ToolController extends Controller
         }
     }
 
+    //微信支付异步通知
+    public function notify(){
+        C('SHOW_PAGE_TRACE',false);
+        $Handle = A('WechatNotify');
+        $Handle->handle(false);
+    }
+
+    //微信统一下单
+    public function pay($openId,$body,$attach,$trade_no,$money,$tag){
+        //①、获取用户openid
+        $tools = new \Org\Wxpay\JsApi();
+
+        //②、统一下单
+        $input = new \Org\Wxpay\WxPayUnifiedOrder();
+        $input->SetBody($body);
+        $input->SetAttach($attach);
+        $input->SetOut_trade_no($trade_no);
+        $input->SetTotal_fee($money);
+        $input->SetTime_start(date("YmdHis"));
+        $input->SetTime_expire(date("YmdHis", time() + 600));
+        $input->SetGoods_tag($tag);
+        $input->SetNotify_url(C('Wx.notify_url'));
+        $input->SetTrade_type("JSAPI");
+        $input->SetOpenid($openId);
+        $order = \Org\Wxpay\Wxpay::unifiedOrder($input);
+        $jsApiParameters = $tools->GetJsApiParameters($order);
+        $this->assign('jsApiParamerers',$jsApiParameters);
+        //获取共享收货地址js函数参数
+        //$editAddress = $tools->GetEditAddressParameters();
+        //$this->assign('address',$editAddress);
+        return $order;
+    }
+
+
 
 }
