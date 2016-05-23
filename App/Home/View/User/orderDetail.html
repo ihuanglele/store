@@ -74,18 +74,46 @@
     }
 </style>
 <div class="desc">
-    <dl>
-        <dt>收件人:</dt><dd><{$info.buy_name}></dd>
-        <dt>联系方式:</dt><dd><{$info.buy_tel}></dd>
-        <dt>地址:</dt><dd><{$info.buy_addr}></dd>
-        <dt>申请时间:</dt><dd><{$info.create_time|Mydate}></dd>
-        <dt>状态:</dt><dd>
-        <neq name="info.status" value="2"><{$OrdersStatus[$info['status']]}></dd>
-        <else />已发货</dd>
-        <dt>处理时间:</dt><dd><{$info.ex_time|Mydate}></dd>
-        <dt>快递公司:</dt><dd><{$info.ex_name}></dd>
-        <dt>快递单号:</dt><dd><{$info.ex_no}></dd>
-        </neq>
+    <ul>
+        <li>收件人:<span><{$info.buy_name}></span></li>
+        <li>联系方式:</li><span><{$info.buy_tel}></span>
+        <li>地址:</li><span><{$info.buy_addr}></span>
+        <li>申请时间:</li><span><{$info.create_time|Mydate}></span>
+        <li>状态:<span><{$OrdersStatus[$info['status']]}></span></li>
+        <eq name="info.status" value="2">
+            <li>处理时间:<span><{$info.ex_time|Mydate}></span></li>
+            <li>快递公司:<span><{$info.ex_name}></span></li>
+            <li>快递单号:<span><{$info.ex_num}></span></li>
+        </eq>
 
-    </dl>
+    </ul>
 </div>
+
+<eq name="info.status" value="2">
+    <h3>评价</h3>
+    <empty name="info.common" >
+        <textarea name="common" id="common" class="common"></textarea>
+        <button id="sub">评论</button>
+        <else />
+        <textarea name="common" class="common"><{$info.common}></textarea>
+    </empty>
+</eq>
+<script>
+    $(window).ready(function(){
+        $('#sub').click(function(){
+            $.ajax({
+                url:"<{:U('user/goodCommon')}>",
+                type:'post',
+                data:{
+                    common:$('#common').val(),
+                    oid:"<{$info.oid}>"
+                },
+                success:function(data){
+                    if(data.status){
+                        window.location.reload(true);
+                    }
+                }
+            })
+        })
+    })
+</script>

@@ -177,7 +177,27 @@
                     </div>
                 </if>-->
             </eq>
+
+            <!--管理员取消订单-->
+            <div class="row">
+                <div class="col-xs-5 col-sm-offset-3">
+                    <div class="form-group">
+                        <label class="sr-only" >评价</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">评价</div>
+                            <textarea class="form-control disabled" disabled="disabled"><{$info.common}></textarea>
+                        </div>
+                    </div>
+                    <p class="form-control-static">
+                        <eq name="role" value="1">
+                            <a href="<{:U('orders/delCommon')}>?oid=<{$info.oid}>" >删除评论</a>
+                        </eq>
+                    </p>
+            </div>
+
+
         </form>
+
     </div>
 </div>
 <style>

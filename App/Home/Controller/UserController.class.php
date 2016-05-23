@@ -127,6 +127,20 @@ class UserController extends Controller
         $this->display('orderDetail');
     }
 
+    public function goodCommon(){
+        $common = I('post.common');
+        $oid = I('post.oid');
+        $map['oid'] = $oid;
+        $M = M('orders');
+        $info = $M->where($map)->find();
+        if($info['commmon']=='' && $info['uid']==session('uid')){
+            $M->where($map)->setField('common',$common);
+            $this->success('评价成功');
+        }else{
+            $this->error('当前不允许评价');
+        }
+    }
+
     /**
      * 添加取消收藏
      */

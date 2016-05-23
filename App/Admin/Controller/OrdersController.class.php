@@ -120,4 +120,12 @@ class OrdersController extends CommonController
         }
     }
 
+    public function delCommon(){
+        $this->checkRole(1);
+        $oid = I('get.oid');
+        $Orders = M('orders');
+        $Orders->where(array('oid'=>$oid))->setField('common','   ');
+        $this->success('操作成功');
+    }
+
 }
