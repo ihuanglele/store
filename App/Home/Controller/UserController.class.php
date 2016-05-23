@@ -516,7 +516,7 @@ class UserController extends Controller
                 $trade_no = creatTradeNum();
                 $openId = session('openid');
                 $Pay = A('Wechat');
-                $order = $Pay->pay($openId,$body,$attach,$trade_no,$money,$tag);
+                $order = $Pay->pay($openId,$body,$attach,$trade_no,$money*100,$tag);
                 if($order['result_code']=='SUCCESS'){//生成订单信息成功
                     $data['uid'] = $this->uid;
                     $data['create_time'] = time();

@@ -56,9 +56,9 @@
                         setTimeout(function(){
                             window.location.href = "<{:U('user/index')}>"
                         },500)
-                    }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
+                    }else {
                         //用户取消支付
-//                                        alert('取消支付');
+                        alert(res.err_msg);
                     }
                 }
     );
