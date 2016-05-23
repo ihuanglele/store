@@ -45,7 +45,7 @@ class AgentController extends CommonController
         $M = M('admin');
         $order = 'aid desc';
         $this->getData($M,$map,$order);
-        $this->assign('Status',C('AdminStatus'));
+        $this->assign('Status',C('AgentStatus'));
 
         $this->display('index');
     }
@@ -88,7 +88,7 @@ class AgentController extends CommonController
         $id = I('get.id');
         $info = M('admin')->find($id);
         if(!$info) $this->error('用户不存在',U('shang'));
-        $this->assign('AdminStatus',C('AdminStatus'));
+        $this->assign('AdminStatus',C('AgentStatus'));
         $this->assign('info',$info);
         $this->display('info');
     }
