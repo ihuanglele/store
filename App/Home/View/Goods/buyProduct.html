@@ -31,7 +31,7 @@
     </div>
 </div>
 <div class="height53"></div>
-<form action="<{:U('goods/buyMachine')}>" class="form" method="post">
+<form action="<{:U('goods/buyProduct')}>" class="form" method="post">
     <input type="hidden" name="aid" value="<{$aid}>">
     <div class="clearfix g-Record-lst">
         <ul class="z-minheight">
@@ -69,6 +69,7 @@
 
     <div class="add" style="position: relative;">
         <input type="hidden" name="aid" value="<{$Think.get.aid}>">
+        <input type="hidden" name="pid" value="<{$Think.get.pid}>">
         <input type="hidden" name="from" value="<{$Think.get.from}>">
         <button type="submit" name="submit" class="btn btn-success">提交订单</button>
     </div>

@@ -35,6 +35,12 @@ class GoodsController extends Controller
         $id = I('get.id');
         $info = M('goods')->find($id);
         if(!$info){$this->error('页面不存在',U('goods/index'));}
+        //获取评论
+        $map['gid'] = $id;
+        $map['common'] = array('neq','');
+        $map['status'] = 2;
+        $common = M('orders')->field('oid,trim(`common`) as common')->where($map)->order('oid desc')->limit(10)->select();
+        $this->assign('common',$common);
         $this->assign('info',$info);
         $this->display();
     }
@@ -74,6 +80,7 @@ class GoodsController extends Controller
         $info = M('product')->find($id);
         $this->assign('aid',$aid);
         $this->assign('info',$info);
+        $this->assign('title',$info['name']);
         $this->display('product');
     }
 
@@ -85,25 +92,44 @@ class GoodsController extends Controller
             $pid = I('post.pid');
             $from = I('post.from');
 
+            //获取地址信息
+            $addr = M('addr')->find(I('addressid'));
+            if(!$addr){$this->error('位置信息错误');die;}
+
             //获取产品的信息
-            $gInfo = M('produce')->find($pid);
-            if(!$gInfo || $gInfo['status']!=1){$this->error('产品已下架');die;}
+            $gInfo = M('product')->find($pid);
+            if(!($gInfo && $gInfo['status']==1)){var_dump($gInfo);$this->error('产品已下架');die;}
+
+            //判断余额
+            $uInfo = M('user')->field('money')->find($uid);
+            if($uInfo['money']<$gInfo['price']){$this->error('账户余额不足');die;}
+
+            //判断订单来源
+            if($aid){
+                $aInfo = M('admin')->field('status')->find($aid);
+                if($aid && $aInfo['status']>1){
+                    $agent = 'agent'.$aid['status'];
+                }else{
+                    $aid = 0;
+                }
+            }
 
 
             $User = M('user');
             $User->startTrans();
-            $mapUser['uid'] = $this->uid;
-            //添加订单，用户扣钱，添加扣钱记录，商品减数，商家增钱，商家增钱记录
+            $mapUser['uid'] = $uid;
+            //添加订单，用户扣钱，添加扣钱记录，[平台自销]|[平台给商家钱，商家添加前记录]|[平台给用户佣金|添加佣金记录]
 
-            $userNeedMoney = $gInfo['buy_price']*$num+$gInfo['yunfei'];
-            $getMoney = $gInfo['buy_price']*$num*(100-$gInfo['rate'])/100+$gInfo['yunfei'];
+            $userNeedMoney = $gInfo['price'];
 
-            $order['buy_price'] = $gInfo['buy_price'];
-            $order['money'] = $getMoney;
-            $order['buy_num'] = $num;
-            $order['uid'] = $this->uid;
+            $order['gid'] = $pid;
+            $order['buy_price'] = $userNeedMoney;
+            $order['uid'] = $uid;
+            $order['aid'] = $aid;
+            $order['buy_name'] = $addr['name'];
+            $order['buy_addr'] = $addr['addr'];
+            $order['tel'] = $addr['tel'];
             $order['create_time'] = time();
-            $order['aid'] = $gInfo['aid'];
             $order['status'] = 1;
             $r1 = M('orders')->add($order);
 
@@ -111,32 +137,52 @@ class GoodsController extends Controller
 
             $da3['time'] = time();
             $da3['money'] = $userNeedMoney;
-            $da3['note'] = '购买商品，订单号'.$r1;
+            $da3['note'] = '购买商品'.$gInfo['name'];
             $da3['type'] = '1';
-            $da3['uid'] = $this->uid;
+            $da3['uid'] = $uid;
             $r3 = M('usermoney')->add($da3);
 
-            //商品数量减数
-            $da4['left_num'] = $gInfo['left_num']-$num;
-            $da4['sold_num'] = $gInfo['sold_num']+$num;
-            if($da4['left_num']<1)  $da4['status'] = 3;
-            $r4 = M('Goods')->where(array('gid'=>$id))->save($da4);
+            if($aid){   //代理卖出
+                $getMoney = $gInfo[$agent];
+                if($getMoney){
+                    //商家钱增多
+                    $r4 = M('admin')->where(array('aid'=>$aid))->setInc('money',$getMoney);
 
-            //商家钱增多
-            $r5 = M('admin')->where(array('aid'=>$gInfo['aid']))->setInc('money',$getMoney);
+                    //添加商家记录
+                    $da5['time'] = time();
+                    $da5['money'] = $getMoney;
+                    $da5['note'] = '订单号'.$r1;
+                    $da5['type'] = '1';
+                    $da5['aid'] = $aid;
+                    $r5 = M('adminmoney')->add($da5);
+                }else{
+                    $r4 = $r5 = 1;
+                }
+            }else{ //平台自销
+                if($from){
+                    //给推广员佣金
+                    $getMoney = $userNeedMoney*0.2;
+                    M('user')->where(array('uid'=>$from))->setInc('money',$getMoney);
 
-            //添加商家记录
-            $da6['time'] = time();
-            $da6['money'] = $getMoney;
-            $da6['note'] = '订单号'.$r1;
-            $da6['type'] = '1';
-            $da6['aid'] = $gInfo['aid'];
-            $r6 = M('adminmoney')->add($da6);
+                    //添加商家记录
+                    $da5['time'] = time();
+                    $da5['money'] = $getMoney;
+                    $da5['note'] = '推广佣金';
+                    $da5['type'] = '4';
+                    $da5['uid'] = $from;
+                    M('usermoney')->add($da5);
+                }
+                $r4 = $r5 = 1;
+            }
 
-            if($r1 && $r2 && $r3 && $r4 && $r5 && $r6){
-                $User->commit();return true;
+
+
+            if($r1 && $r2 && $r3 && $r4 && $r5){
+                $User->commit();
+                $this->success('下单成功',U('user/myOrder'));
             }else{
-                $User->rollback();return false;
+                $User->rollback();
+                $this->success('下单失败');
             }
 
         }else{

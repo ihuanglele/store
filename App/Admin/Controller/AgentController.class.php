@@ -162,9 +162,9 @@ class AgentController extends CommonController
             $map['buy_name'] = array('like','%'.$name.'%');
         }
         $this->assign('name',$name);
+        $map['type'] = 2;
 
-
-        $M = M('machine');
+        $M = M('orders');
         $field = 'oid,create_time,status,uid,aid';
         $list = $this->getData($M,$map,'oid desc',$field);
         $uidArr = array('0');
@@ -179,7 +179,11 @@ class AgentController extends CommonController
 
         $data = array();
         foreach($list as $v){
-            $data[] = array_merge($v,$uidInfo[$v['uid']],$aidInfo[$v['aid']]);
+            if($v['aid']){
+                $data[] = array_merge($v,$uidInfo[$v['uid']],$aidInfo[$v['aid']]);
+            }else{
+                $data[] = array_merge($v,$uidInfo[$v['uid']]);
+            }
         }
 
         $this->assign('list',$data);
@@ -220,11 +224,11 @@ class AgentController extends CommonController
         $info = $M->find($id);
         if(!$info) $this->error('页面不存在',U('index'));
         $user = M('user')->field('nickname')->find($info['uid']);
-        $goods = M('goods')->field('name as tname')->find($info['gid']);
+        $goods = M('product')->field('name as tname')->find($info['gid']);
 
         $this->assign('info',array_merge($user,$goods,$info));
         $this->assign('OrdersStatus',C('OrdersStatus'));
-        $this->display('detail');
+        $this->display('orderDetail');
     }
 
     /**

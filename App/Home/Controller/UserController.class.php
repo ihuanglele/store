@@ -120,7 +120,11 @@ class UserController extends Controller
         if(!$info || $info['uid']!=$this->uid){
             $this->error('页面不存在',U('index'));die;
         }
-        $GoodsInfo = M('goods')->field('name,market_price,img')->find($info['gid']);
+        if($info['type']==1){
+            $GoodsInfo = M('goods')->field('name,market_price,img')->find($info['gid']);
+        }else{
+            $GoodsInfo = M('product')->field('name,price as market_price,img')->find($info['gid']);
+        }
         $this->assign('info',$info);
         $this->assign('GoodsInfo',$GoodsInfo);
         $this->assign('OrdersStatus',C('OrdersStatus'));
