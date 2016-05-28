@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="005b5a14-7eb3-48d6-8f7f-3a299a6ea80f" name="方正商城" url="http://116.255.185.220/">
-        <fileTransfer host="116.255.185.220" port="21" username="fzstore">
+        <fileTransfer host="116.255.185.220" port="21" password="dfccdfd0dfd9dfdedfc5dfd8dfcfdf9bdf98df99" username="fzstore">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" />
           </advancedOptions>
