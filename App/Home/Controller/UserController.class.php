@@ -91,11 +91,24 @@ class UserController extends Controller
     public function askPacket(){
         if(isset($_POST['submit'])){
             $map['uid'] = $this->uid;
-            $left_money = M('user')->where($map)->getField('money');
+            $uInfo = M('user')->where($map)->field('money,uid,openid')->find();
             $tx = I('post.money',0,'float');
             if($tx<1){$this->error('红包金额不能小于1元');die;}
-            if($tx<$left_money) $this->error('余额不足',U('index'));
+            if($tx>$uInfo['money']) $this->error('余额不足',U('index'));
             //发送红包
+            $Wechat = A('Wechat');
+            $res = $Wechat->sendRedPack($tx,$uInfo['openid']);
+            if($res['return_code']=='SUCCESS' && $res['result_code']=='SUCCESS'){
+                $data['paytrade'] = $res['mch_billno'];
+                $data['create_time'] = time();
+                $data['uid'] = $this->uid;
+                $data['money'] = $tx;
+                $data['status'] = 1;
+                M('packets')->add($data);
+                $this->success('发生成功，请及时领取');
+            }else{
+                $this->error('发生失败，请重试');
+            }
         }else{
             $this->error('参数错误',U('index'));
         }
@@ -373,6 +386,22 @@ class UserController extends Controller
      * 显示我的关注推广链接
      */
     public function myLink(){
+        $map['uid'] = $this->uid;
+        $map['type'] = 1;
+        $count = M('orders')->where($map)->find();
+        if($count){
+            $buy = 1;
+        }else{
+            $buy = 0;
+        }
+        $this->assign('buy',$buy);
+        $this->display('myLink');
+    }
+
+    /**
+     * 生成我的关注推广链接
+     */
+    public function myLinkPic(){
         layout(false);
         C('SHOW_PAGE_TRACE',false);
         $qrImgPath = THINK_PATH.'../qrCodeImg/'.$this->uid.'.jpg';
@@ -401,7 +430,21 @@ class UserController extends Controller
         imagedestroy($image);
     }
 
+    /**
+     * 鲜米店铺二维码
+     */
     public function storeLink(){
+        $map['uid'] = $this->uid;
+        $map['type'] = 2;
+        if(M('orders')->where($map)->find()){
+            $buy = 1;
+        }else{
+            $buy = 0;
+        }
+        $this->assign('buy',$buy);
+        $this->display('storeLink');
+    }
+    public function storeLinkPic(){
         layout(false);
         C('SHOW_PAGE_TRACE',false);
         $qrImgPath = THINK_PATH.'../storeCodeImg/'.$this->uid.'.png';
@@ -428,6 +471,29 @@ class UserController extends Controller
         imagedestroy($header);
         $r = imagejpeg($image);
         imagedestroy($image);
+    }
+
+    public function linkPic(){
+        $type = I('type');
+        $map['uid'] = $this->uid;
+        $map['type'] = $type;
+        if(M('orders')->where($map)->find()){
+            if($type==1){
+                $url = U('user/myLinkPic');
+                $title = '方正大米推广';
+            }else if($type==2){
+                $url = U('user/storeLinkPic');
+                $title = '鲜米套餐推广！';
+            }else{
+                $url = '';
+                $title = '';
+            }
+            $this->assign('title',$title);
+            $this->assign('url',$url);
+            $this->display('linkPic');
+        }else{
+            $this->error('没有权限');
+        }
     }
 
     /**
@@ -459,7 +525,8 @@ class UserController extends Controller
                         $this->handleBuy($ids[$i],$nums[$i],$goodInfo[$ids[$i]],$order);
                     }
                     session('cart',null);
-                    $this->success('下单成功',U('user/myOrder'));
+                    $tip = '购买成功后的页面：感谢您对我们的支持！同时欢迎您加入“鲜米现磨”营销团队！只要您动动手，点击方正大米推广生成您的专属二维码推广给您的好友，只要您的好友消费，您就有20%（人民币236元）的利润自动进入您的红包，倡导健康，收获粮薪！还等什么，马上行动吧！';
+                    $this->success($tip,U('user/myOrder'));
                 }else{
                     $this->error('余额不足',U('user/pay'));
                 }

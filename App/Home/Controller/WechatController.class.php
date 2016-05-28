@@ -129,20 +129,20 @@ class WechatController extends Controller {
         $this->display('index');
     }
 
-    public function sendRedPack(){
+    public function sendRedPack($money,$openId){
         $data['mch_billno'] = C('Wx.mch_id').date('YmdHis').rand(0,3).rand(0,3).rand(0,3);
         $data['mch_id'] = C('Wx.mch_id');
         $data['wxappid'] = C('Wx.AppID');
         $data['send_name'] = C('Wechat.name');
-        $data['re_openid'] = 'oqAACwZkLzSmZjrn_aTpQfY36-rg';
-        $data['total_amount'] = 101;
+        $data['re_openid'] = $openId;
+        $data['total_amount'] = $money*100;
         $data['wishing'] = 'wishing';
         $data['act_name'] = 'act_name';
         $data['remark'] = 'remark';
 
         $RedPack = new \Org\Wxpay\WxRedPack();
         $res = $RedPack->send($data);
-        var_dump($res);
+        return $res;
     }
 
     public function getRedPack(){

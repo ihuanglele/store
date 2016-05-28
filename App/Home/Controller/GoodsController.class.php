@@ -179,7 +179,8 @@ class GoodsController extends Controller
 
             if($r1 && $r2 && $r3 && $r4 && $r5){
                 $User->commit();
-                $this->success('下单成功',U('user/myOrder'));
+                $tip = '购买成功后的页面：感谢您对我们的支持！同时欢迎您加入“鲜米现磨”营销团队！只要您动动手，点击方鲜米套餐推广生成您的专属二维码推广给您的好友，只要您的好友消费，您就有20%（人民币236元）的利润自动进入您的红包，倡导健康，收获粮薪！还等什么，马上行动吧！';
+                $this->success($tip,U('user/myOrder'));
             }else{
                 $User->rollback();
                 $this->success('下单失败');
