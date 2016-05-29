@@ -161,16 +161,19 @@ class GoodsController extends Controller
             }else{ //平台自销
                 if($from){
                     //给推广员佣金
-                    $getMoney = $userNeedMoney*0.2;
-                    M('user')->where(array('uid'=>$from))->setInc('money',$getMoney);
+                    $rate = M('user')->where(array('uid'=>$from))->getField('rate');
+                    if($rate){  //获取到了推广员的佣金比例
+                        $getMoney = $userNeedMoney*$rate/100;
+                        M('user')->where(array('uid'=>$from))->setInc('money',$getMoney);
 
-                    //添加商家记录
-                    $da5['time'] = time();
-                    $da5['money'] = $getMoney;
-                    $da5['note'] = '推广佣金';
-                    $da5['type'] = '4';
-                    $da5['uid'] = $from;
-                    M('usermoney')->add($da5);
+                        //添加商家记录
+                        $da5['time'] = time();
+                        $da5['money'] = $getMoney;
+                        $da5['note'] = '推广佣金';
+                        $da5['type'] = '4';
+                        $da5['uid'] = $from;
+                        M('usermoney')->add($da5);
+                    }
                 }
                 $r4 = $r5 = 1;
             }

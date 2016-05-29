@@ -19,6 +19,19 @@
             </tr>
             <tr>
                 <td>最后登录时间：<{$info.last_time|Mydate}></td>
+                <td>
+                    <form class="form-inline" action="<{:U('user/updateUser')}>" method="post">
+                        <input type='hidden' value="<{$info.uid}>" name="uid">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">佣金</div>
+                                <input class="form-control" name="rate" value="<{$info.rate}>">
+                                <div class="input-group-addon">%</div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-warning" role="button" name="submit">更新</button>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>

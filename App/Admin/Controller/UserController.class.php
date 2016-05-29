@@ -61,6 +61,23 @@ class UserController extends CommonController
     }
 
     /**
+     * 更新用户的信息
+     */
+    public function updateUser(){
+        if(isset($_POST['submit'])){
+            $uid = I('post.uid');
+            $rate = I('post.rate',20,'number_int');
+            $map['uid'] = $uid;
+            $map['rate'] = $rate;
+            if(M('user')->save($map)){
+                $this->success('操作成功');
+            }else{
+                $this->error('操作失败');
+            }
+        }
+    }
+
+    /**
      * 添加推手自定义财务
      */
     public function umoney(){
