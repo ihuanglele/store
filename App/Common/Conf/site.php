@@ -23,6 +23,7 @@ return array(
     'Wechat' => array(
         'name' => '方正大米',
         'num' => '',
+        'welcome' => '欢迎我们',       //微信关注提示语
     ),
 
 

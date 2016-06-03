@@ -127,7 +127,7 @@ class NotifyController extends Controller
 
             //文本消息
             case Wechat::MSG_TYPE_TEXT:
-                $replyText = $this->handText($data['Content'],$data['FromUserName']);
+                $replyText = C('Wechat.welcome');
                 $wechat->replyText($replyText);
                 break;
 
