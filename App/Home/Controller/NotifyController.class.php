@@ -105,14 +105,34 @@ class NotifyController extends Controller
                         $M = M('user');
                         if(!$M->where(array('openid'=>$data['FromUserName']))->find()){//判断数库是否添加过该用户
                             //数据库不存在
-                            $data = getWxUserInfo($data['FromUserName']);
+                            $da = getWxUserInfo($data['FromUserName']);
                             $invite_uid = isset($data['EventKey'])?$data['EventKey']:0;
-                            $data['invite_uid'] = $this->setUserInviteUid();
-                            $data['subscribe_time'] = time();
-                        }
+                            if($invite_uid){
+                                $invite_uid = trim($invite_uid,'qrscene_');
+                            }
+                            $da['invite_uid'] = $invite_uid;
+                            $da['subscribe_time'] = time();
+                            $da['money'] = createRedPackMoney();
+                            $uid = $M->add($da);
 
-                        $wechat->replyText(C('Wechat.welcome'));
-                        break;
+                            $da2['money'] = $da['money'];
+                            $da2['type'] = 4;
+                            $da2['note'] = '关注送红包';
+                            $da2['time'] = time();
+                            $da2['uid'] = $uid;
+                            M('usermoney')->add($da2);
+
+                            $wechat->replyNewsOnce(
+                                "首次关注送你一个红包",
+                                "恭喜你获得了一个".$da['money'].'元的红包,快去领取吧！',
+                                U('user/index','',true,true),
+                                $_SERVER['HTTP_HOST'].__ROOT__.'/Public/images/redpack.png'
+                            ); //回复单条图文消息
+                            break;
+                        }else{
+                            $wechat->replyText(C('Wechat.welcome'));
+                            break;
+                        }
 
                     case Wechat::MSG_EVENT_UNSUBSCRIBE:
                         //取消关注，记录日志
@@ -295,27 +315,6 @@ class NotifyController extends Controller
         }
     }
 
-    /**
-     * 判断新用户注册是否来自别人的邀请
-     * @return int 0或者邀请者的id
-     */
-    private function setUserInviteUid(){
-        $from = I('get.invite',0,'number_int');
-        $User = M('user');
-        $UserInfo = $User->field('uid,money,openid')->find();
-        if($UserInfo){
-            //来自合法的邀请
-            $da['money'] = readConf('InviteReward')?readConf('InviteReward'):C('InviteReward');
-            $da['type'] = 4;
-            $da['note'] = '邀请用户注册';
-            $da['time'] = time();
-            $da['uid'] = $from;
-            $Tool = A('Tool');
-            $Tool->changeMoney($da);
-            return $from;
-        }else{
-            return 0;
-        }
-    }
+
 
 }

@@ -47,11 +47,26 @@ class UserController extends Controller
         $info['favNum'] = count($favArr);
 
         //获取红包数量
+        $map['type'] = 4;
         $packetsNum = M('packets')->where($map)->count();
         $info['packetsNum'] = $packetsNum;
 
         $this->assign('info',$info);
         $this->display('index');
+    }
+
+    public function shareSuccess(){
+        $last = S($this->uid.'share');
+        if($last<date('Y-m-d 0:0:0')){
+            $data['uid'] = $this->uid;
+            $data['type'] = 4;
+            $last = $data['time'] = time();
+            $data['money'] = createRedPackMoney();
+            $data['note'] = '分享送红包';
+            $Tool = A('Tool');
+            $Tool->changeMoney($data);
+            S($this->uid.'share',$last);
+        }
     }
 
     /**
@@ -78,10 +93,10 @@ class UserController extends Controller
     public function myPacket(){
         $map['uid'] = $this->uid;
         $Tool = A('Tool');
-        $Tool->getData(M('packets'),$map,'pid desc','create_time,money,status');
+        $Tool->getData(M('usermoney'),$map,'mid desc','time,money,type');
         $left_money = M('user')->where($map)->getField('money');
         $this->assign('left_money',$left_money);
-        $this->assign('PacketStatus',C('PacketStatus'));
+        $this->assign('MoneyType',C('UserMoneyType'));
         $this->display('myPacket');
     }
 

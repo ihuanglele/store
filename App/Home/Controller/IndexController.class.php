@@ -15,7 +15,16 @@ class IndexController extends Controller
         $map['role'] = 2;
         $map['status'] = 2;
         $Tool->getData(M('admin'),$map,'aid desc','aid,storename,headimgurl as img');
+        $info['title'] = '关注送健康';
+        $info['desc'] = '关注送健康,每天还可以领红包';
+        $info['img'] = $_SERVER['HTTP_HOST'].__ROOT__.'/Public/images/logo.png';
+        $Wx = A('Wxjs');
+        $this->assign('signPackage',$Wx->GetSignPackage());
         $this->display('index');
+    }
+
+    public function test(){
+
     }
 
 
@@ -80,6 +89,8 @@ class IndexController extends Controller
     }
 
 
+
+
     /**
      * 本地自动登录
      */
@@ -135,10 +146,7 @@ class IndexController extends Controller
         }
     }
 
-    public function test(){
-        echo THINK_PATH;
-        var_dump($_SERVER);
-    }
+
 
     public function game(){
         layout(false);

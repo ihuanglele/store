@@ -112,3 +112,8 @@ function getNonceStr($length = 32)
     }
     return $str;
 }
+
+function createRedPackMoney(){
+    $money = rand(1,100);
+    return $money/100;
+}
