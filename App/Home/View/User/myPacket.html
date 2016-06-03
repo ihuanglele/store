@@ -35,8 +35,9 @@
         <volist name="list" id="vo">
             <li class="">
                 <span><{$vo.money}></span>
-                <span><{$time|Mydate}></span>
+                <span><{$vo.time|Mydate}></span>
                 <span><{$MoneyType[$vo['type']]}></span>
+                <span><{$vo.note}></span>
             </li>
         </volist>
         <div><{$page}></div>

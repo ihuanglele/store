@@ -16,16 +16,14 @@ class IndexController extends Controller
         $map['status'] = 2;
         $Tool->getData(M('admin'),$map,'aid desc','aid,storename,headimgurl as img');
         $info['title'] = '关注送健康';
-        $info['desc'] = '关注送健康,每天还可以领红包';
+        $info['summary'] = '关注送健康,每天还可以领红包';
         $info['img'] = $_SERVER['HTTP_HOST'].__ROOT__.'/Public/images/logo.png';
         $Wx = A('Wxjs');
+        $this->assign('info',$info);
         $this->assign('signPackage',$Wx->GetSignPackage());
         $this->display('index');
     }
 
-    public function test(){
-
-    }
 
 
     public function img(){

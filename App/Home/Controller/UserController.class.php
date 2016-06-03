@@ -48,7 +48,7 @@ class UserController extends Controller
 
         //获取红包数量
         $map['type'] = 4;
-        $packetsNum = M('packets')->where($map)->count();
+        $packetsNum = M('usermoney')->where($map)->count();
         $info['packetsNum'] = $packetsNum;
 
         $this->assign('info',$info);
@@ -66,6 +66,9 @@ class UserController extends Controller
             $Tool = A('Tool');
             $Tool->changeMoney($data);
             S($this->uid.'share',$last);
+            die('已奖励'.$data['money'].'元红包到你账户');
+        }else{
+            die('今日已分享');
         }
     }
 
@@ -93,7 +96,7 @@ class UserController extends Controller
     public function myPacket(){
         $map['uid'] = $this->uid;
         $Tool = A('Tool');
-        $Tool->getData(M('usermoney'),$map,'mid desc','time,money,type');
+        $list = $Tool->getData(M('usermoney'),$map,'mid desc','time,money,type,note');
         $left_money = M('user')->where($map)->getField('money');
         $this->assign('left_money',$left_money);
         $this->assign('MoneyType',C('UserMoneyType'));
