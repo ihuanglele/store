@@ -1,4 +1,4 @@
-<div class="toper navbar-fixed-top">
+<link href="__PUBLIC__/css/alongsty.css" rel="stylesheet"><style>    .row {        background: none;    }</style><div class="toper navbar-fixed-top">
     <div class="row color_white " >
         <div class="col-xs-2" style="padding-left:25px;"><a class="cwhite" href="<{:U('user/myAddr')}>"><img src="__PUBLIC__/images/jt.png" ></a></div>
         <div class="col-xs-8 text-center font20">方正大米</div>
@@ -9,30 +9,33 @@
 <div class="height53"></div>
 
 <form action="<{:U('user/addAddress')}>" method="post">
-    <div class="exitBox">
+    <div class="exitBox" style="margin-left:50px;">
+	<br>
+	<br>
         <dl class="clearfix exitBoxT1">
-            <dt>姓名</dt>
-            <dd><input name="name" value="<{$info.name}>" type="text" class="exitIpt"></dd>
+            
+            <dd>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:<input name="name" value="<{$info.name}>" type="text" class="exitIpt"></dd>
         </dl>
         <div class="exitLine"></div>
-
+<br>
         <dl class="clearfix exitBoxT1">
-            <dt>电话</dt>
-            <dd><input name="tel" value="<{$info.tel}>" type="text" class="exitIpt"></dd>
+            
+            <dd> 电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话: <input name="tel" value="<{$info.tel}>" type="text" class="exitIpt"></dd>
         </dl>
         <div class="exitLine"></div>
-
+<br>
 
         <dl class="clearfix exitBoxT2">
-            <dt>详细地址</dt>
-            <dd><input name="addr" value="<{$info.addr}>" type="text" class="exitIpt"></dd>
+      
+            <dd>   详细地址: <input name="addr" value="<{$info.addr}>" type="text" class="exitIpt"></dd>
         </dl>
         <div class="exitLine"></div>
     </div>
-    <div class="add">
+	<br>
+    <div class="add"  style="margin-left:130px;">
         <notempty name="info.id">
             <input type="hidden" name="id" value="<{$info.id}>">
         </notempty>
-        <button type="submit" name="submit" class="dizhi">提交</button>
+        <button type="submit" name="submit" class="dizhi">提&nbsp;&nbsp;&nbsp;&nbsp;交</button>
     </div>
 </form>

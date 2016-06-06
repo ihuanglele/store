@@ -66,9 +66,9 @@ class UserController extends Controller
             $Tool = A('Tool');
             $Tool->changeMoney($data);
             S($this->uid.'share',$last);
-            die('已奖励'.$data['money'].'元红包到你账户');
+            die($data['money']);
         }else{
-            die('今日已分享');
+            die(0);
         }
     }
 
@@ -277,7 +277,7 @@ class UserController extends Controller
                 file_put_contents($filePath,$pic);
             }
             session('referer',null);
-            $this->redirect('User/index');
+            $this->redirect('index/index');
         }else{
             $this->error('登录失败');
         }

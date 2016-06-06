@@ -125,8 +125,8 @@ class NotifyController extends Controller
                             $wechat->replyNewsOnce(
                                 "首次关注送你一个红包",
                                 "恭喜你获得了一个".$da['money'].'元的红包,快去领取吧！',
-                                U('user/index','',true,true),
-                                $_SERVER['HTTP_HOST'].__ROOT__.'/Public/images/redpack.png'
+                                U('index/hb',array('uid'=>$uid),true,true),
+                                'http://'.$_SERVER['HTTP_HOST'].__ROOT__.'/Public/images/hb.jpg'
                             ); //回复单条图文消息
                             break;
                         }else{

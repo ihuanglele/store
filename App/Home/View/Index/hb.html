@@ -1,0 +1,121 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="applicable-device" content="mobile" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<title>红包</title>
+<style>
+body {
+	margin: 0px;
+	padding: 0px;
+	font-size:12px;
+	font-family:Helvetica,"Microsoft YaHei", Arial, Helvetica, sans-serif;
+	background-color: #f5f5f5;
+
+}
+ul, li {
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+}
+a{ color:#888; text-decoration:none;}
+img {
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+    max-width: 100%;
+}
+form {
+	margin: 0px;
+	padding: 0px;
+}
+
+
+* { padding: 0; margin: 0; }
+.am-share { font-size: 14px; border-radius: 0; bottom: 0; left: 0; position: fixed; text-align: center; -webkit-transform: translateY(100%); -ms-transform: translateY(100%); transform: translateY(100%); -webkit-transition: -webkit-transform 300ms; transition: transform 300ms ; width: 100%; z-index: 1110; }
+.am-modal-active { transform: translateY(0px);  -webkit-transform: translateY(0); -ms-transform: translateY(0); transform: translateY(0) }
+.am-modal-out { z-index: 1109; -webkit-transform: translateY(100%); -ms-transform: translateY(100%); transform: translateY(100%) }
+
+.yuan{ width:100px; height:100px; line-height:100px; font-size:18px; border-radius:50%; background-color:#feaa3a; color:#FFF;}
+ .share_btn { color: #7f3325;  display: block;  cursor: pointer;  font-size: 24px; font-weight: bold;  }
+
+.sharebg { background-color: rgba(0, 0, 0, 0.6); bottom: 0; height: 100%; left: 0; opacity: 0; position: fixed; right: 0; top: 0; width: 100%; z-index: 1100; display:none; }
+.sharebg-active { opacity: 1; display:block; }
+</style>
+<script type="text/javascript" src="__PUBLIC__/js/jquery_min1_11_2.js"></script>
+</head>
+
+<body>
+<script type="text/javascript">
+	function toshare(){
+		$(".am-share").addClass("am-modal-active");
+		if($(".sharebg").length>0){
+			$(".sharebg").addClass("sharebg-active");
+		}else{
+			$("body").append('<div class="sharebg"></div>');
+			$(".sharebg").addClass("sharebg-active");
+		}
+		$(".sharebg-active,.share_btn").click(function(){
+			$(".am-share").removeClass("am-modal-active");
+			setTimeout(function(){
+				$(".sharebg-active").removeClass("sharebg-active");
+				$(".sharebg").remove();
+			},300);
+		})
+	}
+</script>
+<table border="0" width="100%" cellpadding="0" cellspacing="0" style="text-align:center;  margin-top:50px; ">
+<tr><td width="15%" valign="top"></td>
+
+<td width="5%" align="top" ><img src="__PUBLIC__/images/jiao.png" width="100%" ></td>
+
+<td align="left">
+
+
+
+<a  onClick="toshare()">
+<table border="0" width="80%" cellpadding="0"  cellspacing="0" style="background-color:#f99d3a; border-radius:5px 5px 0px 0px; padding:10px; color:#FFF; line-height:28px;">
+<tr><td width="25%"><img src="__PUBLIC__/images/hb1.png" width="85%" border="0" ></td><td>感谢您对方正大米的支持!<br>领取红包</td></tr>
+</table>
+<table border="0" width="80%" cellpadding="0"  cellspacing="0" style="background-color:#fafafa; border:1px solid #d1d1d1; border-top:none; border-radius: 0px 0px 5px 5px; padding:5px 10px; color:#999;font-size:14px;">
+<tr><td>微信红包</td><td align="right"><img src="__PUBLIC__/images/wb.png" width="20" border="0" ></td></tr>
+</table></a>
+
+
+
+
+
+
+
+</td></tr>
+
+</table>
+
+
+
+<div class="am-share">
+<table border="0" width="90%" cellpadding="0" cellspacing="0" style="margin:0px auto; margin-top:40px; background:#be4e3a;border-radius:10px 10px 0px 0px; color:#FFF; font-size:16px;text-align:center">
+<tr><td height="40" align="right" style="padding-right:5%"><a class="share_btn">×</a></td></tr>
+<tr><td ><img src="<{$info.headimgurl}>" width="81" height="80" style=" border-radius:50%;"></td></tr>
+<tr><td height="30" >&nbsp;</td></tr>
+<tr><td><font size="+1"> <{$info.nickname}></font></td></tr>
+<tr><td height="20" >&nbsp;</td></tr>
+<tr><td >分享到朋友圈还有红包领取哦</td></tr>
+<tr><td height="50" >&nbsp;</td></tr>
+<tr><td align="center" height="100" style="background:#a24536; background-size:100%;">
+<a href="<{:U('user/index')}>" ><div class="yuan">拆红包</div></a></td></tr>
+</table>
+<table border="0" width="90%" style="margin:0px auto; background:#a24536; margin-bottom:40px; border-radius:0px 0px 10px 10px; color:#FFF; font-size:16px;text-align:center">
+<tr><td height="80" >&nbsp;</td></tr>
+  </table>
+</div>
+
+
+
+</body>
+</html>

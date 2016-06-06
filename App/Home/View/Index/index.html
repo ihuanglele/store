@@ -35,6 +35,22 @@
             }
         }, 5000);
 
+        function toshare(){
+          $(".am-share").addClass("am-modal-active");
+          if($(".sharebg").length>0){
+            $(".sharebg").addClass("sharebg-active");
+          }else{
+            $("body").append('<div class="sharebg"></div>');
+            $(".sharebg").addClass("sharebg-active");
+          }
+          $(".sharebg-active,.share_btn").click(function(){
+            $(".am-share").removeClass("am-modal-active");
+            setTimeout(function(){
+              $(".sharebg-active").removeClass("sharebg-active");
+              $(".sharebg").remove();
+            },300);
+          })
+        }
 
         wx.config({
             debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
@@ -55,14 +71,11 @@
                 desc: '<{$info.summary}>',
                 link: window.location.href,
                 imgUrl: '<{$info.img}>'
-               <notempty name='Think.session.uid'>
-                ,success:function(){
-                    ajax_post();
-                }
-                </notempty>
             };
+            var shareData2 = shareData;
+            shareData2.success = function(){ajax_post();}
             wx.onMenuShareAppMessage(shareData);
-            wx.onMenuShareTimeline(shareData);
+            wx.onMenuShareTimeline(shareData2);
 
         })
 
@@ -73,11 +86,14 @@
                 cache:false,
                 dataType:'html',
                 success:function(res){
-                    alert(res);
+                    if(res){
+                      window.location.href = "<{:U('index/hb')}>?uid=<{$Think.session.uid}>"
+                    }else{
+                      alert('每24小时可分享1次每次均有红包领取哟！');
+                    }
                 }
             })
         }
-
     </script>
 
 
@@ -93,24 +109,24 @@
             height: 125px;
             float: left;
         }
+
     </style>
     <section class="main_focus">
         <div class="img_focus" id="wrapper">
             <div id="scroller">
                 <ul id="thelist">
-                    <li><a href="#"><img width="320" height="125" src="__PUBLIC__/images/banner1.jpg"/></a></li>
-                    <li><a href="#"><img width="320" height="125" src="__PUBLIC__/images/banner2.jpg"/></a></li>
-                    <li><a href="#"><img width="320" height="125" src="__PUBLIC__/images/banner3.jpg"/></a></li>
-
+                    <volist name="slides" id="v">
+                        <li><a href="<{$v.url}>"><img width="320" height="125" src="__PUBLIC__/carousel/<{$v.pic}>"/></a></li>
+                    </volist>
                 </ul>
             </div>
-            <div class="img_mornitor">
-                <ol id="indicator">
-                    <li class="on">1</li>
-                    <li>2</li>
-                    <li>3</li>
-                </ol>
-            </div>
+            <!--<div class="img_mornitor">-->
+                <!--<ol id="indicator">-->
+                    <!--<li>1</li>-->
+                    <!--<li>2</li>-->
+                    <!--<li>3</li>-->
+                <!--</ol>-->
+            <!--</div>-->
         </div>
     </section>
     <section class="notice">

@@ -94,9 +94,9 @@ class ProductController extends CommonController
                 $info   =   $upload->upload();
                 if($info) {
                     $data['img'] = $info['file']['savepath'].$info['file']['savename'];
-                    $image = new \Think\Image();
-                    $image->open('./upload/'.$data['img']);
-                    $image->thumb(200,200,2)->save('./upload/'.$data['img']);
+                    //$image = new \Think\Image();
+                    //$image->open('./upload/'.$data['img']);
+                    //$image->thumb(200,200,2)->save('./upload/'.$data['img']);
                 }else{
                     $this->error($upload->getError());
                 }

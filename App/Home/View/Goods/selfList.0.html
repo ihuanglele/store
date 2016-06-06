@@ -18,9 +18,9 @@
     <section class="scroll_img">
         <ul class="icon_nav2">
 
-            <li><a href="<{:U('goods/selfList',array('aid'=>$aid,'type'=>2))}>"><img src="__PUBLIC__/images/xmicon1.png"><br><span>超值套餐</span><br>CHAOZHITAOCAN</a></li>
-            <li><a href="<{:U('goods/selfList',array('aid'=>$aid,'type'=>1))}>"><img src="__PUBLIC__/images/xmicon2.png"><br><span>糙米专区</span><br>CHAOMIZHUANQU</a></li>
-            <li><a href="<{:U('user/index')}>"><img src="__PUBLIC__/images/icon14.png"><br><span>会员专区</span><br>HUIYUANZHUANQU</a></li>
+            <li style="width:32%"><a href="<{:U('goods/selfList',array('aid'=>$aid,'type'=>2))}>"><img src="__PUBLIC__/images/xmicon1.png" width="55" height="55"><br><span>超值套餐</span><br>CHAOZHITAOCAN</a></li>
+            <li style="width:32%"><a href="<{:U('goods/selfList',array('aid'=>$aid,'type'=>1))}>"><img src="__PUBLIC__/images/xmicon2.png" width="55" height="55"><br><span>糙米专区</span><br>CHAOMIZHUANQU</a></li>
+            <li style="width:32%"><a href="<{:U('user/index')}>"><img src="__PUBLIC__/images/icon14.png"><br><span>会员专区</span><br>HUIYUANZHUANQU</a></li>
         </ul>
     </section>
     <script type="text/javascript" src="__PUBLIC__/js/iscroll.js"></script>
@@ -91,7 +91,7 @@
         <div class="search_field">
             <form id="index_search_form" method="get" action="<{:U('goods/index')}>" target="_parent"
                   onSubmit="$('#keywords').val($('#input_keyword').val());">
-                <input name="name" type="text" value="" class="keyword"/>
+                <input name="name" type="text" value="" class="keyword" style="width:65%;"/>
                 <input type="submit" value=""/>
 
             </form>
@@ -168,7 +168,7 @@
 
         <ul class="pic_list">
             <volist name="list2" id="vo">
-                <li>
+                <li style="width:100%;">
                     <a href="<{:U('goods/product',array('aid'=>$aid,'id'=>$vo['pid']))}>">
 
                         <img src="<{:C('imgHost')}><{$vo.img}>"/> </a>

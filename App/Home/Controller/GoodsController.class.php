@@ -12,18 +12,29 @@ use Think\Controller;
 class GoodsController extends Controller
 {
 
+  private $uid = null;
+
+  public function _initialize(){
+    $uid = session('uid');
+    if(!$uid){$this->redirect('user/login');die;}
+  }
+
     /**
      * 所有商品
      */
     public function index(){
         $Tool = A('Tool');
         $map['status'] = 2;
-        $name = I('post.name');
+        $name = I('get.name');
         if($name){
             $map['name'] = array('like','%'.$name.'%');
         }
         $this->assign('name',$name);
-        $Tool->getData(M('goods'),$map,'gid desc','gid,name,img,market_price,buy_price');
+        $list = $Tool->getData(M('goods'),$map,'gid desc','gid,aid,name,img,market_price,buy_price');
+        $aidArr[] = 0;
+        foreach($list as $v) $aidArr[] = $v['aid'];
+        $StoreName = M('admin')->where(array('aid'=>array('in',$aidArr)))->getField('aid,storename');
+        $this->assign('StoreName',$StoreName);
         $this->display('index');
     }
 
@@ -57,14 +68,14 @@ class GoodsController extends Controller
         $map['status'] = 1;
         if($type){
             $map['type'] = $type;
-            $Tool->getData(M('product'),$map,'pid desc','pid,name,img,price');
+            $Tool->getData(M('product'),$map,'price asc','pid,name,img,price');
         }else{
             $map['type'] = 1;
-            $list1 = $Tool->getData(M('product'),$map,'pid desc','pid,name,img,price');
+            $list1 = $Tool->getData(M('product'),$map,'price asc','pid,name,img,price');
             $this->assign('list1',$list1);
 
             $map['type'] = 2;
-            $list2 = $Tool->getData(M('product'),$map,'pid desc','pid,name,img,price');
+            $list2 = $Tool->getData(M('product'),$map,'price asc','pid,name,img,price');
             $this->assign('list2',$list2);
         }
         $tpl = 'selfList.'.$type;
