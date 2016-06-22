@@ -6,12 +6,12 @@ return array(
 
     //微信支付配置项
     'Wx' => array(
-        'AppID' => 'wxed5b296d4910abe6',        //微信APPID
-        'AppSecret' => '80bd81e91b99deae2f895c0179aa7e54',  //微信APPsecret
+        'AppID' => 'wx46fc469f325d6fc9',        //微信APPID
+        'AppSecret' => '24034e21d8a2034046588c9c2ed47157',  //微信APPsecret
         'Token' => 'Z60z6Z6Q1aavK30K0GVv460t30bnA606',       //微信Token(令牌)
         'EncodingAESKey' => 'k6GOifBwDFG0IMEUDv9KDejLvEVnQh8A0XwsBfyDskH',//微信消息加解密密钥
         'key' => 'WeixingTianxia043187956777wxtx00',
-        'mch_id' => '1331093701', //商户号
+        'mch_id' => '1332974901', //商户号
         'notify_url' => 'http://' . $_SERVER['HTTP_HOST'] . '/index.php/wechat/notify',
         'SSLCERT_PATH' => LIB_PATH . "Org/Wxpay/apiclient_cert.pem",
         'SSLKEY_PATH' => LIB_PATH . "Org/Wxpay/apiclient_key.pem",

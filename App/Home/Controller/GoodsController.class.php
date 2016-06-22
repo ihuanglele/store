@@ -68,14 +68,14 @@ class GoodsController extends Controller
         $map['status'] = 1;
         if($type){
             $map['type'] = $type;
-            $Tool->getData(M('product'),$map,'price asc','pid,name,img,price');
+            $Tool->getData(M('product'),$map,'price asc','pid,name,img,price,tip');
         }else{
             $map['type'] = 1;
-            $list1 = $Tool->getData(M('product'),$map,'price asc','pid,name,img,price');
+            $list1 = $Tool->getData(M('product'),$map,'price asc','pid,name,img,price,tip');
             $this->assign('list1',$list1);
 
             $map['type'] = 2;
-            $list2 = $Tool->getData(M('product'),$map,'price asc','pid,name,img,price');
+            $list2 = $Tool->getData(M('product'),$map,'price asc','pid,name,img,price,tip');
             $this->assign('list2',$list2);
         }
         $tpl = 'selfList.'.$type;
