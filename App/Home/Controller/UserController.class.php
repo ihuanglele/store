@@ -39,8 +39,10 @@ class UserController extends Controller
         $info = M('user')->where($map)->field('nickname,headimgurl,money,favorites')->find();
 
         //获取订单数量
+        $map['status'] = array('gt',0);
         $ordersNum = M('orders')->where($map)->count();
         $info['ordersNum'] = $ordersNum;
+        unset($map['status']);
 
         //获取个人收藏的信息
         $favArr = json_decode($info['favorites'],true);
@@ -77,6 +79,7 @@ class UserController extends Controller
      */
     public function myOrder(){
         $map['uid'] = $this->uid;
+        $map['status'] = array('gt',0);
         $Tool = A('Tool');
         $field = 'oid,gid,create_time as time,status,buy_price as money,buy_name';
         $list = $Tool->getData(M('orders'),$map,'oid desc',$field);

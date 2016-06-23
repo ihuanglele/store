@@ -29,6 +29,8 @@ class OrdersController extends CommonController
         $status = I('get.status',0,'number_int');
         if($status){
             $map['status'] = $status;
+        }else{
+            $map['status'] = array('gt',0);
         }
         $this->assign('status',$status);
 
@@ -55,8 +57,8 @@ class OrdersController extends CommonController
             $gidArr[] = $v['gid'];
         }
 
-        $uidInfo = M('user')->where(array('uid'=>array('in',$uidArr)))->getField('uid,nickname,headimgurl');
-        $goodsInfo = M('goods')->where(array('gid'=>array('in',$gidArr)))->getField('gid,name,status as gstatus');
+        $uidInfo = M('user')->where(array('uid'=>array('in',$uidArr)))->getField('uid,nickname,headimgurl',true);
+        $goodsInfo = M('goods')->where(array('gid'=>array('in',$gidArr)))->getField('gid,name,status as gstatus',true);
 
         $data = array();
         foreach($list as $v){
@@ -64,6 +66,7 @@ class OrdersController extends CommonController
         }
 
         $this->assign('list',$data);
+
         $this->assign('OrdersStatus',C('OrdersStatus'));
         $this->assign('GoodsStatus',C('GoodsStatus'));
         $this->display('index');
