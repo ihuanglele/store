@@ -44,6 +44,10 @@
 </div>
 <script>
 
+    <eq name='type' value='0'>jumpUrl = "<{:U('user/index')}>"</eq>
+    <eq name='type' value='1'>jumpUrl = "<{:U('user/myOrder')}>"</eq>
+    <eq name='type' value='2'>jumpUrl = "<{:U('user/checkFirstBuyJump')}>"</eq>
+
     //调用微信JS api 支付
     function jsApiCall()
     {
@@ -54,11 +58,11 @@
 //                            WeixinJSBridge.log(res.err_msg);
                     if(res.err_msg == "get_brand_wcpay_request:ok") {
                         setTimeout(function(){
-                            window.location.href = "<{:U('user/index')}>"
+                            window.location.href = jumpUrl
                         },500)
                     }else {
                         //用户取消支付
-                        alert(res.err_msg);
+                        alert(JSON.stringify(res));
                     }
                 }
     );

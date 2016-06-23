@@ -551,6 +551,7 @@ class UserController extends Controller
                 $order['create_time'] = time();
                 $order['aid'] = $gInfo['aid'];
                 $order['status'] = 0;
+                $order['type'] = 1;
                 $order['needMoney'] = $needMoney;
 
                 $this->pay($order);
@@ -563,6 +564,7 @@ class UserController extends Controller
                     $order['buy_name'] = $addr['name'];
                     $order['buy_addr'] = $addr['addr'];
                     $order['tel'] = $addr['tel'];
+                    $order['type'] = 1;
                     $this->handleBuy($gid,$num,$goodInfo,$order);
                     session('cart',null);
                     $tip = '购买成功后的页面：感谢您对我们的支持！同时欢迎您加入“鲜米现磨”营销团队！只要您动动手，点击方正大米推广生成您的专属二维码推广给您的好友，只要您的好友消费，您就有20%（人民币236元）的利润自动进入您的红包，倡导健康，收获粮薪！还等什么，马上行动吧！';
@@ -607,6 +609,7 @@ class UserController extends Controller
                 $order['tel'] = $addr['tel'];
                 $order['create_time'] = time();
                 $order['status'] = 1;
+                $order['type'] = 2;
                 $order['needMoney'] = $userNeedMoney;
                 $this->pay($order);
                 die;
@@ -641,6 +644,7 @@ class UserController extends Controller
                 $order['tel'] = $addr['tel'];
                 $order['create_time'] = time();
                 $order['status'] = 1;
+                $order['type'] = 2;
                 $r1 = M('orders')->add($order);
 
                 $r2 = $User->where($mapUser)->setDec('money',$userNeedMoney);
@@ -691,7 +695,7 @@ class UserController extends Controller
                 if($r1 && $r2 && $r3 && $r4 && $r5){
                     $User->commit();
                     $tip = '购买成功后的页面：感谢您对我们的支持！同时欢迎您加入“鲜米现磨”营销团队！只要您动动手，点击方鲜米套餐推广生成您的专属二维码推广给您的好友，只要您的好友消费，您就有20%（人民币236元）的利润自动进入您的红包，倡导健康，收获粮薪！还等什么，马上行动吧！';
-                    $this->success($tip,U('user/myOrder'));
+                    $this->success($tip,U('user/checkFirstBuyJump'));
                 }else{
                     $User->rollback();
                     $this->success('下单失败');
@@ -817,6 +821,7 @@ class UserController extends Controller
                 $data['oid'] = $oid;
                 if(M('pay')->add($data)){
                     $this->assign('money',$money);
+                    $this->assign('type',$order['type']);
                     $this->display('paySub');die;
                 }else{
                     $this->error('操作失败请重试');die;
@@ -826,7 +831,7 @@ class UserController extends Controller
             }
         }else{
             if(isset($_POST['money'])){
-                $money = I('post.money',0,'number_float');
+                $money = I('post.money',0);
                 if($money>0){
                     $body = '充值';
                     $attach = '充值';
@@ -845,6 +850,7 @@ class UserController extends Controller
                         $data['oid'] = 0;
                         if(M('pay')->add($data)){
                             $this->assign('money',$money);
+                            $this->assign('type',0);
                             $this->display('paySub');die;
                         }else{
                             $this->error('操作失败请重试');die;
@@ -858,6 +864,22 @@ class UserController extends Controller
             }else{
                 $this->display('pay');
             }
+        }
+    }
+
+    /**
+     * 跳转链接，判断是否是有生成代理的权限
+     */
+    public function checkFirstBuyJump(){
+        $map['uid'] = $this->uid;
+        $map['type'] = 2;
+        $map['status'] = array('gt',0);
+        $num = M('orders')->where($map)->count();
+        if($num==1){
+            layout(false);
+            $this->display('checkFirstBuyJump');
+        }else{
+            $this->myOrder();
         }
     }
 
