@@ -98,5 +98,9 @@ class ToolController extends Controller
     }
 
 
+    public function handBuy(){
+
+    }
+
 
 }

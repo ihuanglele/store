@@ -519,6 +519,190 @@ class UserController extends Controller
      */
     public function buy(){
         if(isset($_POST)){
+            $type = I('post.type');
+            $gid = I('post.gid');
+            $num = I('post.num');
+
+            //获取地址信息
+            $addr = M('addr')->find(I('addressid'));
+            if(!$addr){$this->error('位置信息错误');die;}
+
+            $User = M('user');
+            $mapUser['uid'] = $this->uid;
+            $userLeftMoney = $User->where($mapUser)->getField('money');
+            $goodInfo = M('goods')->where(array('gid'=>$gid))->field('gid,buy_price,left_num,sold_num,status,aid,rate,status,yunfei')->find();
+            $needMoney = $goodInfo['buy_price']*$num+ $goodInfo['yunfei'];
+
+            if($type=='wx'){
+                $gInfo = M('goods')->where(array('gid'=>$gid))->field('gid,buy_price,left_num,sold_num,status,aid,rate,status,yunfei')->find();
+                $getMoney = $gInfo['buy_price']*$num*(100-$gInfo['rate'])/100+$gInfo['yunfei'];
+
+                $order['gid'] = $gid;
+                $order['buy_name'] = $addr['name'];
+                $order['buy_addr'] = $addr['addr'];
+                $order['tel'] = $addr['tel'];
+                $order['buy_price'] = $gInfo['buy_price'];
+                $order['money'] = $getMoney;
+                $order['buy_num'] = $num;
+                $order['uid'] = $this->uid;
+                $order['create_time'] = time();
+                $order['aid'] = $gInfo['aid'];
+                $order['status'] = 0;
+                $order['needMoney'] = $needMoney;
+
+                $this->pay($order);
+            }else if($type=='money'){
+
+
+
+                if($needMoney<$userLeftMoney){
+                    $order['gid'] = $gid;
+                    $order['buy_name'] = $addr['name'];
+                    $order['buy_addr'] = $addr['addr'];
+                    $order['tel'] = $addr['tel'];
+                    $this->handleBuy($gid,$num,$goodInfo,$order);
+                    session('cart',null);
+                    $tip = '购买成功后的页面：感谢您对我们的支持！同时欢迎您加入“鲜米现磨”营销团队！只要您动动手，点击方正大米推广生成您的专属二维码推广给您的好友，只要您的好友消费，您就有20%（人民币236元）的利润自动进入您的红包，倡导健康，收获粮薪！还等什么，马上行动吧！';
+                    $this->success($tip,U('user/myOrder'));
+                }else{
+                    $this->error('余额不足',U('user/pay'));
+                }
+
+            }
+        }
+    }
+
+    public function buyProduct(){
+        if(isset($_POST['submit'])){
+            $uid = session('uid');
+            $type = I('post.type');
+            $aid = I('aid',0,'number_int');
+            $num = I('post.num');
+
+            $pid = I('post.pid');
+            $from = I('post.from');
+
+            if($num){$this->error('数量格式不对');die;}
+            //获取地址信息
+            $addr = M('addr')->find(I('addressid'));
+            if(!$addr){$this->error('位置信息错误');die;}
+
+            //获取产品的信息
+            $gInfo = M('product')->find($pid);
+            if(!($gInfo && $gInfo['status']==1)){var_dump($gInfo);$this->error('产品已下架');die;}
+
+            if($type=='wx'){    //微信支付
+                $userNeedMoney = $gInfo['price']*$num;
+
+                $order['gid'] = $pid;
+                $order['buy_price'] = $gInfo['price'];
+                $order['buy_num'] = $num;
+                $order['uid'] = $uid;
+                $order['aid'] = $aid;
+                $order['buy_name'] = $addr['name'];
+                $order['buy_addr'] = $addr['addr'];
+                $order['tel'] = $addr['tel'];
+                $order['create_time'] = time();
+                $order['status'] = 1;
+                $order['needMoney'] = $userNeedMoney;
+                $this->pay($order);
+                die;
+            }elseif($type=='money'){    //直接付款
+                //判断余额
+                $userNeedMoney = $gInfo['price']*$num;
+                $uInfo = M('user')->field('money')->find($uid);
+                if($uInfo['money']<$userNeedMoney){$this->error('账户余额不足');die;}
+
+                //判断订单来源
+                if($aid){
+                    $aInfo = M('admin')->field('status')->find($aid);
+                    if($aid && $aInfo['status']>1){
+                        $agent = 'agent'.$aid['status'];
+                    }else{
+                        $aid = 0;
+                    }
+                }
+
+
+                $User = M('user');
+                $User->startTrans();
+                $mapUser['uid'] = $uid;
+                //添加订单，用户扣钱，添加扣钱记录，[平台自销]|[平台给商家钱，商家添加前记录]|[平台给用户佣金|添加佣金记录]
+
+                $order['gid'] = $pid;
+                $order['buy_price'] = $userNeedMoney;
+                $order['uid'] = $uid;
+                $order['aid'] = $aid;
+                $order['buy_name'] = $addr['name'];
+                $order['buy_addr'] = $addr['addr'];
+                $order['tel'] = $addr['tel'];
+                $order['create_time'] = time();
+                $order['status'] = 1;
+                $r1 = M('orders')->add($order);
+
+                $r2 = $User->where($mapUser)->setDec('money',$userNeedMoney);
+
+                $da3['time'] = time();
+                $da3['money'] = $userNeedMoney;
+                $da3['note'] = '购买商品'.$gInfo['name'];
+                $da3['type'] = '1';
+                $da3['uid'] = $uid;
+                $r3 = M('usermoney')->add($da3);
+
+                if($aid){   //代理卖出
+                    $getMoney = $gInfo[$agent]*$num;
+                    if($getMoney){
+                        //商家钱增多
+                        $r4 = M('admin')->where(array('aid'=>$aid))->setInc('money',$getMoney);
+
+                        //添加商家记录
+                        $da5['time'] = time();
+                        $da5['money'] = $getMoney;
+                        $da5['note'] = '订单号'.$r1;
+                        $da5['type'] = '1';
+                        $da5['aid'] = $aid;
+                        $r5 = M('adminmoney')->add($da5);
+                    }else{
+                        $r4 = $r5 = 1;
+                    }
+                }else{ //平台自销
+                    if($from){
+                        //给推广员佣金
+                        $rate = M('user')->where(array('uid'=>$from))->getField('rate');
+                        if($rate){  //获取到了推广员的佣金比例
+                            $getMoney = $userNeedMoney*$rate/100;
+                            M('user')->where(array('uid'=>$from))->setInc('money',$getMoney);
+
+                            //添加商家记录
+                            $da5['time'] = time();
+                            $da5['money'] = $getMoney;
+                            $da5['note'] = '推广佣金';
+                            $da5['type'] = '4';
+                            $da5['uid'] = $from;
+                            M('usermoney')->add($da5);
+                        }
+                    }
+                    $r4 = $r5 = 1;
+                }
+
+                if($r1 && $r2 && $r3 && $r4 && $r5){
+                    $User->commit();
+                    $tip = '购买成功后的页面：感谢您对我们的支持！同时欢迎您加入“鲜米现磨”营销团队！只要您动动手，点击方鲜米套餐推广生成您的专属二维码推广给您的好友，只要您的好友消费，您就有20%（人民币236元）的利润自动进入您的红包，倡导健康，收获粮薪！还等什么，马上行动吧！';
+                    $this->success($tip,U('user/myOrder'));
+                }else{
+                    $User->rollback();
+                    $this->success('下单失败');
+                }
+            }
+
+        }else{
+            $this->error('页面不存在');
+        }
+
+    }
+
+    public function buy1(){
+        if(isset($_POST)){
             $ids = I('post.ids');
             $nums = I('post.nums');
             $n = count($ids);
@@ -609,38 +793,68 @@ class UserController extends Controller
         }
     }
 
-    public function pay(){
-        if(isset($_POST['money'])){
-            $money = I('post.money',0,'number_float');
-            if($money>0){
-                $body = '充值';
-                $attach = '充值';
-                $tag = $this->uid;
-                $trade_no = creatTradeNum();
-                $openId = session('openid');
-                $Pay = A('Wechat');
-                $order = $Pay->pay($openId,$body,$attach,$trade_no,$money*100,$tag);
-                if($order['result_code']=='SUCCESS'){//生成订单信息成功
-                    $data['uid'] = $this->uid;
-                    $data['create_time'] = time();
-                    $data['money'] = $money;
-                    $data['paytrade'] = $trade_no;
-                    $data['status'] = 1;
-                    $data['pay_time'] = 0;
-                    if(M('pay')->add($data)){
-                        $this->assign('money',$money);
-                        $this->display('paySub');die;
-                    }else{
-                        $this->error('操作失败请重试');die;
-                    }
+    public function pay($order=false){
+        if($order){
+            $oid = M('orders')->add($order);
+            $money = $order['needMoney'];
+            $body = '支付';
+            $attach = '充值';
+            $tag = $this->uid;
+            $trade_no = creatTradeNum();
+            $openId = session('openid');
+            $Pay = A('Wechat');
+            $order = $Pay->pay($openId,$body,$attach,$trade_no,$money*100,$tag);
+            if($order['result_code']=='SUCCESS'){//生成订单信息成功
+                $data['uid'] = $this->uid;
+                $data['create_time'] = time();
+                $data['money'] = $money;
+                $data['paytrade'] = $trade_no;
+                $data['status'] = 1;
+                $data['pay_time'] = 0;
+                $data['oid'] = $oid;
+                if(M('pay')->add($data)){
+                    $this->assign('money',$money);
+                    $this->display('paySub');die;
                 }else{
                     $this->error('操作失败请重试');die;
                 }
             }else{
-                $this->error('输入金额有误');
+                $this->error('操作失败请重试');die;
             }
         }else{
-            $this->display('pay');
+            if(isset($_POST['money'])){
+                $money = I('post.money',0,'number_float');
+                if($money>0){
+                    $body = '充值';
+                    $attach = '充值';
+                    $tag = $this->uid;
+                    $trade_no = creatTradeNum();
+                    $openId = session('openid');
+                    $Pay = A('Wechat');
+                    $order = $Pay->pay($openId,$body,$attach,$trade_no,$money*100,$tag);
+                    if($order['result_code']=='SUCCESS'){//生成订单信息成功
+                        $data['uid'] = $this->uid;
+                        $data['create_time'] = time();
+                        $data['money'] = $money;
+                        $data['paytrade'] = $trade_no;
+                        $data['status'] = 1;
+                        $data['pay_time'] = 0;
+                        $data['oid'] = 0;
+                        if(M('pay')->add($data)){
+                            $this->assign('money',$money);
+                            $this->display('paySub');die;
+                        }else{
+                            $this->error('操作失败请重试');die;
+                        }
+                    }else{
+                        $this->error('操作失败请重试');die;
+                    }
+                }else{
+                    $this->error('输入金额有误');
+                }
+            }else{
+                $this->display('pay');
+            }
         }
     }
 

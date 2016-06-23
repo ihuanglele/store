@@ -4,7 +4,7 @@ return array(
     //加载网站设置配置文件
     'LOAD_EXT_CONFIG' => 'site',
     //显示页面调试TRACE
-    'SHOW_PAGE_TRACE' => false,
+    'SHOW_PAGE_TRACE' => true,
     'URL_CASE_INSENSITIVE' => true,
 
     //默认访问控制器
@@ -133,6 +133,5 @@ return array(
         '2' => '套餐',
     ),
 
-    ''
 
 );

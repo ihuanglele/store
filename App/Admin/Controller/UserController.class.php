@@ -102,7 +102,7 @@ class UserController extends CommonController
         $da2['note'] = $note;
         $da2['money'] = $amount;
         $da2['type'] = $status;
-        $r2 = M("umoney")->add($da2);
+        $r2 = M("usermoney")->add($da2);
 
         if($r1 && $r2){
             $User->commit();

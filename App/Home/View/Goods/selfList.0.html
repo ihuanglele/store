@@ -87,16 +87,7 @@
         </div>
     </section>
 
-    <section class="index_search">
-        <div class="search_field">
-            <form id="index_search_form" method="get" action="<{:U('goods/index')}>" target="_parent"
-                  onSubmit="$('#keywords').val($('#input_keyword').val());">
-                <input name="name" type="text" value="" class="keyword" style="width:65%;"/>
-                <input type="submit" value=""/>
-
-            </form>
-        </div>
-    </section>
+  
 
 
     <section class="link_area">
@@ -115,6 +106,12 @@
         <p class="lk1">哈尔滨浩迈农业科技发展有限公司经过多年研发创新,率先推出“家用鲜米机”并获得多项发明专利。</p>
 
         <p align="center"><img src="__PUBLIC__/images/xianmi3.png" width="90%" border="0"></p>
+		<div style="margin-top:-52%">
+		<video src="http://fzstore.91yiso.com/11.mp4" width="63%" height="123" align="middle"  controls preload style="padding-left:12%;"></video>
+		</div>
+
+		
+	 
 
         <p><img src="__PUBLIC__/images/hong.png" width="100%" border="0"></p>
 
@@ -174,9 +171,15 @@
                         <img src="<{:C('imgHost')}><{$vo.img}>"/> </a>
 
                     <div class="info">
-                        <div class="sat" style="border-bottom:none"><{$vo.name}></div>
+                        <div class="sat" style="border-bottom:none">
+						
+						&nbsp;&nbsp;家用鲜米机 <span style="margin-right:2%;margin-top:0px;float:right;">40斤优质富硒糙米</span> 
+						<br>&nbsp;&nbsp;1180元/台 <span style="margin-right:8%;float:right;margin-top:0px;">(价值590元)</span> 
+						
+						
+						</div>
                         <div class="sat2"><span class="shu"><small style="font-size:18px;">￥<{$vo.price}></small></span>
-                            <a href="<{:U('goods/product',array('aid'=>$aid,'id'=>$vo['pid']))}>" class="adcart"><img src="__PUBLIC__/images/cart.png"></a>
+                            <a href="<{:U('goods/product',array('aid'=>$aid,'id'=>$vo['pid']))}>" class="adcart"><img src="__PUBLIC__/images/cart1.png"></a>
                         </div>
                     </div>
                 </li>
@@ -201,8 +204,9 @@
 
                     <div class="info">
                         <div class="sat" style="border-bottom:none"><{$vo.name}></div>
-                        <div class="sat2"><span class="shu"><small style="font-size:18px;">￥<{$vo.price}></small></span>
-                            <a href="<{:U('goods/product',array('aid'=>$aid,'id'=>$vo['pid']))}>" class="adcart"><img src="__PUBLIC__/images/cart.png"></a>
+						  <div class="sat" style="border-bottom:none;font-size:11px;"> <{$vo.tip}></div>
+                        <div class="sat2"><span class="shu"><small style="font-size:14px;">￥<{$vo.price}>元</small></span>
+                            <a href="<{:U('goods/product',array('aid'=>$aid,'id'=>$vo['pid']))}>" class="adcart"><img src="__PUBLIC__/images/cart1.png"></a>
                         </div>
                     </div>
                 </li>

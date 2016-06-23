@@ -1,171 +1,333 @@
-<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/swiper.min.css"/>
-<body id="hometop">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title><{$info.name}></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--标准mui.css-->
+    <link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+    <style>
+        html,
+        body {
+            background-color: #efeff4;
+        }
+        .mui-views,
+        .mui-view,
+        .mui-pages,
+        .mui-page,
+        .mui-page-content {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #efeff4;
+        }
+        .mui-pages {
+            top: 46px;
+            height: auto;
+        }
+        .mui-scroll-wrapper,
+        .mui-scroll {
+            background-color: #efeff4;
+        }
+        .mui-page.mui-transitioning {
+            -webkit-transition: -webkit-transform 300ms ease;
+            transition: transform 300ms ease;
+        }
+        .mui-page-left {
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+        }
+        .mui-ios .mui-page-left {
+            -webkit-transform: translate3d(-20%, 0, 0);
+            transform: translate3d(-20%, 0, 0);
+        }
+        .mui-navbar {
+            position: fixed;
+            right: 0;
+            left: 0;
+            z-index: 10;
+            height: 44px;
+            background-color: #f7f7f8;
+        }
+        .mui-navbar .mui-bar {
+            position: absolute;
+            background: transparent;
+            text-align: center;
+        }
+        .mui-android .mui-navbar-inner.mui-navbar-left {
+            opacity: 0;
+        }
+        .mui-ios .mui-navbar-left .mui-left,
+        .mui-ios .mui-navbar-left .mui-center,
+        .mui-ios .mui-navbar-left .mui-right {
+            opacity: 0;
+        }
+        .mui-navbar .mui-btn-nav {
+            -webkit-transition: none;
+            transition: none;
+            -webkit-transition-duration: .0s;
+            transition-duration: .0s;
+        }
+        .mui-navbar .mui-bar .mui-title {
+            display: inline-block;
+            width: auto;
+        }
+        .mui-page-shadow {
+            position: absolute;
+            right: 100%;
+            top: 0;
+            width: 16px;
+            height: 100%;
+            z-index: -1;
+            content: '';
+        }
+        .mui-page-shadow {
+            background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
+            background: linear-gradient(to right, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
+        }
+        .mui-navbar-inner.mui-transitioning,
+        .mui-navbar-inner .mui-transitioning {
+            -webkit-transition: opacity 300ms ease, -webkit-transform 300ms ease;
+            transition: opacity 300ms ease, transform 300ms ease;
+        }
+        .mui-page {
+            display: none;
+        }
+        .mui-pages .mui-page {
+            display: block;
+        }
+        .mui-page .mui-table-view:first-child {
+            margin-top: 15px;
+        }
+        .mui-page .mui-table-view:last-child {
+            margin-bottom: 30px;
+        }
+        .mui-table-view {
+            margin-top: 20px;
+        }
 
-<nav class="navbar">
-    <section class="detail">
-        <button class="topleft" onClick="javascript:history.go(-1);"><span class="iconfont icon-fanhui"></span></button>
-        <figure class="swiper-container">
-            <ul class="swiper-wrapper">
-                <li class="swiper-slide">
-                    <a href="#">
-                        <img src="<{:C('imgHost')}><{$info.img}>"/>
-                    </a>
-                </li>
-            </ul>
-            <div class="swiper-pagination">
+        .mui-table-view span.mui-pull-right {
+            color: #999;
+        }
+        .mui-table-view-divider {
+            background-color: #efeff4;
+            font-size: 14px;
+        }
+        .mui-table-view-divider:before,
+        .mui-table-view-divider:after {
+            height: 0;
+        }
+        .head {
+            height: 40px;
+        }
+        #head {
+            line-height: 40px;
+        }
+        .head-img {
+            width: 40px;
+            height: 40px;
+        }
+        #head-img1 {
+            position: absolute;
+            bottom: 10px;
+            right: 40px;
+            width: 40px;
+            height: 40px;
+        }
+        .update {
+            font-style: normal;
+            color: #999999;
+            margin-right: -25px;
+            font-size: 15px
+        }
+        .mui-fullscreen {
+            position: fixed;
+            z-index: 20;
+            background-color: #000;
+        }
+        .mui-ios .mui-navbar .mui-bar .mui-title {
+            position: static;
+        }
+        h5 {
+            padding-top: 8px;
+            padding-bottom: 8px;
+            text-indent: 12px;
+            border-top: 1px solid #dd524d;
+        }
+
+        .mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body {
+            font-size: 15px;
+            margin-top: 8px;
+            color: #333;
+        }
+        .info{
+            height: 60px;
+            border-bottom: 1px solid beige;
+        }
+        p img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+<!--页面主结构开始-->
+<div id="app" class="mui-views">
+    <div class="mui-view">
+        <div class="mui-navbar">
+        </div>
+        <div class="mui-pages">
+        </div>
+    </div>
+</div>
+<!--页面主结构结束-->
+<div id="goods" class="mui-page">
+    <div class="mui-navbar-inner mui-bar mui-bar-nav">
+        <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+            <span class="mui-icon mui-icon-left-nav"></span>
+        </button>
+        <h1 class="mui-center mui-title"><{$info.name}></h1>
+    </div>
+    <div class="mui-page-content">
+        <p style="text-align: center">
+            <img src="__ROOT__/upload/<{$info.img}>" style="width: 100%">
+        </p>
+        <h3><{$info.name}></h3>
+        <div class="mui-content-padded info">
+            <div class="mui-pull-left">
+                <h4>价格:<span style="color:red"><{$info.buy_price}></span></h4>
+                <h4>运费:<span style="color:red"><{$info.yunfei}></span></h4>
             </div>
-
-        </figure>
-        <img src="__PUBLIC__/images/bian.png" width="100%"
-             style=" margin-top:-22px; position:absolute; bottom:2; left:0; z-index:3;"/>
-
-        <div class="jiage">
-            <h3><{$info.name}></h3>
-            <b>￥<{$info.buy_price}></b>
-
-            <div class="daz">
-                <div class="btn-group" role="group" aria-label="...">
-                    <button type="button" id="btnadd" class="btn btn-default">
-                        <i class="icon-plus">+</i>
-                    </button>
-                    <input role="button" style="width: 50px;" id="num" class="btn btn-default disabled" value="1">
-                    <button type="button" id="btnmin" class="btn btn-default">
-                        <i class="icon-minus">-</i>
-                    </button>
+            <div class="mui-pull-right">
+                <div style="margin-top: 10px">
+                    <a class="mui-btn mui-btn-danger" href="#buy">购买</a>
                 </div>
             </div>
-            <p>运费：<{$info.yunfei}></p>
-
-            <div class="ncart">
-                <a href="#" id="buyNow" class="buy">立即购买</a>
-                <a href="#" id="addCart" class="go-car">加入购物车</a>
-            </div>
         </div>
-    </section>
-
-</nav>
-
-
-<section class="commbox">
-    <h3>
-        <span>
-            <img src="__PUBLIC__/images/title_arrow.png" border="0" width="90%">
-        </span>
-        <em>Product details</em>
-    </h3>
-
-    <div class="border">
-        产品详情
+        <div class="mui-content-padded"><{$info.detail}></div>
     </div>
-
-    <div class="xxinfo">
-        <{$info.detail}>
-    </div>
-
-    <div class="common">
-        <php>var_dump($common)</php>
-    </div>
-</section>
-
-<script src="__PUBLIC__/js/swiper.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        var mySwiper = new Swiper('.swiper-container', {
-            loop: true,
-            speed: 1000,
-            autoplay: 2000,
-            pagination: '.swiper-pagination',
-        });
-    })
-
-
-    GoodsId = <{$info.gid}>;
-    $(window).ready(function () {
-        $('#btnmin').click(function () {
-            var num = $('#num').val();
-            if (num > 1) {
-                num--;
-            }
-            $('#num').val(num);
-        })
-        $('#btnadd').click(function () {
-            var num = $('#num').val();
-            num++;
-            $('#num').val(num);
-        })
-        $('#addCart').click(function () {
-            addCart();
-        })
-        $('#buyNow').click(function () {
-            buyNow();
-        })
-    })
-
-    /**
-     * 添加到购物车
-     */
-    function addCart() {
-        $.ajax({
-            url: "<{:U('index/addCart')}>",
-            data: {
-                id: GoodsId,
-                num: $('#num').val()
-            },
-            success: function (data) {
-                if (data.status) {
-                    alert('添加成功');
-                    getCartNum();
-                } else {
-                    alert(data.info);
-                }
-            }
-        })
-    }
-
-    /**
-     * 直接购物
-     */
-    function buyNow() {
-        $.ajax({
-            url: "<{:U('index/addCart')}>",
-            data: {
-                id: GoodsId,
-                num: $('#num').val()
-            },
-            success: function (data) {
-                if (data.url != '') {
-                    alert(data.info);
-                    window.location.href = data.url;
-                }
-                if (data.status) {
-                    //添加到购物车成功
-                    window.location.href = "<{:U('user/myCart')}>";
-                }
-            }
-        })
-    }
-</script>
-<div class="footnav">
-    <div class="col-xs-3 text-center">
-        <a href="<{:U('index/index')}>"><i class="iconfont icon-home"></i>
-
-            <p>商城首页</p></a>
-    </div>
-    <div class="col-xs-3 text-center"><a href="<{:U('user/myOrder')}>"><i class="iconfont icon-wenjian1"></i>
-
-        <p>我的订单</p></a></div>
-    <div class="col-xs-3 text-center"><a href="<{:U('user/myCart')}>"><i class="iconfont icon-gouwuche"></i>
-
-        <p>购&nbsp;物&nbsp;车</p></a></div>
-
-    <div class="col-xs-3 text-center"><a href="<{:U('user/index')}>"><i class="iconfont icon-yonghux"></i>
-
-        <p>个人中心</p></a></div>
 </div>
-<footer class="ft">
-    <div class="copyright">
-        <p><a href="#hometop"><img width="15%" src="__PUBLIC__/images/top.png"/></a></p>
+
+<div id="buy" class="mui-page feedback">
+    <div class="mui-navbar-inner mui-bar mui-bar-nav">
+        <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+            <span class="mui-icon mui-icon-left-nav"></span>
+        </button>
+        <h1 class="mui-center mui-title">下单</h1>
     </div>
-</footer>
+    <div class="mui-page-content">
+        <form id="post" method="post" action="<{:U('user/buy')}>">
+            <p class="mui-pull-left">选择地址</p>
+            <div style="float: right;display: inline-block">
+                <a href="<{:U('user/myAddr')}>">管理收货地址</a>
+            </div>
+            <if condition="$addrsJosn">
+                <select class="form-control" name="addressid">
+                    <volist name="addr" id="vo">
+                        <option value="<{$vo.id}>"><{$vo.name}>-<{$vo.tel}></option>
+                    </volist>
+                </select>
+                <div id="addInfo"></div>
+            </if>
+
+            <p>购买数量</p>
+            <div class="mui-numbox" data-numbox-min="1" data-numbox-max="<{$info.left_num}>" >
+                <!-- "-"按钮，点击可减小当前数值 -->
+                <button class="mui-btn mui-numbox-btn-minus" type="button">-</button>
+                <input class="mui-numbox-input" name="num" type="number" value="1" />
+                <!-- "+"按钮，点击可增大当前数值 -->
+                <button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
+            </div>
+            <p>支付方式</p>
+            <div class="mui-input-group">
+                <div class="mui-input-row mui-radio mui-left">
+                    <label>微信支付</label>
+                    <input name="type" checked="checked" type="radio" value="wx">
+                </div>
+                <div class="mui-input-row mui-radio mui-left">
+                    <label>余额支付</label>
+                    <input name="type" type="radio" value="money">
+                </div>
+            </div>
+            <input type="hidden" name="gid" value="<{$info.gid}>">
+            <button type="submit" class="mui-btn mui-btn-danger mui-btn-block" style="margin-top:10px;padding: 5px 0;">下单</button>
+        </form>
+    </div>
+</div>
 </body>
+<script src="__PUBLIC__/js/mui.min.js"></script>
+<script src="__PUBLIC__/js/mui.view.js"></script>
+<script src="__PUBLIC__/js/jquery-2.1.1.min.js"></script>
+<script>
+    addr = <{$addrsJosn}>;
+
+    $(window).ready(function(){
+        $('select[name="addressid"]').change(function(){
+            showAddress();
+        })
+        showAddress();
+        $('form').submit(function(){
+            var addressid = $('select[name="addressid"]').val();
+            if(!addressid){
+                alert('请设置收货地址');
+                return false;
+            }
+        })
+    })
+
+    function showAddress(){
+        var id = $('select[name="addressid"]').val();
+        var info = addr[id];
+        console.log(info);
+        var html = '<p>地址：'+info.addr+'</p>';
+        html += '<p>收货人：'+info.name+'</p>';
+        html += '<p>电话：'+info.tel+'</p>';
+        $('#addInfo').html(html);
+    }
+
+    mui.init({
+        swipeBack: true //启用右滑关闭功能
+    });
+    //初始化单页view
+    var viewApi = mui('#app').view({
+        defaultPage: '#goods'
+    });
+    //初始化单页的区域滚动
+    mui('.mui-scroll-wrapper').scroll();
+
+    var view = viewApi.view;
+    (function($) {
+        //处理view的后退与webview后退
+        var oldBack = $.back;
+        $.back = function() {
+            if (viewApi.canBack()) { //如果view可以后退，则执行view的后退
+                viewApi.back();
+            } else { //执行webview后退
+                oldBack();
+            }
+        };
+        //监听页面切换事件方案1,通过view元素监听所有页面切换事件，目前提供pageBeforeShow|pageShow|pageBeforeBack|pageBack四种事件(before事件为动画开始前触发)
+        //第一个参数为事件名称，第二个参数为事件回调，其中e.detail.page为当前页面的html对象
+        view.addEventListener('pageBeforeShow', function(e) {
+            //				console.log(e.detail.page.id + ' beforeShow');
+        });
+        view.addEventListener('pageShow', function(e) {
+            //				console.log(e.detail.page.id + ' show');
+        });
+        view.addEventListener('pageBeforeBack', function(e) {
+            //				console.log(e.detail.page.id + ' beforeBack');
+        });
+        view.addEventListener('pageBack', function(e) {
+            //				console.log(e.detail.page.id + ' back');
+        });
+    })(mui);
+
+
+</script>
 </html>
