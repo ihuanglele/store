@@ -343,12 +343,22 @@ class UserController extends Controller
             } else {
                 $r1 = M('addr')->add($data);
             }
+            $jump = I('post.jump');
+            if(!$jump){
+                $jump = U('myAddr');
+            }
             if ($r1) {
-                $this->success('操作成功', U('myAddr'));
+                $this->success('操作成功',$jump);
             } else {
                 $this->error('操作失败');
             }
         } else {
+            $refefer = isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'';
+            if($refefer && strpos($refefer,'goods')){
+                $this->assign('jump',$refefer);
+            }else{
+                $this->assign('jump','');
+            }
             $id = I('get.id');
             if ($id) {
                 $info = M('addr')->find($id);
