@@ -25,9 +25,12 @@
         <div class="exitLine"></div>
 <br>
 
+        <select name="sheng" data-value="" class="form-control"></select>
+        <select name="shi" data-value=""  class="form-control"></select>
+        <select name="city" data-value=""  class="form-control"></select>
         <dl class="clearfix exitBoxT2">
       
-            <dd>   详细地址: <input name="addr" value="<{$info.addr}>" type="text" class="exitIpt"></dd>
+            <dd>详细地址: <input name="detail" type="text" class="exitIpt"></dd>
         </dl>
         <div class="exitLine"></div>
     </div>
@@ -37,6 +40,60 @@
             <input type="hidden" name="id" value="<{$info.id}>">
         </notempty>
         <input type="hidden" name="jump" value="<{$jump}>">
+        <input type="hidden" name="addr" value="" />
         <button type="submit" name="submit" class="dizhi">提&nbsp;&nbsp;&nbsp;&nbsp;交</button>
     </div>
 </form>
+<script src="__PUBLIC__/js/city.json.js" type="text/javascript"></script>
+<script>
+    $(window).ready(function(){
+        createSheng();
+
+        $('form').submit(function(){
+            var sheng = $('select[name="sheng"]').attr('data-value',$('select[name="sheng"] option:selected').html());
+            var shi = $('select[name="shi"]').attr('data-value',$('select[name="shi"] option:selected').html());
+            var city = $('select[name="shi"]').attr('data-value',$('select[name="shi"] option:selected').html());
+            var detail = $('input[name="detail"]').val();
+            if(detail){
+                $('input[name="addr"]').val(sheng+shi+city+detail);
+            }else{
+                alert('请填写详细地址');return false;
+            }
+        })
+    })
+    createSheng = function(){
+        var op = '';
+        $.each(city,function(i,n){
+            op += '<option value="'+ n.value+'">'+ n.text+'</option>';
+        })
+        $('select[name="sheng"]').html(op);
+        createShi();
+        $('select[name="sheng"]').change(function(){
+            createShi();
+        })
+    }
+
+    createShi = function(){
+        var op = '';
+        var sheng = $('select[name="sheng"] option:selected').index();
+        $.each(city[sheng].children,function(i,n){
+            op += '<option value="'+ n.value+'">'+ n.text+'</option>';
+        })
+        $('select[name="shi"]').html(op);
+        createCity();
+        $('select[name="shi"]').change(function(){
+            createCity();
+        })
+    }
+
+    createCity = function(){
+        var op = '';
+        var sheng = $('select[name="sheng"] option:selected').index();
+        var shi = $('select[name="shi"] option:selected').index();
+        var ci = city[sheng].children;
+        $.each(ci[shi].children,function(i,n){
+            op += '<option value="'+n.value+'">'+ n.text+'</option>';
+        })
+        $('select[name="city"]').html(op);
+    }
+</script>

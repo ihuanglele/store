@@ -211,9 +211,9 @@
             <div class="mui-pull-right">
                 <div style="margin-top: 10px">
                     <empty name="addr">
-                        <a class="mui-btn mui-btn-danger" href="<{:U('user/addAddress')}>">购买</a>
+                        <a class="mui-btn mui-btn-danger" id="buyBtn" href="<{:U('user/addAddress')}>">购买</a>
                         <else />
-                        <a class="mui-btn mui-btn-danger" href="#buy">购买</a>
+                        <a class="mui-btn mui-btn-danger" id="buyBtn" href="#buy">购买</a>
                     </empty>
                 </div>
             </div>
@@ -291,12 +291,14 @@
 
     function showAddress(){
         var id = $('select[name="addressid"]').val();
-        var info = addr[id];
-        console.log(info);
-        var html = '<p>地址：'+info.addr+'</p>';
-        html += '<p>收货人：'+info.name+'</p>';
-        html += '<p>电话：'+info.tel+'</p>';
-        $('#addInfo').html(html);
+        if(id){
+            var info = addr[id];
+            console.log(info);
+            var html = '<p>地址：'+info.addr+'</p>';
+            html += '<p>收货人：'+info.name+'</p>';
+            html += '<p>电话：'+info.tel+'</p>';
+            $('#addInfo').html(html);
+        }
     }
 
     mui.init({
@@ -335,7 +337,8 @@
             //				console.log(e.detail.page.id + ' back');
         });
     })(mui);
-
-
+    if(window.location.hash == '#buy'){
+        $('#buyBtn').click();
+    }
 </script>
 </html>

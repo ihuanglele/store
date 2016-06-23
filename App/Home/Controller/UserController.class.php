@@ -355,6 +355,9 @@ class UserController extends Controller
         } else {
             $refefer = isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'';
             if($refefer && strpos($refefer,'goods')){
+                if(!strpos($refefer,'buy')){
+                    $refefer .= '#buy';
+                }
                 $this->assign('jump',$refefer);
             }else{
                 $this->assign('jump','');
