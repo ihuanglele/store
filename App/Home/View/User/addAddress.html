@@ -50,9 +50,9 @@
         createSheng();
 
         $('form').submit(function(){
-            var sheng = $('select[name="sheng"]').attr('data-value',$('select[name="sheng"] option:selected').html());
-            var shi = $('select[name="shi"]').attr('data-value',$('select[name="shi"] option:selected').html());
-            var city = $('select[name="shi"]').attr('data-value',$('select[name="shi"] option:selected').html());
+            var sheng = $('select[name="sheng"] option:selected').html().substr(2)+'-';
+            var shi = $('select[name="shi"] option:selected').html().substr(2)+'-';
+            var city = $('select[name="city"] option:selected').html().substr(2)+'-';
             var detail = $('input[name="detail"]').val();
             if(detail){
                 $('input[name="addr"]').val(sheng+shi+city+detail);
