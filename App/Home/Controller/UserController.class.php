@@ -538,7 +538,7 @@ class UserController extends Controller
             $type = I('post.type');
             $gid = I('post.gid');
             $num = I('post.num');
-
+            if(!$num){$this->error('数量格式不对');die;}
             //获取地址信息
             $addr = M('addr')->find(I('addressid'));
             if(!$addr){$this->error('位置信息错误');die;}
@@ -600,14 +600,14 @@ class UserController extends Controller
             $pid = I('post.pid');
             $from = I('post.from');
 
-            if($num){$this->error('数量格式不对');die;}
+            if(!$num){$this->error('数量格式不对');die;}
             //获取地址信息
             $addr = M('addr')->find(I('addressid'));
             if(!$addr){$this->error('位置信息错误');die;}
 
             //获取产品的信息
             $gInfo = M('product')->find($pid);
-            if(!($gInfo && $gInfo['status']==1)){var_dump($gInfo);$this->error('产品已下架');die;}
+            if(!($gInfo && $gInfo['status']==1)){$this->error('产品已下架');die;}
 
             if($type=='wx'){    //微信支付
                 $userNeedMoney = $gInfo['price']*$num;
