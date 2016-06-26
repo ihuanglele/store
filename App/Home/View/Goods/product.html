@@ -11,8 +11,8 @@
     <style>
         html,
         body {
-            background-color: #efeff4;
-        }
+            background-color: #efeff4;			
+        }        .mui-pull-left{color: #333;				}
         .mui-views,
         .mui-view,
         .mui-pages,
@@ -202,10 +202,10 @@
         <p style="text-align: center">
             <img src="__ROOT__/upload/<{$info.img}>" style="width: 100%">
         </p>
-        <h3><{$info.name}></h3>
+        <h3 style="font-size:20px;margin-left:10px;"><{$info.name}></h3>
         <div class="mui-content-padded info">
             <div class="mui-pull-left">
-                <h4><{$info.tip}></h4>
+                <h4  style="font-size:14px;"><{$info.tip}></h4>
                 <h4>价格:<span style="color:red"><{$info.price}></span></h4>
             </div>
             <div class="mui-pull-right">
@@ -227,13 +227,13 @@
         <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
             <span class="mui-icon mui-icon-left-nav"></span>
         </button>
-        <h1 class="mui-center mui-title">下单</h1>
+        <h1 class="mui-center mui-title">在线支付</h1>
     </div>
     <div class="mui-page-content">
         <form id="post" method="post" action="<{:U('user/buyProduct')}>">
             <p class="mui-pull-left">选择地址</p>
-            <div style="float: right;display: inline-block">
-                <a href="<{:U('user/myAddr')}>">管理收货地址</a>
+            <div style="float: right;display:inline-block">
+                <a href="<{:U('user/myAddr')}>" style="font-size:14px;color: #333;">管理收货地址</a>
             </div>
             <if condition="$addrsJosn">
                 <select class="form-control" name="addressid">
@@ -244,7 +244,7 @@
                 <div id="addInfo"></div>
             </if>
 
-            <p>购买数量</p>
+             <span style="font-size:14px;color: #999999;">数&nbsp;&nbsp;&nbsp;量:</span> 
             <div class="mui-numbox" data-numbox-min="1" data-numbox-max="<{$info.left_num}>" >
                 <!-- "-"按钮，点击可减小当前数值 -->
                 <button class="mui-btn mui-numbox-btn-minus" type="button">-</button>
@@ -252,7 +252,7 @@
                 <!-- "+"按钮，点击可增大当前数值 -->
                 <button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
             </div>
-            <p>支付方式</p>
+        <br><br>
             <div class="mui-input-group">
                 <div class="mui-input-row mui-radio mui-left">
                     <label>微信支付</label>
@@ -265,7 +265,7 @@
             </div>
             <input type="hidden" name="pid" value="<{$info.pid}>">
             <input type="hidden" name="aid" value="<{$aid}>">
-            <button type="submit" name="submit" class="mui-btn mui-btn-danger mui-btn-block" style="margin-top:10px;padding: 5px 0;">下单</button>
+            <button type="submit" name="submit" class="mui-btn mui-btn-danger mui-btn-block" style="margin-top:10px;padding: 5px 0;background: rgb(119, 175, 13);;border:0px;">提&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;交</button>
         </form>
     </div>
 </div>
@@ -298,9 +298,9 @@
         if(id){
             var info = addr[id];
             console.log(info);
-            var html = '<p>地址：'+info.addr+'</p>';
-            html += '<p>收货人：'+info.name+'</p>';
-            html += '<p>电话：'+info.tel+'</p>';
+            var html = '<p>地&nbsp;&nbsp;&nbsp;址：'+info.addr+'</p>';
+            html += '<p>姓&nbsp;&nbsp;&nbsp;名：'+info.name+'</p>';
+            html += '<p>电&nbsp;&nbsp;&nbsp;话：'+info.tel+'</p>';
             $('#addInfo').html(html);
         }
 

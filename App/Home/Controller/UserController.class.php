@@ -81,14 +81,21 @@ class UserController extends Controller
         $map['uid'] = $this->uid;
         $map['status'] = array('gt',0);
         $Tool = A('Tool');
-        $field = 'oid,gid,create_time as time,status,buy_price as money,buy_name';
+        $field = 'oid,gid,create_time as time,status,buy_price as money,buy_name,type';
         $list = $Tool->getData(M('orders'),$map,'oid desc',$field);
         $gidIds[] = 0;
+        $pidIds[] = 0;
         foreach($list as $v){
-            $gidIds[] = $v['gid'];
+            if($v['type']==1){
+                $gidIds[] = $v['gid'];
+            }elseif($v['type']==2){
+                $pidIds[] = $v['gid'];
+            }
         }
         $GoodsInfo = M('goods')->where(array('gid'=>array('in',$gidIds)))->getField('gid,name,img');
+        $pInfo = M('product')->where(array('pid'=>array('in',$pidIds)))->getField('pid as gid,name,img');
         $this->assign('GoodsInfo',$GoodsInfo);
+        $this->assign('pInfo',$pInfo);
         $this->assign('OrdersStatus',C('OrdersStatus'));
         $this->display('myOrder');
     }
@@ -217,7 +224,7 @@ class UserController extends Controller
         if(empty($idsArr)){
             $list = array();
         }else{
-            $list = M('Goods')->where(array('gid'=>array('in',$idsArr)))->select();
+            $list = M('Goods')->where(array('gid'=>array('in',$idsArr)))->field('name,gid,img')->select();
         }
         $this->assign('list',$list);
         $this->display('myFav');
@@ -621,7 +628,7 @@ class UserController extends Controller
                 $order['buy_addr'] = $addr['addr'];
                 $order['tel'] = $addr['tel'];
                 $order['create_time'] = time();
-                $order['status'] = 1;
+                $order['status'] = 0;
                 $order['type'] = 2;
                 $order['needMoney'] = $userNeedMoney;
                 $this->pay($order);
@@ -890,9 +897,9 @@ class UserController extends Controller
         $num = M('orders')->where($map)->count();
         if($num==1){
             layout(false);
-            $this->display('checkFirstBuyJump');
+            $this->display('checkFirstBuyJump');die;
         }else{
-            $this->myOrder();
+            $this->myOrder();die;
         }
     }
 

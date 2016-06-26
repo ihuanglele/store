@@ -21,7 +21,12 @@
                 <a class="fl z-Limg" href="<{:U('user/orderDetail')}>?id=<{$vo.oid}>">
                     <span class="z-Imgbg z-ImgbgC01"></span>
                     <em class="z-Imgtxt"><{$OrdersStatus[$vo['status']]}></em>
-                    <img src="<{:C('imgHost')}><{$GoodsInfo[$vo['gid']]['img']}>" border="0" alt="">
+                    <eq name="vo.type" value="1">
+                        <img src="<{:C('imgHost')}><{$GoodsInfo[$vo['gid']]['img']}>" border="0" alt="">
+                        <else />
+                        <img src="<{:C('imgHost')}><{$pInfo[$vo['gid']]['img']}>" border="0" alt="">
+                    </eq>
+
                 </a>
                 <div class="u-sgl-r ">
                     <a href="<{:U('user/orderDetail')}>?id=<{$vo.oid}>">

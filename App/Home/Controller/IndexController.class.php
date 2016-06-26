@@ -137,8 +137,8 @@ class IndexController extends Controller
      */
     public function login()
     {
-        $uid = 1;
-        $openId = 'oqAACwZkLzSmZjrn_aTpQfY36-rg';
+        $uid = 8;
+        $openId = 'ocFtMwKcWuWZQKVIjhAezFBqlg-8';
         session('uid', $uid);
         session('openid', $openId);
     }
