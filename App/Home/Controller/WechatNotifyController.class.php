@@ -57,7 +57,7 @@ class WechatNotifyController extends \Org\Wxpay\WxPayNotify
 
                 $oInfo = M('orders')->field('gid,buy_num as num,aid,money,type,from')->find($payInfo['oid']);   //订单信息
 
-                $r2 =  M('orders')->where(array('oid'=>$payInfo['oid']))->setDec('status',1);
+                $r2 =  M('orders')->where(array('oid'=>$payInfo['oid']))->setField('status',1);
 
                 $da3['time'] = time();
                 $da3['money'] = $payInfo['money'];
