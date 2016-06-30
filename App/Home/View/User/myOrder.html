@@ -31,7 +31,8 @@
                 <div class="u-sgl-r ">
                     <a href="<{:U('user/orderDetail')}>?id=<{$vo.oid}>">
                         <p class="z-sgl-tt"><span class="gray6"><{$GoodsInfo[$vo['gid']]['name']}></span></p>
-                        <p>支付费用<em class="orange"><{$vo['money']}></em></p>
+                        <p>购买单价<em class="orange"><{$vo['money']}></em></p>
+                        <p>购买数量<em class="orange"><{$vo['num']}></em></p>
                         <p>下单时间<em class="orange"><{$vo.time|Mydate}></em></p>
                         <p>收货人<em class="blue"><{$vo.buy_name}></em></p>
                     </a>

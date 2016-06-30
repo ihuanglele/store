@@ -81,7 +81,7 @@ class UserController extends Controller
         $map['uid'] = $this->uid;
         $map['status'] = array('gt',0);
         $Tool = A('Tool');
-        $field = 'oid,gid,create_time as time,status,buy_price as money,buy_name,type';
+        $field = 'oid,gid,create_time as time,buy_num as num,status,buy_price as money,buy_name,type';
         $list = $Tool->getData(M('orders'),$map,'oid desc',$field);
         $gidIds[] = 0;
         $pidIds[] = 0;
@@ -519,6 +519,12 @@ class UserController extends Controller
         $map['uid'] = $this->uid;
         $map['type'] = $type;
         if(M('orders')->where($map)->find()){
+            $info['title'] = '关注方正大米，每天分享天天赚红包！';
+            $info['summary'] = '关注方正大米，每天分享天天赚红包！';
+            $info['img'] = 'http://' . $_SERVER['HTTP_HOST'] . __ROOT__ . '/Public/images/logo.png';
+            $Wx = A('Wxjs');
+            $this->assign('info', $info);
+            $this->assign('signPackage', $Wx->GetSignPackage());
             if($type==1){
                 $url = U('user/myLinkPic');
                 $title = '方正大米推广';
@@ -563,7 +569,7 @@ class UserController extends Controller
                 $order['gid'] = $gid;
                 $order['buy_name'] = $addr['name'];
                 $order['buy_addr'] = $addr['addr'];
-                $order['tel'] = $addr['tel'];
+                $order['buy_tel'] = $addr['tel'];
                 $order['buy_price'] = $gInfo['buy_price'];
                 $order['money'] = $getMoney;
                 $order['buy_num'] = $num;
@@ -577,13 +583,11 @@ class UserController extends Controller
                 $this->pay($order);
             }else if($type=='money'){
 
-
-
                 if($needMoney<$userLeftMoney){
                     $order['gid'] = $gid;
                     $order['buy_name'] = $addr['name'];
                     $order['buy_addr'] = $addr['addr'];
-                    $order['tel'] = $addr['tel'];
+                    $order['buy_tel'] = $addr['tel'];
                     $order['type'] = 1;
                     $this->handleBuy($gid,$num,$goodInfo,$order);
                     session('cart',null);
@@ -626,7 +630,7 @@ class UserController extends Controller
                 $order['aid'] = $aid;
                 $order['buy_name'] = $addr['name'];
                 $order['buy_addr'] = $addr['addr'];
-                $order['tel'] = $addr['tel'];
+                $order['buy_tel'] = $addr['tel'];
                 $order['create_time'] = time();
                 $order['status'] = 0;
                 $order['type'] = 2;
@@ -661,7 +665,7 @@ class UserController extends Controller
                 $order['aid'] = $aid;
                 $order['buy_name'] = $addr['name'];
                 $order['buy_addr'] = $addr['addr'];
-                $order['tel'] = $addr['tel'];
+                $order['buy_tel'] = $addr['tel'];
                 $order['create_time'] = time();
                 $order['status'] = 1;
                 $order['type'] = 2;
@@ -714,7 +718,7 @@ class UserController extends Controller
 
                 if($r1 && $r2 && $r3 && $r4 && $r5){
                     $User->commit();
-                    $this->redirect('user/checkFirstBuyJump');
+                    $this->success('购买成功',U('user/checkFirstBuyJump'));
                 }else{
                     $User->rollback();
                     $this->success('下单失败');
