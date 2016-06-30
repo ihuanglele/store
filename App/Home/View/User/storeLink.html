@@ -24,7 +24,7 @@
     .tip1 {
         color: #ff902d;
         margin-top: 30px;
-    }
+    }	.dizhi{color: #fff;    border: 0;    height: 3.5rem;    line-height: 3.5rem;    width: 100%;    -webkit-box-flex: 1;    display: block;    -webkit-user-select: none;    font-size: 14px;    background: #EFD00B;    text-align: center;	    margin: 0;    padding: 0;    border: 0;    outline: none;}
 </style>
 <div class="main">
     <neq name="buy" value="1">
@@ -32,12 +32,12 @@
             <a href="<{:U('goods/selfList')}>">
                 <img style="max-width: 100%;max-height: 100%" src="__PUBLIC__/images/notvip.jpg"/>
             </a></p>
-        <else/>
-        <p class="tip1">
-            亲，为了答谢您对放着大米的支持，只要您每隔24小时在您的朋友圈中推广一次二维码，都有1分到1元不等的红包存入您的‘会员红包’，红包可以随时在本店消费，满100可以提现！
+        <else/><br>
+        <p class="tip1" style="padding:15px;font-size:16px;line-height:24px;color:red;">
+           &nbsp; &nbsp;  亲，为了答谢您对方正大米的支持，只要您每隔24小时在您的朋友圈中推广一次二维码，都有1分到1元不等的红包存入您的‘会员红包’，红包可以随时在本店消费，满100可以提现！
             只要动动手，天天进现金！
-            还等什么，赶快生成自己的二维码去推广吧！
-        </p>
-        <a href="<{:U('user/linkPic')}>?type=2">我的推广码</a>
+            还等什么，赶快生成自己的二维码去推广吧！ 
+        </p><br><br><br><br>
+        <a href="<{:U('user/linkPic')}>?type=2" class="dizhi">点击生成我的推广码</a>
     </neq>
 </div>

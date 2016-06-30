@@ -15,20 +15,14 @@
 <div class="height53"></div>
 
 <div class="clearfix g-Record-ct">
-    <a class="fl z-Limg">
+    <a class="fl z-Limg" style="width:100%;height:200px;">
         <span class="z-Imgbg z-ImgbgC01"></span>
         <em class="z-Imgtxt"><{$OrdersStatus[$info['status']]}></em>
-        <img src="<{:C('imgHost')}><{$GoodsInfo.img}>" border="0" alt="">
+        <img src="<{:C('imgHost')}><{$GoodsInfo.img}>"  border="0" alt="" style="width:100%;height:200px;">
     </a>
-
+     <p class="z-Rcd-tt" style="font-size:14px;">            <a href="<{:U('goods/item')}>?id/<{$info.gid}>" class="gray6"><{$GoodsInfo.name}></a>        </p>
     <div class="u-Rcd-r gray9">
-        <p class="z-Rcd-tt">
-            <a href="<{:U('goods/item')}>?id/<{$info.gid}>" class="gray6"><{$GoodsInfo.name}></a>
-        </p>
-        <p>市场价格：<em class="blue"><{$GoodsInfo.market_price}></em></p>
-        <p>下单时间：<em class="gray6"><{$info.create_time|Mydate}></em></p>
-        <p>购买价：<em class="blue"><{$info.buy_price}></em></p>
-        <p>数量：<em class="blue"><{$info.buy_num}></em></p>
+   
     </div>
 </div>
 <style>
@@ -72,22 +66,21 @@
         cursor: pointer;
         color: white;
         font-size: 16px;
-    }
+    }.desc p{line-height:28px;font-size:16px;}
 </style>
-<div class="desc">
-    <ul>
-        <li>收件人:<span><{$info.buy_name}></span></li>
-        <li>联系方式:</li><span><{$info.buy_tel}></span>
-        <li>地址:</li><span><{$info.buy_addr}></span>
-        <li>申请时间:</li><span><{$info.create_time|Mydate}></span>
-        <li>状态:<span><{$OrdersStatus[$info['status']]}></span></li>
+<div class="desc">        <p>市场价格： <em class="gray6"><{$GoodsInfo.market_price}></em></p>        <p>下单时间： <em class="gray6"><{$info.create_time|Mydate}></em></p>        <p>购买价： <em class="gray6"><{$info.buy_price}></em></p>        <p>数量： <em class="gray6"><{$info.buy_num}></em></p>				
+   
+        <p>收件人: <em class="gray6"><{$info.buy_name}></em></p>
+       <p>联系方式:  <em class="gray6"><{$info.buy_tel}></em></p>
+       <p>地址: <em class="gray6"><{$info.buy_addr}></em></p>
+       <p>申请时间:  <em class="gray6"><{$info.create_time|Mydate}></em></p>
+        <p>状态: <em class="gray6"><{$OrdersStatus[$info['status']]}></em></p>
         <eq name="info.status" value="2">
-            <li>处理时间:<span><{$info.ex_time|Mydate}></span></li>
-            <li>快递公司:<span><{$info.ex_name}></span></li>
-            <li>快递单号:<span><{$info.ex_num}></span></li>
+            <p>处理时间: <em class="gray6"><{$info.ex_time|Mydate}></em></p>
+           <p>快递公司: <em class="gray6"><{$info.ex_name}></em></p>
+           <p>快递单号: <em class="gray6"><{$info.ex_num}></em></p>
         </eq>
-
-    </ul>
+ 
 </div>
 
 <eq name="info.status" value="2">
