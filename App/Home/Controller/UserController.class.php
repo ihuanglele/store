@@ -465,6 +465,12 @@ class UserController extends Controller
         $header = imagecreatefromjpeg($headerImgPath);
         imagecopy($image,$qr,265,792,10,10,140,140);
         imagecopy($image,$header,120,792,0,0,132,132);
+
+        $name = M('user')->where(array('uid'=>$this->uid))->getField('nickname');
+        $color = imagecolorallocate($image, 41, 163, 238);
+        $font = THINK_PATH.'Library/Think/Verify/ttfs/msyh.ttf';
+        imagettftext($image,14,0,480,815,$color,$font,$name);
+
         imagedestroy($qr);
         imagedestroy($header);
         $r = imagejpeg($image);
@@ -508,6 +514,12 @@ class UserController extends Controller
         $header = imagecreatefromjpeg($headerImgPath);
         imagecopy($image,$qr,265,792,10,10,140,140);
         imagecopy($image,$header,120,792,0,0,132,132);
+
+        $name = M('user')->where(array('uid'=>$this->uid))->getField('nickname');
+        $color = imagecolorallocate($image, 41, 163, 238);
+        $font = THINK_PATH.'Library/Think/Verify/ttfs/msyh.ttf';
+        imagettftext($image,14,0,480,815,$color,$font,$name);
+
         imagedestroy($qr);
         imagedestroy($header);
         $r = imagejpeg($image);
