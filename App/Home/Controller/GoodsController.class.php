@@ -16,7 +16,10 @@ class GoodsController extends Controller
 
   public function _initialize(){
     $uid = session('uid');
-    if(!$uid){$this->redirect('user/login');die;}
+    if(!$uid){
+        session('jump',$_SERVER['REQUEST_URI']);
+        $this->redirect('user/login');die;
+    }
   }
 
     /**

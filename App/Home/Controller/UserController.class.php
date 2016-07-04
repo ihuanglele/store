@@ -235,6 +235,7 @@ class UserController extends Controller
      * 用户登录，如果之前有，直接读取用户名信息，如果没有添加一个新用户
      */
     public function login(){
+        //$this->checkJump();
         $tools = new \Org\Wxpay\UserApi();
         $openId = $tools->GetOpenid();
         $wxInfo = $tools->getInfo();
@@ -277,6 +278,13 @@ class UserController extends Controller
             $uid = $r;
         }
         if($r){
+
+            $jump = session('jump');
+            if(!$jump){
+                $jump = U('index/index');
+            }
+
+            session('jump',null);
             session('uid',$uid);
             session('openid',$openId);
 
@@ -287,11 +295,24 @@ class UserController extends Controller
                 file_put_contents($filePath,$pic);
             }
             session('referer',null);
-            $this->redirect('index/index');
+            header("Location:$jump");
         }else{
             $this->error('登录失败');
         }
     }
+
+
+
+    public function checkJump(){
+        $jump = I('jump');
+        $code = I('code');
+        if(!$jump && !$code){
+            $jump = U('index/index');
+        }
+        session('jump',urldecode($jump));
+    }
+
+
 
     /**
      * 退出登录

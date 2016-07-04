@@ -13,9 +13,9 @@ class IndexController extends Controller
     public function index()
     {
         $uid = session('uid');
-        if (!$uid) {
-            $this->redirect('user/login');
-            die;
+        if(!$uid){
+            session('jump',$_SERVER['REQUEST_URI']);
+            $this->redirect('user/login');die;
         }
         $Tool = A('Tool');
         $this->assign('title', '首页');
