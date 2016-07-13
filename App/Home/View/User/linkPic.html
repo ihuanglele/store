@@ -42,9 +42,14 @@
                 link: window.location.href,
                 imgUrl: '<{$info.img}>'
             };
-            var shareData2 = shareData;
-            shareData2.success = function(){ajax_post();}
-            //wx.onMenuShareAppMessage(shareData);
+            var shareData2 = {
+                title: "<{$info.title2}>",
+                desc: '<{$info.summary2}>',
+                link: window.location.href,
+                imgUrl: '<{$info.img2}>',
+                success:function(){ajax_post();}
+            };
+            wx.onMenuShareAppMessage(shareData);
             wx.onMenuShareTimeline(shareData2);
 
         })
