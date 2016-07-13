@@ -12,15 +12,28 @@ use Think\Controller;
 class GoodsController extends Controller
 {
 
-  private $uid = null;
+    private $uid = null;
 
-  public function _initialize(){
-    $uid = session('uid');
-    if(!$uid){
-        session('jump',$_SERVER['REQUEST_URI']);
-        $this->redirect('user/login');die;
+    public function _initialize()
+    {
+        $uid = session('uid');
+        if (!$uid) {
+            session('jump', $_SERVER['REQUEST_URI']);
+            $this->redirect('user/login');
+            die;
+        }
+
+        $info['title'] = '饭锅伴侣  鲜米现磨';
+        $info['summary'] = '现磨现吃，打破传统，安全健康，福旺全家！';
+        $info['img'] = 'http://' . $_SERVER['HTTP_HOST'] . __ROOT__ . '/Public/images/share.png';
+        $info['title2'] = '关注方正大米，每天分享天天赚红包！';
+        $info['summary2'] = '关注方正大米，每天分享天天赚红包！';
+        $info['img2'] = 'http://' . $_SERVER['HTTP_HOST'] . __ROOT__ . '/Public/images/logo.png';
+
+        $Wx = A('Wxjs');
+        $this->assign('info', $info);
+        $this->assign('signPackage', $Wx->GetSignPackage());
     }
-  }
 
     /**
      * 所有商品
