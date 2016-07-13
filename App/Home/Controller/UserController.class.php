@@ -552,9 +552,9 @@ class UserController extends Controller
         $map['uid'] = $this->uid;
         $map['type'] = $type;
         if(M('orders')->where($map)->find()){
-            $info['title'] = '关注方正大米，每天分享天天赚红包！';
-            $info['summary'] = '关注方正大米，每天分享天天赚红包！';
-            $info['img'] = 'http://' . $_SERVER['HTTP_HOST'] . __ROOT__ . '/Public/images/logo.png';
+            $info['title'] = '饭锅伴侣  鲜米现磨';
+            $info['summary'] = '现磨现吃，打破传统，安全健康，福旺全家！';
+            $info['img'] = 'http://' . $_SERVER['HTTP_HOST'] . __ROOT__ . '/Public/images/share.png';
             $Wx = A('Wxjs');
             $this->assign('info', $info);
             $this->assign('signPackage', $Wx->GetSignPackage());
