@@ -555,9 +555,9 @@ class UserController extends Controller
             $info['title'] = '饭锅伴侣  鲜米现磨';
             $info['summary'] = '现磨现吃，打破传统，安全健康，福旺全家！';
             $info['img'] = 'http://' . $_SERVER['HTTP_HOST'] . __ROOT__ . '/Public/images/share.png';
-            $info['title2'] = '关注方正大米，每天分享天天赚红包！';
-            $info['summary2'] = '关注方正大米，每天分享天天赚红包！';
-            $info['img2'] = 'http://' . $_SERVER['HTTP_HOST'] . __ROOT__ . '/Public/images/logo.png';
+            $info['title2'] = $info['title'];
+            $info['summary2'] = $info['summary'];
+            $info['img2'] = $info['img'];
             $Wx = A('Wxjs');
             $this->assign('info', $info);
             $this->assign('signPackage', $Wx->GetSignPackage());
