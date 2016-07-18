@@ -22,9 +22,9 @@ class IndexController extends Controller
         $map['role'] = 2;
         $map['status'] = 2;
         $Tool->getData(M('admin'), $map, 'aid desc', 'aid,storename,headimgurl as img');
-        $info['title'] = '饭锅伴侣  鲜米现磨';
-        $info['summary'] = '现磨现吃，打破传统，安全健康，福旺全家！';
-        $info['img'] = 'http://' . $_SERVER['HTTP_HOST'] . __ROOT__ . '/Public/images/share.png';
+        $info['title'] = '黑土寒地  方正大米';
+        $info['summary'] = '珍馐美馔 老少咸宜 籼粳品尽 数方正米 产销连供 分享有礼';
+        $info['img'] = 'http://' . $_SERVER['HTTP_HOST'] . __ROOT__ . '/Public/images/share_index.jpg';
         $info['title2'] = $info['title'];
         $info['summary2'] = $info['summary'];
         $info['img2'] = $info['img'];
