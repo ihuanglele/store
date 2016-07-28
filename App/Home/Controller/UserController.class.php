@@ -656,7 +656,7 @@ class UserController extends Controller
             $num = I('post.num');
 
             $pid = I('post.pid');
-            $from = I('post.from');
+            $from = M('user')->where(array('uid'=>$uid))->getField('invite_uid');
 
             if(!$num){$this->error('数量格式不对');die;}
             //获取地址信息
@@ -682,6 +682,7 @@ class UserController extends Controller
                 $order['status'] = 0;
                 $order['type'] = 2;
                 $order['needMoney'] = $userNeedMoney;
+                $order['from'] = $from;
                 $this->pay($order);
                 die;
             }elseif($type=='money'){    //直接付款
@@ -716,6 +717,7 @@ class UserController extends Controller
                 $order['create_time'] = time();
                 $order['status'] = 1;
                 $order['type'] = 2;
+                $order['from'] = $from;
                 $r1 = M('orders')->add($order);
 
                 $r2 = $User->where($mapUser)->setDec('money',$userNeedMoney);
@@ -746,7 +748,7 @@ class UserController extends Controller
                 }else{ //平台自销
                     if($from){
                         //给推广员佣金
-                        $tjUser = M('user')->where(array('uid'=>$from))->getField('rate,openid')->find();
+                        $tjUser = M('user')->where(array('uid'=>$from))->field('rate,openid')->find();
                         $rate = $tjUser['rate'];
                         if($rate){  //获取到了推广员的佣金比例
                             $getMoney = $userNeedMoney*$rate/100;
@@ -760,7 +762,7 @@ class UserController extends Controller
                             $da5['uid'] = $from;
                             M('usermoney')->add($da5);
                             $temp['openid'] = $tjUser['openid'];
-                            $temp['name'] = M('user')->where(array('uid'=>$from))->getField('nickname');
+                            $temp['name'] = M('user')->where(array('uid'=>$order['uid']))->getField('nickname');
                             $temp['money'] = $userNeedMoney;
                             sendOrderTempMsg($temp);
                         }

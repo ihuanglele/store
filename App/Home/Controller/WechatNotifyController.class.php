@@ -121,7 +121,7 @@ class WechatNotifyController extends \Org\Wxpay\WxPayNotify
                         $from = $oInfo['from'];
                         if($from){
                             //给推广员佣金
-                            $tjUser = M('user')->where(array('uid'=>$from))->getField('rate,openid')->find();
+                            $tjUser = M('user')->where(array('uid'=>$from))->field('rate,openid')->find();
                             $rate = $tjUser['rate'];
                             if($rate){  //获取到了推广员的佣金比例
                                 $userNeedMoney = $gInfo['price']*$oInfo['num'];
@@ -137,7 +137,7 @@ class WechatNotifyController extends \Org\Wxpay\WxPayNotify
                                 M('usermoney')->add($da5);
 
                                 $temp['openid'] = $tjUser['openid'];
-                                $temp['name'] = M('user')->where(array('uid'=>$from))->getField('nickname');
+                                $temp['name'] = M('user')->where(array('uid'=>$payInfo['uid']))->getField('nickname');
                                 $temp['money'] = $userNeedMoney;
                                 sendOrderTempMsg($temp);
                             }
