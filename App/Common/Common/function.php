@@ -124,3 +124,39 @@ function createRedPackMoney(){
     $money = rand(1,100);
     return $money/100;
 }
+
+/**
+ * @param  好友赠送微信提醒
+ */
+function sendAddUserTempMsg($data){
+    $data['touser'] = $data['openid'];
+    $data['template_id'] = 'Peu6c6BEFiK4zrdyl8hg9Cm-duQz1DV7XErIsk8hvpU';
+    $data['url'] = U('user/myInvite','',true,true);
+    $arr['first'] = array('value'=>'恭喜您，有新会员加入','color'=>'#173177');  //接收人
+    $arr['keyword1'] = array('value'=>$data['nickname'],'color'=>'#173177');  //会员编号
+    $arr['keyword2'] = array('value'=>date('Y-m-d H:i:s'),'color'=>'#173177');  //加入时间
+    $arr['remark'] = array('value'=>'有新人加入你的成为你的会员','color'=>'#173177');
+    $data['data'] = $arr;
+    $post = json_encode($data,true);
+    $url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token='.getWxAccessToken();
+    $res = myCurl($url,array(CURLOPT_POST=>true,CURLOPT_POSTFIELDS=>$post));
+    return $res;
+}
+
+/**
+ *下线添加了订单
+ */
+function sendOrderTempMsg($data){
+    $data['touser'] = $data['openid'];
+    $data['template_id'] = 'zU4Z_xMmFIy8X_JeWt6qTsTjOJ6Q9GOGL5XBNtgqjNs';
+    $data['url'] = U('user/myInvite','',true,true);
+    $arr['first'] = array('value'=>'感谢您的推荐！','color'=>'#173177');  //接收人
+    $arr['keyword1'] = array('value'=>$data['name'],'color'=>'#173177');  //客户名称
+    $arr['keyword2'] = array('value'=>$data['money'],'color'=>'#173177');  //订单总金额
+    $arr['remark'] = array('value'=>'请查收你的佣金','color'=>'#173177');
+    $data['data'] = $arr;
+    $post = json_encode($data,true);
+    $url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token='.getWxAccessToken();
+    $res = myCurl($url,array(CURLOPT_POST=>true,CURLOPT_POSTFIELDS=>$post));
+    return $res;
+}

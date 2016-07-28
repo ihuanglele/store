@@ -272,6 +272,7 @@ class UserController extends Controller
         }else{
             //第一次登录 添加到用户表里面
             $data['money'] = 0;
+            session('nickname',$data['nickname']);
             //判断是否有上限
             $data['invite_uid'] = $this->setUserInviteUid();
             $r = $M->add($data);
@@ -340,6 +341,9 @@ class UserController extends Controller
             $da['uid'] = $from;
             $Tool = A('Tool');
             $Tool->changeMoney($da);
+            $temp['openid'] = $UserInfo['openid'];
+            $temp['nickname'] = session('nickname');
+            sendAddUserTempMsg($temp);
             return $from;
         }else{
             return 0;
@@ -735,7 +739,8 @@ class UserController extends Controller
                 }else{ //平台自销
                     if($from){
                         //给推广员佣金
-                        $rate = M('user')->where(array('uid'=>$from))->getField('rate');
+                        $tjUser = M('user')->where(array('uid'=>$from))->getField('rate,openid')->find();
+                        $rate = $tjUser['rate'];
                         if($rate){  //获取到了推广员的佣金比例
                             $getMoney = $userNeedMoney*$rate/100;
                             M('user')->where(array('uid'=>$from))->setInc('money',$getMoney);
@@ -747,6 +752,10 @@ class UserController extends Controller
                             $da5['type'] = '4';
                             $da5['uid'] = $from;
                             M('usermoney')->add($da5);
+                            $temp['openid'] = $tjUser['openid'];
+                            $temp['name'] = M('user')->where(array('uid'=>$from))->getField('nickname');
+                            $temp['money'] = $userNeedMoney;
+                            sendOrderTempMsg($temp);
                         }
                     }
                     $r4 = $r5 = 1;
