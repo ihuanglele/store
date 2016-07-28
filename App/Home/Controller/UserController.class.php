@@ -19,6 +19,7 @@ class UserController extends Controller
 
     public function _initialize(){
         $uid = session('uid');
+        session('from',I('get.from'));
         if(strtolower(ACTION_NAME)!='login'){  //不是访问login
             if($uid){
                 $this->uid = $uid;
@@ -330,13 +331,19 @@ class UserController extends Controller
      */
     private function setUserInviteUid(){
         $from = I('get.invite',0,'number_int');
+        if(!$from){
+            $from = session('from');
+        }
+        if($from==0) {
+            return 0;
+        }
         $User = M('user');
-        $UserInfo = $User->field('uid,money,openid')->find();
+        $UserInfo = $User->where(array('uid'=>$from))->field('uid,money,openid')->find();
         if($UserInfo){
             //来自合法的邀请
             $da['money'] = readConf('InviteReward')?readConf('InviteReward'):C('InviteReward');
             $da['type'] = 4;
-            $da['note'] = '邀请用户注册';
+            $da['note'] = '邀请'.session('nickname').'注册';
             $da['time'] = time();
             $da['uid'] = $from;
             $Tool = A('Tool');

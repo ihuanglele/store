@@ -135,7 +135,7 @@ function sendAddUserTempMsg($data){
     $arr['first'] = array('value'=>'恭喜您，有新会员加入','color'=>'#173177');  //接收人
     $arr['keyword1'] = array('value'=>$data['nickname'],'color'=>'#173177');  //会员编号
     $arr['keyword2'] = array('value'=>date('Y-m-d H:i:s'),'color'=>'#173177');  //加入时间
-    $arr['remark'] = array('value'=>'有新人加入你的成为你的会员','color'=>'#173177');
+    $arr['remark'] = array('value'=>'有新的会员加入你的团队','color'=>'#173177');
     $data['data'] = $arr;
     $post = json_encode($data,true);
     $url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token='.getWxAccessToken();
