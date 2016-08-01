@@ -566,9 +566,11 @@ class UserController extends Controller
             $info['title'] = '饭锅伴侣  鲜米现磨';
             $info['summary'] = '现磨现吃，打破传统，安全健康，福旺全家！';
             $info['img'] = 'http://' . $_SERVER['HTTP_HOST'] . __ROOT__ . '/Public/images/share.png';
+            $info['url'] = U('goods/selfList',array('invite_uid'=>$this->uid),true,true);
             $info['title2'] = $info['title'];
             $info['summary2'] = $info['summary'];
             $info['img2'] = $info['img'];
+            $info['url2'] = $info['url'];
             $Wx = A('Wxjs');
             $this->assign('info', $info);
             $this->assign('signPackage', $Wx->GetSignPackage());

@@ -18,6 +18,10 @@ class GoodsController extends Controller
     {
         $uid = session('uid');
         session('from',I('get.from'));
+        $invite_uid = I('get.invite_uid',0,'number_int');
+        if($invite_uid){
+            session('from',$invite_uid);
+        }
         if (!$uid) {
             session('jump', $_SERVER['REQUEST_URI']);
             $this->redirect('user/login');

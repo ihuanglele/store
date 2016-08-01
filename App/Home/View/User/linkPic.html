@@ -39,13 +39,13 @@
             var shareData = {
                 title: "<{$info.title}>",
                 desc: '<{$info.summary}>',
-                link: window.location.href,
+                link: "<{$info.url}>",
                 imgUrl: '<{$info.img}>'
             };
             var shareData2 = {
                 title: "<{$info.title2}>",
                 desc: '<{$info.summary2}>',
-                link: window.location.href,
+                link: "<{$info.url2}>",
                 imgUrl: '<{$info.img2}>',
                 success:function(){ajax_post();}
             };
