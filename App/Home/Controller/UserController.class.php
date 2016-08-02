@@ -341,6 +341,8 @@ class UserController extends Controller
         $UserInfo = $User->where(array('uid'=>$from))->field('uid,money,openid')->find();
         if($UserInfo){
             //来自合法的邀请
+            //去掉反佣金
+            /*
             $da['money'] = readConf('InviteReward')?readConf('InviteReward'):C('InviteReward');
             $da['type'] = 4;
             $da['note'] = '邀请'.session('nickname').'注册';
@@ -348,6 +350,7 @@ class UserController extends Controller
             $da['uid'] = $from;
             $Tool = A('Tool');
             $Tool->changeMoney($da);
+            */
             $temp['openid'] = $UserInfo['openid'];
             $temp['nickname'] = session('nickname');
             sendAddUserTempMsg($temp);
