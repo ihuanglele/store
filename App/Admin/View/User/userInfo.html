@@ -18,6 +18,17 @@
                 </td>
             </tr>
             <tr>
+                <td>上属ID：<{$info.invite_uid}></td>
+                <td>
+                    推广收益ID：<{$info.income_uid}>
+                    <eq name="info.income_uid" value="$info['uid']">
+                        <a href="<{:U('user/setIncomeUser')}>?uid=<{$info.uid}>&to=up">设为上属</a>
+                        <else />
+                        <a href="<{:U('user/setIncomeUser')}>?uid=<{$info.uid}>&to=self">设为自己</a>
+                    </eq>
+                </td>
+            </tr>
+            <tr>
                 <td>最后登录时间：<{$info.last_time|Mydate}></td>
                 <td>
                     <form class="form-inline" action="<{:U('user/updateUser')}>" method="post">

@@ -239,4 +239,23 @@ class UserController extends CommonController
         }
     }
 
+    //设置受益人ID
+    public function setIncomeUser(){
+        $uid = I('get.uid',0,'number_int');
+        $to = I('get.to');
+        $map['uid'] = $uid;
+        if($to=='self'){
+            $map['income_uid'] = $uid;
+        }elseif($to=='up'){
+            $map['income_uid'] = array('exp','`invite_uid`');
+        }else{
+            $this->error('参数错误');
+        }
+        if(M('user')->save($map)){
+            $this->success('修改成功');
+        }else{
+            $this->error('修改失败');
+        }
+    }
+
 }

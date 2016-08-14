@@ -121,19 +121,24 @@ class WechatNotifyController extends \Org\Wxpay\WxPayNotify
                         $from = $oInfo['from'];
                         if($from){
                             //给推广员佣金
-                            $tjUser = M('user')->where(array('uid'=>$from))->field('rate,openid')->find();
+                            $tip = '推广佣金';
+                            $tjUser = M('user')->where(array('uid'=>$from))->field('uid,rate,openid,income_uid')->find();
+                            if($tjUser['income_uid']){
+                                $tjUser = M('user')->where(array('uid'=>$tjUser['income_uid']))->field('uid,rate,openid')->find();
+                                $tip = '来自'.$from.'的推广佣金';
+                            }
                             $rate = $tjUser['rate'];
                             if($rate){  //获取到了推广员的佣金比例
                                 $userNeedMoney = $gInfo['price']*$oInfo['num'];
                                 $getMoney = $userNeedMoney*$rate/100;
-                                M('user')->where(array('uid'=>$from))->setInc('money',$getMoney);
+                                M('user')->where(array('uid'=>$tjUser['uid']))->setInc('money',$getMoney);
 
                                 //添加商家记录
                                 $da5['time'] = time();
                                 $da5['money'] = $getMoney;
-                                $da5['note'] = '推广佣金';
+                                $da5['note'] = $tip;
                                 $da5['type'] = '4';
-                                $da5['uid'] = $from;
+                                $da5['uid'] = $tjUser['uid'];
                                 M('usermoney')->add($da5);
 
                                 $temp['openid'] = $tjUser['openid'];
