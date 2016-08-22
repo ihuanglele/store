@@ -112,9 +112,16 @@ class NotifyController extends Controller
                             }
                             $da['invite_uid'] = $invite_uid;
                             $da['subscribe_time'] = time();
-                            $da['money'] = createRedPackMoney();
+//                            $da['money'] = createRedPackMoney();
+                            $da['money'] = 0;
                             $uid = $M->add($da);
 
+                            $temp['openid'] = $M->where(array('uid'=>$invite_uid))->getField('openid');
+                            $temp['nickname'] = '';
+                            sendAddUserTempMsg($temp);
+
+                            $wechat->replyText(C('Wechat.welcome'));
+                            /*
                             $da2['money'] = $da['money'];
                             $da2['type'] = 4;
                             $da2['note'] = '关注送红包';
@@ -128,6 +135,7 @@ class NotifyController extends Controller
                                 U('index/hb',array('uid'=>$uid),true,true),
                                 'http://'.$_SERVER['HTTP_HOST'].__ROOT__.'/Public/images/hb.jpg'
                             ); //回复单条图文消息
+                            */
                             break;
                         }else{
                             $wechat->replyText(C('Wechat.welcome'));

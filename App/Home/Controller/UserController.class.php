@@ -587,6 +587,7 @@ class UserController extends Controller
                 $url = '';
                 $title = '';
             }
+            $url = U('user/myLinkPic');     //替换以前扫描进入商品页面为扫描进入公众号页面
             $this->assign('title',$title);
             $this->assign('url',$url);
             $this->display('linkPic');
