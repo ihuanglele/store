@@ -482,7 +482,8 @@ class UserController extends Controller
         C('SHOW_PAGE_TRACE',false);
         $qrImgPath = THINK_PATH.'../qrCodeImg/'.$this->uid.'.jpg';
         $headerImgPath = THINK_PATH.'../headerImg/'.$this->uid.'.jpg';
-        $bgImgPath = THINK_PATH.'../Public/images/myLinkBg.jpg';
+//        $bgImgPath = THINK_PATH.'../Public/images/myLinkBg.jpg';
+        $bgImgPath = THINK_PATH.'../Public/images/storeLinkBg.jpg';
         if(!is_file($qrImgPath)){
             //没有自己的推广二维码
             if(!$this->getQrCode()){
